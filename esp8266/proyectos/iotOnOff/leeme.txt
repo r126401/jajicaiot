@@ -1,0 +1,49 @@
+Para crear un nuevo proyecto, debes de hacer lo siguiente:
+
+cvs export -DNOW esp8266/plantillas/project_template
+
+Despues, copiar la carpeta project template dentro del arbol de cvs de proyectos.
+Renombrar la carpeta 
+añadir al repositorio cvs todos el arbol de directorio del proyecto
+
+Esto se hace con estos dos comandos.
+
+find . -type d \! -name CVS -exec cvs add '{}' \;
+find . \( -type d -name CVS -prune \) -o \( -type f -exec cvs add '{}' \; \)
+
+Para borrar el proyecto...
+
+for dir in $(find -type d ! -name CVS); do for file in $(find $dir -maxdepth 1 -type f); do rm $file; cvs delete $file; done; done
+
+cableado del sonoff para flashearlo.
+
+
+sonoff
+
+lado ch30	lado sonoff	significado visto en el ch30
+
+rojo		rojo		positivo +vcc
+negro		marron		negativo gnd
+azul		amarillo	TX
+naranja		naranja		RX
+
+TH16
+lado ch30	lado sonoff	significado visto en el ch30
+
+rojo		verde		positivo +vcc
+negro		gris		negativo gnd
+azul		violeta	TX
+naranja		azul		RX
+
+
+#######################################################################################################
+Para poder compilar los proyectos legacy conviviendo con el entorno idf es necesario realizar dos acciones.
+
+1.- Usar el compilador xtensa 4.8.5 para que admita los errores de compilacion que tengo en el proyecto. Para eso, hay que bajarse el entorno esp-open-sdk y apuntar en el PATH primero a este directorio. Lo que voy a hacer particularmente es poner el PATH antes que el de idf pero voy a renombrar el directorio /opt/esp/esp-open-sdk por /opt/esp/esp-open-sdk-bak para que no encuentre el path y asi no tengo que volver a modificarlo cada vez.
+
+2.- update-alternatives python para poner la version 2 que es la que funciona con el sdk antiguo del esp8266.
+
+
+
+
+ 

@@ -1,0 +1,8 @@
+(sym_lib_table
+  (lib (name 74lvch16t245)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/74lvch16t245.lib)(options "")(descr ""))
+  (lib (name ti_sbw)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/ti_sbw.lib)(options "")(descr ""))
+  (lib (name suf)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/suf.lib)(options "")(descr ""))
+  (lib (name jumper)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/jumper.lib)(options "")(descr ""))
+  (lib (name device)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/device.lib)(options "")(descr ""))
+  (lib (name conn)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/conn.lib)(options "")(descr ""))
+)

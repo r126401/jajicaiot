@@ -1,0 +1,15 @@
+{
+	"comando":	{
+		"dlgComando":	15,
+		"date":	"16/09/2017 10:41:17",
+		"token":	"ASDJHASDLKJFSALDKJFDLSK"
+	},
+	"clock":	{
+		"timeValid":	true,
+		"clock_state":	1,
+		"ntpTimeExp":	86400,
+		"timeZone":	1,
+		"ntpTimeout":	5000
+	}
+}
+

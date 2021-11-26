@@ -1,0 +1,58 @@
+title iotCronotempLcd
+
+Main->nvsLib: InicializarNvs()
+nvsLib->Main: ESP_OK
+Main->interfaz_usuario: app_user_inicializar_aplicacion()
+interfaz_usuario->interfaz_usuario: inicia Gpios\n,inicializa lcd,\nxTaskCreate rutina de boton
+interfaz_usuario->Main: ESP_OK
+Main->conexiones: conectar_dispositivo_wifi()
+conexiones->conexiones: iniicializar_wifi(),\nwifi configurada(s/n)
+conexiones->interfaz_usuario: appuser_wifi_conectando()
+alt case wifi_configurada
+conexiones->conexiones: conectar_wifi()
+else xTaskCreate smartconfig()
+
+conexiones->interfaz_usuario: appuser_notificar_smartconfig()
+conexiones->conexiones: esp_smartconfig_start()
+end
+conexiones->Main: ESP_OK
+Main->configuracion: inicializacion()
+configuracion->alarmas: inicializacion registros de alarmas()
+configuracion->programador: inicializar_parametros_ntp()
+configuracion->interfaz_usuario:appuser_obteniendo_sntp()
+configuracion->programador: obtener_fecha_hora()
+alt case ESP_OK
+conexiones->alarmas: registrar_alarma(ntp on)
+else 
+conexiones->programador: actualizar_hora()
+end
+configuracion->nvsLib: inicializarNvs()
+alt case ESP_FAIL
+configuracion->alarmas:registrar:alarma(nvs on)
+end
+configuracion->configuracion: forzado(s/n)
+alt s
+configuracion->configuracion:cargar_configuracion_defecto()
+configuracion->interfaz_usuario:appuser_configuracion_defecto()\n, salvar_configuracion_general(),\ncrear_programas_defecto()
+else 
+configuracion->configuracion:leer_configuracion(aplicacion)
+alt ESP_OK
+configuracion->configuracion: json_a_datos_aplicacion()
+else 
+configuracion->configuracion: cargar_configuracion_defecto()
+end
+configuracion->nvsLib:leer_configuracion(programacion)
+alt ESP_OK
+configuracion->configuracion:cargar_programas
+configuracion->Main: ESP_OK
+Main->conexiones:mqtt_task()
+Main->programador:iniciar_gestion_programacion()
+Main->iotCronotemp:tarea_lectura_temperatura()
+else 
+configuracion->Main: ESP_FAIL
+end
+
+
+
+
+#note right of Bob: Bob thinks about it

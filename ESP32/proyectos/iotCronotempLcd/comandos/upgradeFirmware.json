@@ -1,0 +1,14 @@
+{
+  "comando": {
+    "token": "b6709792-11ea-4925-a73a-4a167b354b87",
+    "date": "17/02/2021 14:59:13",
+    "dlgComando": 26
+  },
+  "upgradeFirmware": {
+    "otaServer": "jajica.ddns.net",
+    "otaPort": 8070,
+    "otaUrl": "jajicaiot.ddns.net/firmware/iotCronoTemp/",
+    "otaFile": "newVersion",
+    "otaVersion": 2102211410
+  }
+}

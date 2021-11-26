@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name=".output">
+        <df name="eagle">
+          <df name="debug">
+            <df name="bin">
+            </df>
+            <df name="image">
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="bin">
+        <df name="upgrade">
+          <in>user1.4096.new.4.S</in>
+        </df>
+      </df>
+      <df name="comandos">
+      </df>
+      <df name="include">
+        <in>MQTTClient.h</in>
+        <in>MQTTConnect.h</in>
+        <in>MQTTESP8266.h</in>
+        <in>MQTTFormat.h</in>
+        <in>MQTTPacket.h</in>
+        <in>MQTTPublish.h</in>
+        <in>MQTTSubscribe.h</in>
+        <in>MQTTUnsubscribe.h</in>
+        <in>StackTrace.h</in>
+        <in>aplication.h</in>
+        <in>appdisplay.h</in>
+        <in>cJSON.h</in>
+        <in>configuracion.h</in>
+        <in>dht22.h</in>
+        <in>dialogoJson.h</in>
+        <in>gpio.h</in>
+        <in>mqtt.h</in>
+        <in>ntp.h</in>
+        <in>programmer.h</in>
+        <in>spi_interface.h</in>
+        <in>spi_register.h</in>
+        <in>uart.h</in>
+        <in>user_config.h</in>
+        <in>wfof.h</in>
+        <in>wfof_data.h</in>
+        <in>wfof_idxs.h</in>
+        <in>wifi.h</in>
+        <in>wlcd.h</in>
+        <in>wlcd_defs.h</in>
+        <in>wlcd_font_cr_16x16_32_127.h</in>
+        <in>wlcd_font_cr_8x13_32_127.h</in>
+        <in>wlcd_font_cr_8x13_cp1250.h</in>
+        <in>wlcd_font_fxs_8x15_16_127.h</in>
+        <in>wlcd_font_fxs_8x15_cp1250.h</in>
+        <in>wlcd_font_term_8x16_0_127.h</in>
+        <in>wlcd_font_term_8x16_cp437.h</in>
+        <in>wlcd_font_term_8x8_0_127.h</in>
+        <in>wlcd_font_term_8x8_cp437.h</in>
+        <in>wlcd_font_termb_8x8_0_127.h</in>
+        <in>wlcd_font_termb_8x8_cp437.h</in>
+        <in>wlcd_fonts.h</in>
+      </df>
+      <df name="librerias">
+        <df name=".output">
+          <df name="eagle">
+            <df name="debug">
+              <df name="lib">
+              </df>
+            </df>
+          </df>
+        </df>
+        <df name="libBasicApp">
+          <df name=".output">
+            <df name="eagle">
+              <df name="debug">
+                <df name="lib">
+                </df>
+                <df name="obj">
+                </df>
+              </df>
+            </df>
+          </df>
+          <in>configuracion.c</in>
+          <in>dialogoJson.c</in>
+          <in>mqtt.c</in>
+          <in>wifi.c</in>
+        </df>
+        <df name="libDht">
+          <df name=".output">
+            <df name="eagle">
+              <df name="debug">
+                <df name="lib">
+                </df>
+                <df name="obj">
+                </df>
+              </df>
+            </df>
+          </df>
+          <in>dht22.c</in>
+        </df>
+        <df name="libILI9341">
+          <df name=".output">
+            <df name="eagle">
+              <df name="debug">
+                <df name="lib">
+                </df>
+                <df name="obj">
+                </df>
+              </df>
+            </df>
+          </df>
+          <df name="icons">
+            <df name="bpp">
+            </df>
+          </df>
+          <df name="include">
+            <in>wfof_data.h</in>
+            <in>wfof_idxs.h</in>
+          </df>
+          <df name="tools">
+            <df name="bppToLcdBinaryGenerator">
+              <df name="template">
+              </df>
+            </df>
+            <df name="fonter">
+              <in>font_term_8x16_cp437.h</in>
+              <in>fonter.c</in>
+            </df>
+            <df name="imagenesToBpp">
+              <df name="wlcd_img_gen">
+              </df>
+            </df>
+          </df>
+          <in>gpio.c</in>
+          <in>wfof.c</in>
+          <in>wlcd.c</in>
+        </df>
+        <df name="libjson">
+          <df name=".output">
+            <df name="eagle">
+              <df name="debug">
+                <df name="lib">
+                </df>
+                <df name="obj">
+                </df>
+              </df>
+            </df>
+          </df>
+          <in>cJSON.c</in>
+        </df>
+        <df name="libMqtt">
+          <df name=".output">
+            <df name="eagle">
+              <df name="debug">
+                <df name="lib">
+                </df>
+                <df name="obj">
+                </df>
+              </df>
+            </df>
+          </df>
+          <in>MQTTClient.c</in>
+          <in>MQTTConnectClient.c</in>
+          <in>MQTTDeserializePublish.c</in>
+          <in>MQTTESP8266.c</in>
+          <in>MQTTPacket.c</in>
+          <in>MQTTSerializePublish.c</in>
+          <in>MQTTSubscribeClient.c</in>
+          <in>MQTTUnsubscribeClient.c</in>
+        </df>
+        <df name="libNtp">
+          <df name=".output">
+            <df name="eagle">
+              <df name="debug">
+                <df name="lib">
+                </df>
+                <df name="obj">
+                </df>
+              </df>
+            </df>
+          </df>
+          <in>ntp.c</in>
+          <in>programmer.c</in>
+        </df>
+        <df name="libSpi">
+          <df name=".output">
+            <df name="eagle">
+              <df name="debug">
+                <df name="lib">
+                </df>
+                <df name="obj">
+                </df>
+              </df>
+            </df>
+          </df>
+          <in>spi_interface.c</in>
+        </df>
+        <df name="libUart">
+          <df name=".output">
+            <df name="eagle">
+              <df name="debug">
+                <df name="lib">
+                </df>
+                <df name="obj">
+                </df>
+              </df>
+            </df>
+          </df>
+          <in>uart.c</in>
+          <in>uart.h</in>
+        </df>
+      </df>
+      <df name="pcb">
+      </df>
+      <df name="user">
+        <df name=".output">
+          <df name="eagle">
+            <df name="debug">
+              <df name="lib">
+              </df>
+              <df name="obj">
+              </df>
+            </df>
+          </df>
+        </df>
+        <in>aplication.c</in>
+        <in>appdisplay.c</in>
+        <in>display.h</in>
+        <in>user_main.c</in>
+      </df>
+    </df>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir>.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

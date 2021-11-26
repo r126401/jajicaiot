@@ -1,0 +1,14 @@
+{
+	"comando":	{
+		"dlgComando":	26,
+		"date":	"23/10/2017 22:00:54",
+		"dlgKey":	"ASDJHASDLKJFSALDKJFDLSK"
+	},
+	"upgradeFirmware":	{
+		"otaServer":	"jajica.ddns.net",
+		"otaPort":	80,
+		"otaUrl":       "jajicaiot.ddns.net/firmware/iotCronoTemp/",
+		"otaFile":	"newVersion",
+		"otaVersion":	2006161948
+	}
+}

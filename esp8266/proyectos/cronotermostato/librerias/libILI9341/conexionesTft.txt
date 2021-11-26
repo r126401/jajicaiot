@@ -1,0 +1,10 @@
+nodemcu			gpio		displaytft	display matrioska       significado
+3V			VCC		VCC		VCC
+G			GND		GND		GND
+D8			GPIO15		CS		NO CONNECT		output GPIO for LCD #CS (active L)
+3V			RESET		RESET		RESET
+D2			GPIO4		D/C		DC			output GPIO for LCD D/#C (data H / command L)
+D7			GPIO13		SDI(MOSI)	MOSI			output GPIO for LCD SDI - intentionally chosen to be GPIO13, the same as HSPI_MOSI, ...
+D5			GPIO14		SCK		CLK			output GPIO for LCD >SCL (rising edge) - intentionally chosen to be GPIO14, the same as HSPI_CLK, so you can switch WLCD_USE_HSPI on/off and test both modes without physical re-wiring
+3V			LED		A VCC		BLK
+D6			GPIO12		SDOK(MISO)	MISO			input GPIO for LCD SDO - intentionally chosen to be GPIO12, the same as HSPI_MISO, ...NO ES OBLIGATORIO PARA QUE FUNCIONE EL DISPLAY. Me ha funcionado sin el.

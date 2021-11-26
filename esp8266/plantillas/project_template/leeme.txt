@@ -1,0 +1,19 @@
+Para crear un nuevo proyecto, debes de hacer lo siguiente:
+
+cvs export -DNOW esp8266/plantillas/project_template
+
+Despues, copiar la carpeta project template dentro del arbol de cvs de proyectos.
+Renombrar la carpeta 
+añadir al repositorio cvs todos el arbol de directorio del proyecto
+
+Esto se hace con estos dos comandos.
+
+find . -type d \! -name CVS -exec cvs add '{}' \;
+find . \( -type d -name CVS -prune \) -o \( -type f -exec cvs add '{}' \; \)
+
+Para borrar el proyecto...
+
+for dir in $(find -type d ! -name CVS); do for file in $(find $dir -maxdepth 1 -type f); do rm $file; cvs delete $file; done; done
+
+
+

@@ -1,0 +1,8 @@
+(fp_lib_table
+  (lib (name iotCronotempLcd)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/TJCTM24028-SPI/iotCronotempLcd.pretty)(options "")(descr ""))
+  (lib (name jackAlimentacion)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/jackAlimentacion)(options "")(descr ""))
+  (lib (name jackHorizontal)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/jackHorizontal)(options "")(descr ""))
+  (lib (name jack4_8mm)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/jack4_8mm)(options "")(descr ""))
+  (lib (name releOmron)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/releOmron)(options "")(descr ""))
+  (lib (name MSP3218)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/msp3218/MSP3218.pretty)(options "")(descr ""))
+)

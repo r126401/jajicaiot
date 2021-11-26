@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="user">
+        <in>iotCronoTemp.c</in>
+        <in>user_main.c</in>
+      </df>
+    </df>
+    <logicalFolder name="librerias"
+                   displayName="librerias"
+                   projectFiles="true"
+                   root="../../librerias">
+      <logicalFolder name="libBasicApp" displayName="libBasicApp" projectFiles="true">
+        <itemPath>../../librerias/libBasicApp/configuracion.c</itemPath>
+        <itemPath>../../librerias/libBasicApp/dialogoJson.c</itemPath>
+        <itemPath>../../librerias/libBasicApp/mqtt.c</itemPath>
+        <itemPath>../../librerias/libBasicApp/wifi.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libDht" displayName="libDht" projectFiles="true">
+        <itemPath>../../librerias/libDht/dht22.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libILI9341" displayName="libILI9341" projectFiles="true">
+        <itemPath>../../librerias/libILI9341/gpio.c</itemPath>
+        <itemPath>../../librerias/libILI9341/wfof.c</itemPath>
+        <itemPath>../../librerias/libILI9341/wlcd.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libjson" displayName="libjson" projectFiles="true">
+        <itemPath>../../librerias/libjson/cJSON.c</itemPath>
+        <itemPath>../../librerias/libjson/cJSON.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libMqtt" displayName="libMqtt" projectFiles="true">
+        <itemPath>../../librerias/libMqtt/MQTTClient.c</itemPath>
+        <itemPath>../../librerias/libMqtt/MQTTConnectClient.c</itemPath>
+        <itemPath>../../librerias/libMqtt/MQTTDeserializePublish.c</itemPath>
+        <itemPath>../../librerias/libMqtt/MQTTESP8266.c</itemPath>
+        <itemPath>../../librerias/libMqtt/MQTTPacket.c</itemPath>
+        <itemPath>../../librerias/libMqtt/MQTTSerializePublish.c</itemPath>
+        <itemPath>../../librerias/libMqtt/MQTTSubscribeClient.c</itemPath>
+        <itemPath>../../librerias/libMqtt/MQTTUnsubscribeClient.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libNtp" displayName="libNtp" projectFiles="true">
+        <itemPath>../../librerias/libNtp/ntp.c</itemPath>
+        <itemPath>../../librerias/libNtp/programmer.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libOta" displayName="libOta" projectFiles="true">
+        <itemPath>../../librerias/libOta/fotaMain.c</itemPath>
+        <itemPath>../../librerias/libOta/fota_crc32.c</itemPath>
+        <itemPath>../../librerias/libOta/upgrade_lib.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libSpi" displayName="libSpi" projectFiles="true">
+        <itemPath>../../librerias/libSpi/spi_interface.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libUart" displayName="libUart" projectFiles="true">
+        <itemPath>../../librerias/libUart/uart.c</itemPath>
+        <itemPath>../../librerias/libUart/uart.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>nbproject/private/launcher.properties</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>Xtensa|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-g -nostdlib"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile -e DEFINES+=-DTERMOSTATO</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <cTool>
+            <preprocessorList>
+              <Elem>TERMOSTATO</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="../../librerias/libBasicApp/configuracion.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libBasicApp/dialogoJson.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libBasicApp/mqtt.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libBasicApp/wifi.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libDht/dht22.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libILI9341/gpio.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libILI9341/wfof.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libILI9341/wlcd.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libMqtt/MQTTClient.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libMqtt/MQTTConnectClient.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libMqtt/MQTTDeserializePublish.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libMqtt/MQTTESP8266.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libMqtt/MQTTPacket.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libMqtt/MQTTSerializePublish.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libMqtt/MQTTSubscribeClient.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libMqtt/MQTTUnsubscribeClient.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libNtp/ntp.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libNtp/programmer.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libOta/fotaMain.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libOta/fota_crc32.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libOta/upgrade_lib.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libSpi/spi_interface.c"
+            ex="false"
+            tool="0"
+            flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libUart/uart.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../librerias/libjson/cJSON.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <folder path="0">
+        <cTool>
+          <incDir>
+            <pElem>user/include</pElem>
+            <pElem>user</pElem>
+            <pElem>../../include</pElem>
+            <pElem>include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>VERSION_SW=2007271812</Elem>
+          </preprocessorList>
+        </cTool>
+      </folder>
+      <folder path="librerias/libBasicApp">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libBasicApp/include</pElem>
+            <pElem>../../librerias/libBasicApp</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="librerias/libDht">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libDht/include</pElem>
+            <pElem>../../librerias/libDht</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="librerias/libILI9341">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libILI9341/include</pElem>
+            <pElem>../../librerias/libILI9341</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="librerias/libMqtt">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libMqtt/include</pElem>
+            <pElem>../../librerias/libMqtt</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="librerias/libNtp">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libNtp/include</pElem>
+            <pElem>../../librerias/libNtp</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="librerias/libOta">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libOta/include</pElem>
+            <pElem>../../librerias/libOta</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="librerias/libSpi">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libSpi/include</pElem>
+            <pElem>../../librerias/libSpi</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="librerias/libUart">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libUart/include</pElem>
+            <pElem>../../librerias/libUart</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <folder path="librerias/libjson">
+        <cTool>
+          <incDir>
+            <pElem>../../librerias/libjson/include</pElem>
+            <pElem>../../librerias/libjson</pElem>
+            <pElem>../../librerias/include</pElem>
+            <pElem>../../include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/extra_include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/driver_lib/include</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/espressif</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv4</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/lwip/ipv6</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/nopoll</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/spiffs</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/ssl</pElem>
+            <pElem>/discoraid/Desarrollo/ESP8266/ESP8266_RTOS_SDK/include/json</pElem>
+          </incDir>
+        </cTool>
+      </folder>
+      <item path="user/iotCronoTemp.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="user/user_main.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

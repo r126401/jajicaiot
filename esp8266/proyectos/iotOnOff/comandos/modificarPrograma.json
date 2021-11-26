@@ -1,0 +1,14 @@
+{
+	"comando":	{
+		"dlgComando":	8,
+		"date":	"16/09/2017 12:41:17",
+		"dlgKey":	"ASDJfsfgdgfHASDLKJFSALDKJFDLSK"
+	},
+	"program":	{
+		"programId":	"0120520003",
+		"hour":	20,
+		"minute":	52,
+		"estadoRele": 1
+	}
+}
+

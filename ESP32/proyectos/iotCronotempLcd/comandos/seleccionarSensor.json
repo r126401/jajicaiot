@@ -1,0 +1,12 @@
+{
+  "comando": {
+    "token": "59795255-22b8-4aac-865e-a3fca0f58555",
+    "date": "18/11/2020 16:31:54",
+    "dlgComando": 53,
+    "nombreComando": "SELECCIONAR_SENSOR"
+  },
+  "sensorTemperatura": {
+    "master": false,
+    "idsensor": "C82B962FE8CA"
+  }
+}

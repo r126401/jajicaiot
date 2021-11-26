@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name doit-esp32-devkit-v1)(type Legacy)(uri /home/t126401/trabajo/ESP32/kicad/componentes/doit-esp32-devkit-kicad/doit-esp32-devkit-v1.lib)(options "")(descr ""))
+  (lib (name tjctm24028-spi)(type Legacy)(uri /home/t126401/trabajo/ESP32/kicad/componentes/tjctm24028-spi/tjctm24028-spi.lib)(options "")(descr ""))
+  (lib (name ESP32-DEVKITC-32D)(type Legacy)(uri /home/t126401/trabajo/ESP32/kicad/componentes/devkitcv4/ESP32-DEVKITC-32D.lib)(options "")(descr ""))
+)

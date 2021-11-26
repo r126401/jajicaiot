@@ -1,0 +1,12 @@
+{
+  "token": "5586625c-d148-482b-a71d-662399f97414",
+  "date": "17/02/21 16:53",
+  "dlgComando": 100,
+  "idDevice": "otaServer",
+  "dlgResultCode": 200,
+  "otaServer": "jajicaiot.ddns.net",
+  "otaPort": 1883,
+  "otaUrl": "jajicaiot.ddns.net/firmware/iotCronoTemp/",
+  "otaFile": "iotCronotempLcd_2006161948.bin",
+  "otaVersion": "2006161948"
+}

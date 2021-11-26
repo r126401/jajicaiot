@@ -1,0 +1,22 @@
+{
+	"comando":	{
+		"dlgComando":	12,
+		"date":	"23/10/2017 22:00:54",
+		"dlgKey":	"ASDJHASDLKJFSALDKJFDLSK"
+	},
+	"configApp":	{
+		"programmerState":	0,
+		"programNumbers":	2,
+		"configActive":	0,
+		"intentosLectura":	5,
+		"intervaloReintentos":	3,
+		"intervaloLectura":	30,
+		"margenTemperatura":	0.5,
+		"rele":	false,
+		"reporteLectura":	2,
+		"umbralDefecto":	21,
+		"modoFuncionamiento": 0,
+		"valorCalibrado" : -4,
+		"temperaturaUmbral" : 23.5
+	}
+}

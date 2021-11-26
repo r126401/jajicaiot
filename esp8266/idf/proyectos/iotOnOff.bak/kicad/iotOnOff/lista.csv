@@ -1,0 +1,15 @@
+Comment,Designator,Footprint,LCSC
+10uF,C1,Capacitor_SMD:C_0805_2012Metric,C39060
+22uF,C2,Capacitor_SMD:C_0805_2012Metric,C45783
+1N4148,D1,Diode_SMD:D_SOD-323F, C2128
+LED,D2,LED_THT:LED_D5.0mm,
+Conn_01x02,"J1,J2","TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",
+Conn_01x04,J3,Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical,
+SANYOU_SRD_Form_A,K1,Relay_THT:Relay_SPDT_SANYOU_SRD_Series_Form_C,C35449
+HLK-PM01,PS1,Converter_ACDC:Converter_ACDC_HiLink_HLK-PMxx,C209903
+2N7002,Q1,Package_TO_SOT_SMD:SOT-23,C179727
+1K,"R2,R4",Resistor_SMD:R_0805_2012Metric,C17513
+10K,"R1,R3,R5",Resistor_SMD:R_0805_2012Metric,C17414
+SW_Push,SW1,Button_Switch_THT:SW_PUSH_6mm_H4.3mm,
+AMS1117-3.3,U1,Package_TO_SOT_SMD:SOT-223,C347222
+ESP-12F,U3,RF_Module:ESP-12E,C82891

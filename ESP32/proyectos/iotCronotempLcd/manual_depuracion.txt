@@ -1,0 +1,9 @@
+Para flashear con el debugger
+
+openocd -f interface/ftdi/esp32_devkitj_v1.cfg -f board/esp-wroom-32.cfg -c "program_esp build/iotCronotempLcd.bin 0x10000 verify exit" -c "adapter_khz 40000"
+
+para poner en marcha openocd 
+idf.py openocd
+
+El debugger se pone en marcha con idf.py gdb
+

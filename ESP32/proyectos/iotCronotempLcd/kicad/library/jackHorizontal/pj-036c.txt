@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-15052018-122709";"";
+"REFERENCE";"PJ-036C";"";
+"TraceParts.PartTitle";"PJ-036C - 1.0 mm Center Pin, 2.0 A, Right Angle, Through Hole, Dc Power Jack Connector, RoHS Compliant";"";
+"TraceParts.InstanceId";"10-15052018-12270972FQG0FHTDD3OIBH34NA8LZIG";"";
+"DESIGN";"1.0 mm Center Pin, 2.0 A, Right Angle, Through Hole, Dc Power Jack Connector";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartStatusId";"";"";
+"SUPPLIER";"CUI";"";
+"TraceParts.PartVersion";"1.0.1";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.ClassPath";"CUI:/F_CUI/CUI.020/CUI.020.020/CUI.020.020.010/CUI.020.020.010.040/10-15052018-122709";"";

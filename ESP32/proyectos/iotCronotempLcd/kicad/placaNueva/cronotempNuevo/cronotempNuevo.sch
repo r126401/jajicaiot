@@ -1,0 +1,701 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "iotCronotempLcd"
+Date ""
+Rev "2.0"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Wire Wire Line
+	5750 1985 5750 1255
+$Comp
+L suf:TJCTM24028-SPI U4
+U 1 1 6004A8BF
+P 9225 3315
+F 0 "U4" H 9212 4252 60  0000 C CNN
+F 1 "TJCTM24028-SPI" H 9212 4146 60  0000 C CNN
+F 2 "MSP3218:msp3218" H 9225 3315 60  0001 C CNN
+F 3 "http://www.lcdwiki.com/2.8inch_SPI_Module_ILI9341_SKU:MSP2807" H 9540 2447 60  0000 C CNN
+	1    9225 3315
+	1    0    0    -1  
+$EndComp
+Connection ~ 5750 1255
+NoConn ~ 8075 3465
+$Comp
+L device:R R3
+U 1 1 60080C74
+P 3405 1666
+F 0 "R3" H 3474 1712 50  0000 L CNN
+F 1 "10K" H 3474 1621 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3405 1666 50  0001 C CNN
+F 3 "" H 3405 1666 50  0001 C CNN
+	1    3405 1666
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3405 1416 3405 1255
+$Comp
+L device:SW_PUSH SW1
+U 1 1 60082F41
+P 3060 1915
+F 0 "SW1" H 3060 2170 50  0000 C CNN
+F 1 "SW_PUSH" H 3060 2079 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm_H4.3mm" H 3060 1915 50  0001 C CNN
+F 3 "" H 3060 1915 50  0001 C CNN
+	1    3060 1915
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3360 1915 3405 1916
+Wire Wire Line
+	2760 1915 1115 1915
+Wire Wire Line
+	1115 1915 1115 5540
+$Comp
+L device:R R1
+U 1 1 600A8891
+P 1810 3990
+F 0 "R1" V 1604 3990 50  0000 C CNN
+F 1 "1K" V 1695 3990 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 1810 3990 50  0001 C CNN
+F 3 "" H 1810 3990 50  0001 C CNN
+	1    1810 3990
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1115 5540 2185 5540
+Wire Wire Line
+	2185 4675 2185 4725
+Connection ~ 2185 5540
+Wire Wire Line
+	2605 4190 2605 4725
+Wire Wire Line
+	2605 4725 2185 4725
+Connection ~ 2185 4725
+Wire Wire Line
+	2185 4725 2185 5540
+$Comp
+L conn:CONN_2 P1
+U 1 1 600E905E
+P 4315 2030
+F 0 "P1" H 4443 2058 40  0000 L CNN
+F 1 "CONN_2" H 4443 1982 40  0000 L CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal" H 4315 2030 50  0001 C CNN
+F 3 "" H 4315 2030 50  0001 C CNN
+	1    4315 2030
+	0    -1   -1   0   
+$EndComp
+NoConn ~ 5150 3385
+NoConn ~ 5150 3485
+NoConn ~ 5150 3585
+NoConn ~ 5150 3685
+NoConn ~ 5150 3785
+NoConn ~ 5150 3885
+Connection ~ 3405 1916
+$Comp
+L Diode:1N4148 D1
+U 1 1 5FE107A5
+P 2605 3510
+F 0 "D1" V 2559 3589 50  0000 L CNN
+F 1 "1N4148" V 2650 3589 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-323F" H 2605 3335 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2605 3510 50  0001 C CNN
+	1    2605 3510
+	0    1    1    0   
+$EndComp
+$Comp
+L Sensor:DHT11 U3
+U 1 1 5FE4FF39
+P 8905 4825
+F 0 "U3" H 8661 4871 50  0000 R CNN
+F 1 "DHT11" H 8661 4780 50  0000 R CNN
+F 2 "Sensor:Aosong_DHT11_5.5x12.0_P2.54mm" H 8905 4425 50  0001 C CNN
+F 3 "http://akizukidenshi.com/download/ds/aosong/DHT11.pdf" H 9055 5075 50  0001 C CNN
+	1    8905 4825
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 2185 6536 2185
+Wire Wire Line
+	6536 2185 6536 1915
+NoConn ~ 5150 2385
+NoConn ~ 5150 2485
+Wire Wire Line
+	5750 1255 5750 1256
+Wire Wire Line
+	7475 2665 7475 1487
+Wire Wire Line
+	3405 1916 6536 1915
+Wire Wire Line
+	3405 1255 4670 1255
+Wire Wire Line
+	4921 4637 4921 1255
+Connection ~ 4921 1255
+Wire Wire Line
+	4921 1255 5750 1255
+Wire Wire Line
+	3436 4637 3436 4839
+$Comp
+L device:CP1 C1
+U 1 1 600E1EAA
+P 3436 5039
+F 0 "C1" H 3566 5085 50  0000 L CNN
+F 1 "10uF" H 3566 4994 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3436 5039 50  0001 C CNN
+F 3 "" H 3436 5039 50  0001 C CNN
+	1    3436 5039
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4519 4889 4519 4637
+Connection ~ 4519 4637
+Wire Wire Line
+	4519 4637 4921 4637
+$Comp
+L power:GND #PWR01
+U 1 1 601B60BC
+P 2914 5609
+F 0 "#PWR01" H 2914 5359 50  0001 C CNN
+F 1 "GND" H 2919 5436 50  0000 C CNN
+F 2 "" H 2914 5609 50  0001 C CNN
+F 3 "" H 2914 5609 50  0001 C CNN
+	1    2914 5609
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8075 3065 7606 3065
+Wire Wire Line
+	7606 3065 7606 4085
+Wire Wire Line
+	7606 4085 6350 4085
+Wire Wire Line
+	8075 3165 7493 3165
+Wire Wire Line
+	7493 3165 7493 3985
+Wire Wire Line
+	7493 3985 6350 3985
+Wire Wire Line
+	6350 3885 7651 3885
+Wire Wire Line
+	7651 3885 7651 3265
+Wire Wire Line
+	7651 3265 8075 3265
+Wire Wire Line
+	8075 3365 7747 3365
+Wire Wire Line
+	7747 3365 7747 4285
+Wire Wire Line
+	7747 4285 6350 4285
+Wire Wire Line
+	8075 3565 7815 3565
+Wire Wire Line
+	7815 3565 7815 4185
+Wire Wire Line
+	7815 4185 6350 4185
+Wire Wire Line
+	8075 3665 7406 3665
+Wire Wire Line
+	7406 3665 7406 3385
+Wire Wire Line
+	7406 3385 6350 3385
+Wire Wire Line
+	8075 3765 7325 3765
+Wire Wire Line
+	7325 3765 7325 3485
+Wire Wire Line
+	7325 3485 6350 3485
+Wire Wire Line
+	8075 3865 7262 3865
+Wire Wire Line
+	7262 3865 7262 3685
+Wire Wire Line
+	7262 3685 6350 3685
+Wire Wire Line
+	8075 3965 7184 3965
+Wire Wire Line
+	7184 3965 7184 3785
+Wire Wire Line
+	7184 3785 6350 3785
+NoConn ~ 6350 4385
+NoConn ~ 6350 4485
+Wire Wire Line
+	2185 5540 2915 5540
+Wire Wire Line
+	2915 5169 2915 5540
+Connection ~ 2915 5540
+Wire Wire Line
+	2914 5540 2915 5540
+Wire Wire Line
+	2914 5540 2914 5609
+Wire Wire Line
+	7575 1255 7575 2285
+Wire Wire Line
+	7575 2285 6350 2285
+Wire Wire Line
+	6350 2485 7675 2485
+Wire Wire Line
+	7675 2485 7675 1255
+$Comp
+L device:CP1 C2
+U 1 1 600E380F
+P 4519 5089
+F 0 "C2" H 4649 5135 50  0000 L CNN
+F 1 "22uF" H 4649 5044 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4519 5089 50  0001 C CNN
+F 3 "" H 4519 5089 50  0001 C CNN
+	1    4519 5089
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4519 5289 4519 5540
+Wire Wire Line
+	3436 5239 3436 5540
+Connection ~ 3436 5540
+$Comp
+L RF_Module:ESP32-WROOM-32 U2
+U 1 1 60033917
+P 5750 3385
+F 0 "U2" H 5750 4966 50  0000 C CNN
+F 1 "ESP32-WROOM-32" H 5750 4875 50  0000 C CNN
+F 2 "RF_Module:ESP32-WROOM-32" H 5750 1885 50  0001 C CNN
+F 3 "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf" H 5450 3435 50  0001 C CNN
+	1    5750 3385
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 3285 6599 3285
+Wire Wire Line
+	6599 3285 6599 5276
+Wire Wire Line
+	1419 5276 1419 3990
+Wire Wire Line
+	1419 3990 1560 3990
+Wire Wire Line
+	3436 5540 3831 5540
+Wire Wire Line
+	3436 4637 3531 4637
+Connection ~ 3436 4637
+Wire Wire Line
+	4131 4637 4519 4637
+Wire Wire Line
+	4519 5540 5750 5540
+Connection ~ 4519 5540
+Wire Wire Line
+	5750 4785 5750 5540
+Connection ~ 5750 5540
+Wire Wire Line
+	1419 5276 6599 5276
+$Comp
+L Regulator_Linear:AMS1117-3.3 U1
+U 1 1 60128435
+P 3831 4637
+F 0 "U1" H 3831 4879 50  0000 C CNN
+F 1 "AMS1117-3.3" H 3831 4788 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-223" H 3831 4837 50  0001 C CNN
+F 3 "http://www.advanced-monolithic.com/pdf/ds1117.pdf" H 3931 4387 50  0001 C CNN
+	1    3831 4637
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3831 4937 3831 5540
+Connection ~ 3831 5540
+Wire Wire Line
+	3831 5540 4519 5540
+Wire Wire Line
+	8020 2765 8075 2765
+Wire Wire Line
+	7775 2765 8020 2765
+Connection ~ 8020 2765
+Wire Wire Line
+	8020 2765 8020 2145
+Wire Wire Line
+	8020 2145 10905 2145
+Wire Wire Line
+	10905 2145 10905 5540
+Wire Wire Line
+	8905 5125 8905 5540
+Connection ~ 8905 5540
+Wire Wire Line
+	8905 5540 10905 5540
+$Comp
+L power:VCC #PWR0101
+U 1 1 601A8AB8
+P 4921 1255
+F 0 "#PWR0101" H 4921 1105 50  0001 C CNN
+F 1 "VCC" H 4938 1428 50  0000 C CNN
+F 2 "" H 4921 1255 50  0001 C CNN
+F 3 "" H 4921 1255 50  0001 C CNN
+	1    4921 1255
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7475 2665 8075 2665
+Wire Wire Line
+	7475 1487 10594 1487
+Wire Wire Line
+	10594 1487 10594 4435
+Wire Wire Line
+	10594 4435 8905 4435
+Wire Wire Line
+	8905 4435 8905 4525
+$Comp
+L Transistor_FET:2N7002 Q1
+U 1 1 600AF53D
+P 2505 3990
+F 0 "Q1" H 2709 4036 50  0000 L CNN
+F 1 "2N7002" H 2709 3945 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 2705 3915 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 2505 3990 50  0001 L CNN
+	1    2505 3990
+	1    0    0    -1  
+$EndComp
+$Comp
+L device:R R2
+U 1 1 600A90B2
+P 2185 4425
+F 0 "R2" H 2254 4471 50  0000 L CNN
+F 1 "10k" H 2254 4380 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2185 4425 50  0001 C CNN
+F 3 "" H 2185 4425 50  0001 C CNN
+	1    2185 4425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2060 3990 2185 3990
+Wire Wire Line
+	2185 4175 2185 3990
+Connection ~ 2185 3990
+Wire Wire Line
+	2185 3990 2305 3990
+Wire Wire Line
+	2867 5169 2915 5169
+$Comp
+L PJ-018H:PJ-018H J1
+U 1 1 60119317
+P 2667 5069
+F 0 "J1" H 2414 5036 50  0000 R CNN
+F 1 "PJ-018H" H 2414 5127 50  0000 R CNN
+F 2 "jack4_8mm:CUI_PJ-018H" H 2667 5069 50  0001 L BNN
+F 3 "" H 2667 5069 50  0001 L BNN
+F 4 "CUI INC" H 2667 5069 50  0001 L BNN "MANUFACTURER"
+F 5 "Manufacturer recommendations" H 2667 5069 50  0001 L BNN "STANDARD"
+	1    2667 5069
+	1    0    0    -1  
+$EndComp
+$Comp
+L G6K-2F-DC5:G6K-2F-DC5 K1
+U 1 1 6014B1F1
+P 3413 2994
+F 0 "K1" V 3367 3424 50  0000 L CNN
+F 1 "G6K-2F-DC5" V 3458 3424 50  0000 L CNN
+F 2 "releOmron:RELAY_G6K-2F-DC5" H 3413 2994 50  0001 L BNN
+F 3 "" H 3413 2994 50  0001 L BNN
+F 4 "None" H 3413 2994 50  0001 L BNN "Price"
+F 5 "https://snapeda.com/shop?store=Mouser&id=2886130" H 3413 2994 50  0001 L BNN "Mouser-Purchase-URL"
+F 6 "None" H 3413 2994 50  0001 L BNN "Package"
+F 7 "Omron Electronics" H 3413 2994 50  0001 L BNN "MF"
+F 8 "Telecom Relay DPDT (2 Form C) Surface Mount" H 3413 2994 50  0001 L BNN "Description"
+F 9 "Warning" H 3413 2994 50  0001 L BNN "Availability"
+F 10 "G6K-2F-TR-DC5" H 3413 2994 50  0001 L BNN "MP"
+	1    3413 2994
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2605 3660 2605 3684
+Wire Wire Line
+	3213 2494 2605 2494
+Wire Wire Line
+	2605 2494 2605 3326
+Wire Wire Line
+	3213 3494 3213 3684
+Wire Wire Line
+	3213 3684 2605 3684
+Connection ~ 2605 3684
+Wire Wire Line
+	2605 3684 2605 3790
+Wire Wire Line
+	3613 2494 3613 2380
+Wire Wire Line
+	3613 2380 4215 2380
+Wire Wire Line
+	1357 4637 1357 2494
+Wire Wire Line
+	1357 2494 2605 2494
+Connection ~ 2605 2494
+NoConn ~ 3513 2494
+NoConn ~ 3513 3494
+Wire Wire Line
+	3713 2494 3713 2463
+Wire Wire Line
+	3713 2463 4415 2463
+Wire Wire Line
+	4415 2463 4415 2380
+Wire Wire Line
+	2915 5540 3436 5540
+Wire Wire Line
+	3147 4757 3147 4637
+Connection ~ 3147 4637
+$Comp
+L Sensor_Temperature:DS18B20 U5
+U 1 1 6041BC25
+P 8853 1014
+F 0 "U5" H 8623 1060 50  0000 R CNN
+F 1 "DS18B20" H 9278 1318 50  0000 R CNN
+F 2 "Package_TO_SOT_THT:TO-92L_Inline" H 7853 764 50  0001 C CNN
+F 3 "http://datasheets.maximintegrated.com/en/ds/DS18B20.pdf" H 8703 1264 50  0001 C CNN
+	1    8853 1014
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8853 714  8853 643 
+Wire Wire Line
+	8853 643  7148 643 
+Wire Wire Line
+	7148 643  7148 1255
+Wire Wire Line
+	7148 1255 5750 1255
+$Comp
+L device:R R5
+U 1 1 60423A90
+P 4670 1922
+F 0 "R5" H 4739 1968 50  0000 L CNN
+F 1 "10K" H 4739 1877 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4670 1922 50  0001 C CNN
+F 3 "" H 4670 1922 50  0001 C CNN
+	1    4670 1922
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 2185 4670 2185
+Wire Wire Line
+	4670 2185 4670 2172
+Wire Wire Line
+	4670 1673 4670 1672
+Connection ~ 4670 1255
+Wire Wire Line
+	4670 1255 4921 1255
+Connection ~ 4670 1672
+Wire Wire Line
+	4670 1672 4670 1255
+Wire Wire Line
+	2867 4969 2913 4969
+Wire Wire Line
+	2913 4637 3147 4637
+Wire Wire Line
+	1357 4637 2913 4637
+Connection ~ 2913 4637
+Wire Wire Line
+	2913 4637 2913 4969
+Wire Wire Line
+	3147 5069 3147 5057
+Wire Wire Line
+	2867 5069 3147 5069
+$Comp
+L Device:Battery_Cell BT1
+U 1 1 6019FF55
+P 3147 4957
+F 0 "BT1" H 3265 5053 50  0000 L CNN
+F 1 "Battery_Cell" H 2626 4943 50  0000 L CNN
+F 2 "Connector_Wire:SolderWirePad_1x02_P5.08mm_Drill1.5mm" V 3147 5017 50  0001 C CNN
+F 3 "~" V 3147 5017 50  0001 C CNN
+	1    3147 4957
+	1    0    0    -1  
+$EndComp
+$Comp
+L conn:CONN_5 P2
+U 1 1 604583E5
+P 7675 855
+F 0 "P2" V 7563 577 50  0000 R CNN
+F 1 "CONN_5" V 7472 577 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 7675 855 50  0001 C CNN
+F 3 "" H 7675 855 50  0001 C CNN
+	1    7675 855 
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7775 2765 7775 1330
+NoConn ~ 7775 1255
+$Comp
+L device:R R6
+U 1 1 60496182
+P 4328 3775
+F 0 "R6" V 4122 3775 50  0000 C CNN
+F 1 "1K" V 4213 3775 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4328 3775 50  0001 C CNN
+F 3 "" H 4328 3775 50  0001 C CNN
+	1    4328 3775
+	1    0    0    -1  
+$EndComp
+$Comp
+L device:LED D3
+U 1 1 6049BB72
+P 4328 4225
+F 0 "D3" V 4282 4303 50  0000 L CNN
+F 1 "LED" V 4373 4303 50  0000 L CNN
+F 2 "LED_THT:LED_D5.0mm" H 4328 4225 50  0001 C CNN
+F 3 "" H 4328 4225 50  0001 C CNN
+	1    4328 4225
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2605 3326 3323 3326
+Wire Wire Line
+	3323 3326 3323 3570
+Wire Wire Line
+	3323 3570 3613 3570
+Wire Wire Line
+	3613 3570 3613 3494
+Connection ~ 2605 3326
+Wire Wire Line
+	2605 3326 2605 3360
+Wire Wire Line
+	3713 3494 4328 3494
+Wire Wire Line
+	4328 3494 4328 3525
+$Comp
+L power:GND #PWR0102
+U 1 1 604C9798
+P 4328 4425
+F 0 "#PWR0102" H 4328 4175 50  0001 C CNN
+F 1 "GND" H 4333 4252 50  0000 C CNN
+F 2 "" H 4328 4425 50  0001 C CNN
+F 3 "" H 4328 4425 50  0001 C CNN
+	1    4328 4425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7275 5540 8905 5540
+Connection ~ 7275 5540
+Wire Wire Line
+	7275 5540 7275 5397
+$Comp
+L device:LED D2
+U 1 1 60073FA9
+P 7275 5197
+F 0 "D2" V 7229 5275 50  0000 L CNN
+F 1 "LED" V 7320 5275 50  0000 L CNN
+F 2 "LED_THT:LED_D5.0mm" H 7275 5197 50  0001 C CNN
+F 3 "" H 7275 5197 50  0001 C CNN
+	1    7275 5197
+	0    1    1    0   
+$EndComp
+$Comp
+L device:R R4
+U 1 1 6007368C
+P 7275 4747
+F 0 "R4" V 7069 4747 50  0000 C CNN
+F 1 "1K" V 7160 4747 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 7275 4747 50  0001 C CNN
+F 3 "" H 7275 4747 50  0001 C CNN
+	1    7275 4747
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6965 4825 8605 4825
+Wire Wire Line
+	6965 3185 6965 4825
+Wire Wire Line
+	6350 3185 6965 3185
+Wire Wire Line
+	6350 2685 6642 2685
+Wire Wire Line
+	6642 2685 6642 2865
+Wire Wire Line
+	6642 2865 8075 2865
+Wire Wire Line
+	6350 3585 7975 3585
+Wire Wire Line
+	7975 3585 7975 2965
+Wire Wire Line
+	7975 2965 8075 2965
+Wire Wire Line
+	6350 2785 6930 2785
+Wire Wire Line
+	6930 2785 6930 2338
+Wire Wire Line
+	6930 2338 10422 2338
+Wire Wire Line
+	10422 2338 10422 3165
+Wire Wire Line
+	10422 3165 10350 3165
+Wire Wire Line
+	6350 2985 7871 2985
+Wire Wire Line
+	7871 2985 7871 1964
+Wire Wire Line
+	7871 1964 10695 1964
+Wire Wire Line
+	10695 1964 10695 3365
+Wire Wire Line
+	10695 3365 10350 3365
+Wire Wire Line
+	6350 2885 6949 2885
+Wire Wire Line
+	6949 2885 6949 1808
+Wire Wire Line
+	6949 1808 11077 1808
+Wire Wire Line
+	11077 1808 11077 3465
+Wire Wire Line
+	11077 3465 10350 3465
+Wire Wire Line
+	6350 3085 6808 3085
+Wire Wire Line
+	6808 3085 6808 1684
+Wire Wire Line
+	6808 1684 10979 1684
+Wire Wire Line
+	10979 1684 10979 3265
+Wire Wire Line
+	10979 3265 10350 3265
+Wire Wire Line
+	9153 1014 9530 1014
+Wire Wire Line
+	9530 1014 9530 2126
+Wire Wire Line
+	9530 2126 7318 2126
+Wire Wire Line
+	7318 2126 7318 2585
+Wire Wire Line
+	7318 2585 6350 2585
+Wire Wire Line
+	6350 2385 7275 2385
+Wire Wire Line
+	7275 2385 7275 4497
+Wire Wire Line
+	7475 1487 7148 1487
+Wire Wire Line
+	7148 1487 7148 1255
+Connection ~ 7475 1487
+Connection ~ 7148 1255
+Wire Wire Line
+	7475 1255 7475 1282
+Wire Wire Line
+	7475 1282 7317 1282
+Wire Wire Line
+	7317 1282 7317 853 
+Wire Wire Line
+	7317 853  2605 853 
+Wire Wire Line
+	2605 853  2605 2494
+Wire Wire Line
+	7775 1330 7875 1330
+Wire Wire Line
+	8853 1314 8853 1330
+Wire Wire Line
+	7875 1255 7875 1330
+Connection ~ 7875 1330
+Wire Wire Line
+	7875 1330 8853 1330
+Wire Wire Line
+	3147 4637 3436 4637
+Wire Wire Line
+	5750 5540 7275 5540
+$EndSCHEMATC

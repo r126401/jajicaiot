@@ -1,0 +1,10 @@
+menu "Configuracion dht22"
+
+
+config GPIO_PIN_DHT
+	int "Pin gpio del sensor dht22"
+	default 14
+	help 
+		Indica el pin gpio que se usa para el sensor
+
+endmenu

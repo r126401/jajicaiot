@@ -1,0 +1,13 @@
+{
+  "token": "5586625c-d148-482b-a71d-662399f97414",
+  "date": "13/01/2019 20:14:03",
+  "dlgComando": 100,
+  "idDevice": "OtaServer",
+  "comando": 100,
+  "dlgResultCode": 200,
+  "otaServer": "jajica.ddns.net",
+  "otaPort": 80,
+  "otaUrl": "jajicaiot.ddns.net/firmware/iotOnOff/",
+  "otaFile": "newVersion",
+  "otaVersion": 2008281347
+}

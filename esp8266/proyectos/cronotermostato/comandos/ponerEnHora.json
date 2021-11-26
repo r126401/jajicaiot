@@ -1,0 +1,17 @@
+{
+        "comando":      {
+                "dlgComando":   23,
+                "date": "16/09/2017 12:41:17",
+                "dlgKey":       "ASDJfsfgdgfHASDLKJFSALDKJFDLSK"
+        },
+        "date":      {
+                "year": 117,
+                "month": 9,
+                "day": 12,
+                "hour": 21,
+                "minute": 59,
+                "second":  45,
+                "timeZone": 1,
+		"summerTime": 1
+        }
+}

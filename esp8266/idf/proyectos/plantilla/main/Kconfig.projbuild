@@ -1,0 +1,28 @@
+menu "Configuracion iotOnOff"
+
+config TIPO_DISPOSITIVO
+	int "Tipo de dispositivo"
+	default 0
+	help
+		indica el tipo de dispositivo
+
+config GPIO_PIN_RELE
+	int "Pin gipo para activar el rele"
+	default 12
+	help 
+		Indica el pin gpi con el que se activa el rele
+
+config GPIO_PIN_LED
+	int "Pin gipo para activar el led"
+	default 13
+	help 
+		Indica el pin gpi con el que se activa el LED
+
+config GPIO_PIN_BOTON
+	int "Pin gipo para activar el boton"
+	default 10
+	help 
+		Indica el pin gpi con el que se activa el boton
+
+
+endmenu

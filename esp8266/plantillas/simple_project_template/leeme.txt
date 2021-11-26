@@ -1,0 +1,9 @@
+Para crear un nuevo proyecto, debes de hacer lo siguiente:
+
+cvs export -DNOW esp8266/plantillas/project_template
+
+Despues, copiar la carpeta project template dentro del arbol de cvs de proyectos.
+Renombrar la carpeta 
+añadir al repositorio cvs todos el arbol de directorio del proyecto
+
+

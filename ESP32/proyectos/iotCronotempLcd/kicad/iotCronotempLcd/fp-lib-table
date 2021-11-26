@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name iotCronotempLcd)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/TJCTM24028-SPI/iotCronotempLcd.pretty)(options "")(descr ""))
+  (lib (name suf-electronics-KiCAD-lib)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib.pretty)(options "")(descr ""))
+  (lib (name Altium_Package_library)(type KiCad)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/Altium_Package_library.pretty)(options "")(descr ""))
+)

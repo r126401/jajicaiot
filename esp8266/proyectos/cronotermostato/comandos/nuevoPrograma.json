@@ -1,0 +1,17 @@
+{
+        "comando":      {
+                "dlgComando":   7,
+                "date": "16/09/2017 12:41:17",
+                "dlgKey":       "ASDJfsfgdgfHASDLKJFSALDKJFDLSK"
+        },
+        "program":      {
+                "programType":  1,
+                "hour": 20,
+                "minute":       52,
+                "second":       0,
+                "weekDay":      3,
+                "programState": true,
+		"temperaturaUmbral": 21.35
+        }
+}
+

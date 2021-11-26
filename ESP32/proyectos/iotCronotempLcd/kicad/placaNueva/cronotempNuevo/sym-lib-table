@@ -1,0 +1,9 @@
+(sym_lib_table
+  (lib (name suf)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/suf.lib)(options "")(descr ""))
+  (lib (name conn)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/conn.lib)(options "")(descr ""))
+  (lib (name device)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/suf-electronics-KiCAD-lib/library/device.lib)(options "")(descr ""))
+  (lib (name 694108402002)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/jackAlimentacion/694108402002.lib)(options "")(descr ""))
+  (lib (name PJ-036C)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/jackHorizontal/PJ-036C.lib)(options "")(descr ""))
+  (lib (name PJ-018H)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/jack4_8mm/PJ-018H.lib)(options "")(descr ""))
+  (lib (name G6K-2F-DC5)(type Legacy)(uri /home/t126401/trabajo/ESP32/proyectos/iotCronotempLcd/kicad/library/releOmron/G6K-2F-DC5.lib)(options "")(descr ""))
+)

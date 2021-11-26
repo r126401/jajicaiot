@@ -1,0 +1,31 @@
+Para crear un nuevo proyecto, debes de hacer lo siguiente:
+
+cvs export -DNOW esp8266/plantillas/project_template
+
+Despues, copiar la carpeta project template dentro del arbol de cvs de proyectos.
+Renombrar la carpeta 
+añadir al repositorio cvs todos el arbol de directorio del proyecto
+
+Esto se hace con estos dos comandos.
+
+find . -type d \! -name CVS -exec cvs add '{}' \;
+find . \( -type d -name CVS -prune \) -o \( -type f -exec cvs add '{}' \; \)
+
+Para borrar el proyecto...
+
+for dir in $(find -type d ! -name CVS); do for file in $(find $dir -maxdepth 1 -type f); do rm $file; cvs delete $file; done; done
+
+--------------------
+Calculo del adc para la medicion de la bateria.
+
+Z vista en la nodemco para el terminal A0. Z = 294K aproximadamente.
+Para el calculo.
+R1 = 220K
+R' = 220K
+R2 se obtendria del paralelo de R' con Z quedando un resultado 125.837
+Teniendo en cuenta que Vout = vin R2/(R1+R2). Con los valores anteriores queda que R2/(R1+R2) = 0.3638
+
+Por tanto queda la grafica Vout = 0.3638 Vin aproximadamente.
+
+
+
