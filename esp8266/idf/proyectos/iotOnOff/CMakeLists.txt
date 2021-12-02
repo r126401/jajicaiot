@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.5)
 set (EXTRA_COMPONENT_DIRS $ENV "/opt/esp/componentes")
 
-project(iotOnOff)
+pdroject(iotOnOff)
 #add_custom_target( ALL NAME prueba COMMAND date)
 set (SERVIDOR_OTA jajicaiot.ddns.net)
 set (PUERTO_OTA 8070)
