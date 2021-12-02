@@ -14,7 +14,7 @@
 #include "programmer.h"
 #include "api_json.h"
 #include "driver/gpio.h"
-#include "mqtt.h"
+//#include "mqtt.h"
 #include "conexiones.h"
 #include "funciones_usuario.h"
 #include "interfaz_usuario.h"
@@ -22,6 +22,7 @@
 #include "dht22.h"
 #include "configuracion.h"
 #include "alarmas.h"
+#include "conexiones_mqtt.h"
 
 
 //static os_timer_t temporizadorTermometro;
@@ -43,7 +44,7 @@ xQueueHandle cola_gpio = NULL;
 void consultarEstadoAplicacion(DATOS_APLICACION *datosApp, cJSON *respuesta) {
 
 	ESP_LOGI(TAG, ""TRAZAR"Consultamos el estado de la aplicacion", INFOTRAZA);
-    cJSON_AddNumberToObject(respuesta, APP_COMAND_ESTADO_RELE, gpio_get_level(CONFIG_GPIO_PIN_RELE));
+    //cJSON_AddNumberToObject(respuesta, APP_COMAND_ESTADO_RELE, gpio_get_level(CONFIG_GPIO_PIN_RELE));
     cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
     cJSON_AddNumberToObject(respuesta, TEMPERATURA, datosApp->termostato.tempActual);
     cJSON_AddNumberToObject(respuesta, HUMEDAD, datosApp->termostato.humedad);

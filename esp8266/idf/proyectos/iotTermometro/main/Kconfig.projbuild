@@ -1,4 +1,4 @@
-menu "Configuracion iotCronoTemp"
+menu "Configuracion iotTermometro"
 
 config TIPO_DISPOSITIVO
 	int "Tipo de dispositivo"

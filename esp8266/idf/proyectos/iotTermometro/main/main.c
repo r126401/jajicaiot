@@ -29,11 +29,13 @@
 #include "configuracion_usuario.h"
 #include "datos_comunes.h"
 #include "api_json.h"
-#include "mqtt.h"
-#include "ota.h"
+#include "espota.h"
 #include "lwip/dns.h"
 #include "alarmas.h"
 #include "interfaz_usuario.h"
+#include "conexiones_mqtt.h"
+#include "esp_log.h"
+#include "esp_err.h"
 
 #include <sys/socket.h>
 #include <netdb.h>
