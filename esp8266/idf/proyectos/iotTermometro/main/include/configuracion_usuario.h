@@ -21,18 +21,35 @@ Proyecto realizado por Emilio Jimenez Prieto
 
 
 
-
-
-#define NUM_TIPOS_ALARMAS 4
+#define NUM_TIPOS_ALARMAS 6
 #define ALARMA_WIFI 0
 #define ALARMA_MQTT 1
 #define ALARMA_NTP 2
 #define ALARMA_NVS 3
+#define ALARMA_SENSOR_DHT 4
+#define ALARMA_SENSOR_REMOTO 5
+
+#define NOTIFICACION_ALARMA_SENSOR_REMOTO "alarmaDhtRemoto"
+#define NOTIFICACION_ALARMA_SENSOR_DHT "alarmaDht"
 #define NOTIFICACION_ALARMA_WIFI	"alarmaWifi"
 #define NOTIFICACION_ALARMA_MQTT	"alarmaMqtt"
 #define NOTIFICACION_ALARMA_NTP		"alarmaNtp"
 #define NOTIFICACION_ALARMA_NVS		"alarmaNvs"
 
+
+
+
+typedef struct DATOS_TERMOSTATO {
+    float tempActual;
+    float humedad;
+    double margenTemperatura;
+    uint8_t reintentosLectura;
+    uint8_t intervaloReintentos;
+    uint8_t intervaloLectura;
+    double calibrado;
+
+
+}DATOS_TERMOSTATO;
 
 
 
@@ -48,6 +65,8 @@ typedef struct DATOS_APLICACION {
     nvs_handle handle;
     esp_mqtt_event_handle_t handle_mqtt;
     ALARMA alarmas[NUM_TIPOS_ALARMAS];
+    DATOS_TERMOSTATO termostato;
+
 } DATOS_APLICACION;
 
 typedef struct COLA_INTERRUPCION {

@@ -150,6 +150,8 @@ void app_main()
 		}
 		iniciar_gestion_programacion(&datosApp);
 	    xTaskCreate(mqtt_task, "mqtt_task", 4096, (void*) &datosApp, 2, NULL);
+	    xTaskCreate(tarea_lectura_temperatura, "tarea_lectura_temperatura", 4096, (void*) &datosApp, 4, NULL);
+
 
 	}
 

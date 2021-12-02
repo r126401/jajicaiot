@@ -212,25 +212,12 @@ esp_err_t appuser_broker_desconectado() {
 
 void appuser_ejecucion_accion_temporizada(void *datosApp) {
 
-    cJSON * respuesta = NULL;
-    ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. SE APAGA EL RELE", INFOTRAZA);
-    operacion_rele(datosApp, TEMPORIZADA, OFF);
-    respuesta = appuser_generar_informe_espontaneo(datosApp, RELE_TEMPORIZADO, NULL);
-    if (respuesta != NULL) {
-    	publicar_mensaje_json(datosApp, respuesta, NULL);
-    }
-    ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. RELE APAGADO", INFOTRAZA);
+
 }
 
 esp_err_t appuser_temporizador_cumplido(DATOS_APLICACION *datosApp) {
 
-	cJSON *respuesta;
-	ESP_LOGI(TAG, ""TRAZAR"ejecutamos la accion del programa de aplicacion", INFOTRAZA);
-	operacion_rele(datosApp, TEMPORIZADA, datosApp->datosGenerales->programacion[datosApp->datosGenerales->nProgramaCandidato].accion);
-	respuesta = appuser_generar_informe_espontaneo(datosApp, CAMBIO_DE_PROGRAMA, NULL);
-	if (respuesta != NULL) {
-		publicar_mensaje_json(datosApp, respuesta, NULL);
-	}
+
 
 	return ESP_OK;
 }
@@ -305,37 +292,6 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
 }
 esp_err_t appuser_cargar_programa_especifico(DATOS_APLICACION *datosApp, TIME_PROGRAM *programa_actual, cJSON *nodo) {
 
-	cJSON *item;
-	char* dato;
-
-
-	item = cJSON_GetObjectItem(nodo, PROGRAM_ID);
-	dato = cJSON_GetStringValue(item);
-	if (item != NULL) {
-		switch(programa_actual->tipo) {
-		case DIARIA:
-			programa_actual->accion = extraer_dato_tm(dato, 11, 1);
-			break;
-		case SEMANAL:
-			break;
-		case FECHADA:
-			programa_actual->accion = extraer_dato_tm(dato, 17, 1);
-			break;
-		}
-
-
-	}
-
-	item = cJSON_GetObjectItem(nodo, DURATION_PROGRAM);
-	if (item != NULL) {
-		programa_actual->duracion = item->valueint;
-		ESP_LOGI(TAG, ""TRAZAR"DURACION = %d", INFOTRAZA, programa_actual->duracion);
-	} else {
-		programa_actual->duracion = 0;
-		ESP_LOGI(TAG, ""TRAZAR"NO SE GUARDA DURACION: %d", INFOTRAZA, programa_actual->duracion);
-	}
-
-
 
 
 	return ESP_OK;
@@ -354,21 +310,10 @@ esp_err_t appuser_json_a_datos(DATOS_APLICACION *datosApp, cJSON *datos) {
 	return ESP_OK;
 }
 
+
 esp_err_t appuser_cargar_programas_defecto(DATOS_APLICACION *datosApp, cJSON *array) {
 
-	cJSON *item = NULL;
 
-	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
-	cJSON_AddStringToObject(item, PROGRAM_ID, "000000006700");
-	cJSON_AddNumberToObject(item, DURATION_PROGRAM, 420);
-	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
-	cJSON_AddStringToObject(item, PROGRAM_ID, "001200007f10");
-	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
-	cJSON_AddStringToObject(item, PROGRAM_ID, "001555007f11");
-	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
-	cJSON_AddStringToObject(item, PROGRAM_ID, "001038007f11");
-	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
-	cJSON_AddStringToObject(item, PROGRAM_ID, "021715000120081611");
 
 	return ESP_OK;
 }
@@ -376,17 +321,12 @@ esp_err_t appuser_cargar_programas_defecto(DATOS_APLICACION *datosApp, cJSON *ar
 esp_err_t appuser_extraer_datos_programa(TIME_PROGRAM *programa_actual, cJSON *nodo) {
 
 
-    if(extraer_dato_int(nodo, DURATION_PROGRAM, (int*) &programa_actual->duracion) != ESP_OK) {
-    	programa_actual->duracion = 0;
-    }
-
 
 	return ESP_OK;
 }
 
 esp_err_t appuser_modificar_dato_programa(TIME_PROGRAM *programa_actual,cJSON *nodo) {
 
-	extraer_dato_uint32(nodo, DURATION_PROGRAM, &programa_actual->duracion);
 
 
 	return ESP_OK;
@@ -394,10 +334,7 @@ esp_err_t appuser_modificar_dato_programa(TIME_PROGRAM *programa_actual,cJSON *n
 
 esp_err_t appuser_visualizar_dato_programa(TIME_PROGRAM *programa_actual, cJSON *nodo) {
 
-    if (programa_actual->duracion > 0) {
-        cJSON_AddNumberToObject(nodo, DURATION_PROGRAM, programa_actual->duracion);
 
-    }
 
 	return ESP_OK;
 }
@@ -410,7 +347,7 @@ esp_err_t appuser_modificarConfApp(cJSON *root, DATOS_APLICACION *datosApp, cJSO
 
 esp_err_t app_user_mensaje_recibido_especifico(DATOS_APLICACION *datosApp) {
 
-	ESP_LOGI(TAG, ""TRAZAR" mensaje del topic: %s", INFOTRAZA, datosApp->handle_mqtt->topic);
+
 	return ESP_OK;
 }
 
@@ -445,33 +382,6 @@ void nemonicos_alarmas(DATOS_APLICACION *datosApp, int i) {
 }
 
 esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTADO_APP estado) {
-
-	   time_t t_siguiente_intervalo;
-	        switch(estado) {
-
-	        case NORMAL_AUTO:
-	        case NORMAL_AUTOMAN:
-	                calcular_programa_activo(datosApp, &t_siguiente_intervalo);
-	                break;
-
-	        case NORMAL_MANUAL:
-
-	                break;
-
-	        case NORMAL_SIN_PROGRAMACION:
-	                break;
-
-	        default:
-	                break;
-
-
-	        }
-	        datosApp->datosGenerales->estadoApp = estado;
-	        ESP_LOGI(TAG, ""TRAZAR" CAMBIADA LA APLICACION A ESTADO %d", INFOTRAZA, datosApp->datosGenerales->estadoApp);
-
-
-
-	        return ESP_OK;
 
 
 
