@@ -80,16 +80,19 @@ enum ESTADO_RELE operacion_rele(DATOS_APLICACION *datosApp, enum TIPO_ACTUACION_
 	            if (gpio_get_level(CONFIG_GPIO_PIN_RELE) == OFF) {
 	            	ESP_LOGI(TAG, ""TRAZAR"SE ENCIENDE", INFOTRAZA);
 	                gpio_set_level(CONFIG_GPIO_PIN_RELE, ON);
+	                gpio_set_level(CONFIG_GPIO_PIN_LED, ON);
 
 	            } else {
 	            	ESP_LOGI(TAG, ""TRAZAR"SE APAGA", INFOTRAZA);
 	            	gpio_set_level(CONFIG_GPIO_PIN_RELE, OFF);
+	            	gpio_set_level(CONFIG_GPIO_PIN_LED, OFF);
 
 	            }
 	            ESP_LOGI(TAG, ""TRAZAR"EL RELE SE HA PUESTO A %d", INFOTRAZA, gpio_get_level(CONFIG_GPIO_PIN_RELE));
 	            break;
 	        case TEMPORIZADA:
 	        	gpio_set_level(CONFIG_GPIO_PIN_RELE, operacion);
+	        	gpio_set_level(CONFIG_GPIO_PIN_LED, operacion);
 	            break;
 	        default:
 	            break;
