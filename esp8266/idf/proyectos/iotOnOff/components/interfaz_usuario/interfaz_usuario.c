@@ -125,6 +125,11 @@ esp_err_t appuser_arranque_aplicacion(DATOS_APLICACION *datosApp) {
 		ESP_LOGI(TAG, ""TRAZAR" PUBLICADO", INFOTRAZA);
 	}
 	datosApp->datosGenerales->estadoApp = NORMAL_AUTO;
+	if (gpio_get_level(CONFIG_GPIO_PIN_RELE == OFF)) {
+		gpio_set_level(CONFIG_GPIO_PIN_LED, OFF);
+	} else {
+		gpio_set_level(CONFIG_GPIO_PIN_LED, ON);
+	}
 
 	return ESP_OK;
 }
