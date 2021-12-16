@@ -184,18 +184,22 @@ void pulsacion(DATOS_APLICACION *datosApp) {
             }
 
         } else {
-            ESP_LOGI(TAG, ""TRAZAR"pulsacion corta", INFOTRAZA);
-            operacion_rele(datosApp, MANUAL, INDETERMINADO);
-            ESP_LOGI(TAG, ""TRAZAR"AQUI ENVIAREMOS EL REPORTE DE QUE SE HA PULSADO EL BOTON", INFOTRAZA);
-            informe = appuser_generar_informe_espontaneo(datosApp, ACTUACION_RELE_LOCAL, NULL);
 
-            ESP_LOGI(TAG, ""TRAZAR"REPORTE GENERADO Y DISPUESTO PARA ENVIAR", INFOTRAZA);
-            if (informe != NULL) {
-            	publicar_mensaje_json(datosApp, informe, NULL);
+        	if (rep > NUM_REPETICIONES -3){
+                ESP_LOGI(TAG, ""TRAZAR"pulsacion corta", INFOTRAZA);
+                operacion_rele(datosApp, MANUAL, INDETERMINADO);
+                ESP_LOGI(TAG, ""TRAZAR"AQUI ENVIAREMOS EL REPORTE DE QUE SE HA PULSADO EL BOTON", INFOTRAZA);
+                informe = appuser_generar_informe_espontaneo(datosApp, ACTUACION_RELE_LOCAL, NULL);
 
-            } else {
-            	ESP_LOGE(TAG, ""TRAZAR"MENSAJE DE PULSACION CORTA INVALIDO", INFOTRAZA);
-            }
+                ESP_LOGI(TAG, ""TRAZAR"REPORTE GENERADO Y DISPUESTO PARA ENVIAR", INFOTRAZA);
+                if (informe != NULL) {
+                	publicar_mensaje_json(datosApp, informe, NULL);
+
+                } else {
+                	ESP_LOGE(TAG, ""TRAZAR"MENSAJE DE PULSACION CORTA INVALIDO", INFOTRAZA);
+                }
+        	}
+
 
 
 
@@ -297,7 +301,7 @@ esp_err_t appuser_inicializar_aplicacion(DATOS_APLICACION *datosApp) {
     //gpio_set_pull_mode(CONFIG_GPIO_PIN_BOTON, GPIO_PULLUP_ONLY);
     gpio_pullup_en(CONFIG_GPIO_PIN_BOTON);
     //change gpio intrrupt type for one pin
-    gpio_set_intr_type(CONFIG_GPIO_PIN_BOTON, GPIO_INTR_ANYEDGE);
+    gpio_set_intr_type(CONFIG_GPIO_PIN_BOTON, GPIO_INTR_NEGEDGE);
 
 
     //create a queue to handle gpio event from isr
