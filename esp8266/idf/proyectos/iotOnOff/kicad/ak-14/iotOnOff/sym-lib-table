@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name ESP-12S)(type Legacy)(uri /home/t126401/trabajo/esp8266/idf/proyectos/iotOnOff/kicad/componentes/esp12s/ESP-12S.lib)(options "")(descr ""))
+  (lib (name TERMINAL_PHOENIX)(type Legacy)(uri /home/t126401/trabajo/esp8266/idf/proyectos/iotOnOff/kicad/componentes/terminalPhoenix/1751248.lib)(options "")(descr ""))
+  (lib (name ESP8266-12E_ESP-12E)(type Legacy)(uri /home/t126401/trabajo/esp8266/idf/proyectos/iotOnOff/kicad/componentes/esp12f/ESP8266-12E_ESP-12E.lib)(options "")(descr ""))
+)
