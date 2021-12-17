@@ -111,6 +111,8 @@ typedef struct MQTT_PARAM {
     char publish[50];
     char subscribe[50];
     int qos;
+    bool tls;
+    char cert[1500];
 
 } MQTT_PARAM;
 
