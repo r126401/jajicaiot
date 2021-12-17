@@ -71,7 +71,7 @@ esp_err_t configuracion_a_json(DATOS_APLICACION *datosApp, cJSON *conf) {
 	cJSON_AddNumberToObject(conf, MQTT_QOS , datosApp->datosGenerales->parametrosMqtt.qos);
 	cJSON_AddNumberToObject(conf, PROGRAM_STATE, datosApp->datosGenerales->estadoProgramacion);
 	cJSON_AddNumberToObject(conf, OTA_SW_VERSION, datosApp->datosGenerales->ota.swVersion);
-	cJSON_AddStringToObject(conf, "CERT_TLS", datosApp->datosGenerales->parametrosMqtt.cert);
+	cJSON_AddStringToObject(conf, MQTT_CERT_TLS, datosApp->datosGenerales->parametrosMqtt.cert);
     appuser_configuracion_a_json(datosApp, conf);
 
     	ESP_LOGI(TAG, ""TRAZAR"JSON creado:", INFOTRAZA);
@@ -160,7 +160,7 @@ esp_err_t json_a_datos_aplicacion(DATOS_APLICACION *datosApp, char *datos) {
 		extraer_dato_int(nodo, MQTT_QOS, &datosApp->datosGenerales->parametrosMqtt.qos);
 		extraer_dato_int(nodo, PROGRAM_STATE, (int*) &datosApp->datosGenerales->estadoProgramacion);
 		extraer_dato_int(nodo, DEVICE, &datosApp->datosGenerales->tipoDispositivo );
-		extraer_dato_string(nodo, "CERT_TLS", datosApp->datosGenerales->parametrosMqtt.cert);
+		extraer_dato_string(nodo, MQTT_CERT_TLS, datosApp->datosGenerales->parametrosMqtt.cert);
 		/*
 		extraer_dato_int(nodo, OTA_SW_VERSION, &version);
 		if (version <= datosApp->datosGenerales->ota.swVersion) {

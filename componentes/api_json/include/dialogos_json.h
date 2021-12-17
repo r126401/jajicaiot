@@ -21,6 +21,7 @@ Proyecto realizado por Emilio Jimenez Prieto
 #define MQTT_PUBLISH    "mqttPublish"
 #define MQTT_SUBSCRIBE  "mqttSubscribe"
 #define MQTT_QOS		"mqttQos"
+#define MQTT_CERT_TLS	"CERT_TLS"
 #define FREE_MEMORY     "freeMem"
 #define UPTIME          "uptime"
 #define MAP_MEMORY      "memoryMap"
