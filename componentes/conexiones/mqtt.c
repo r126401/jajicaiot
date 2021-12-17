@@ -18,6 +18,12 @@
 
 
 static const char *TAG = "MQTT";
+
+
+//extern const uint8_t mqtt_jajica_pem_start[]   asm("_binary_mqtta_eclipse_org_pem_start");
+//extern const uint8_t mqtt_jajica_pem_end[]   asm("_binary_mqtt_eclipse_org_pem_end");
+
+
 extern DATOS_APLICACION datosApp;
 
 xQueueHandle cola_mqtt = NULL;
@@ -125,11 +131,13 @@ esp_err_t establecer_conexion_mqtt(DATOS_APLICACION *datosApp) {
 		.port = datosApp->datosGenerales->parametrosMqtt.port,
         .event_handle = mqtt_event_handler,
 		.username = datosApp->datosGenerales->parametrosMqtt.user,
-		.password = datosApp->datosGenerales->parametrosMqtt.password
+		.password = datosApp->datosGenerales->parametrosMqtt.password,
+		.cert_pem = datosApp->datosGenerales->parametrosMqtt.cert
     };
     ESP_LOGI(TAG, ""TRAZAR"Nos conectamos al broker %s", INFOTRAZA, mqtt_cfg.uri);
     appuser_broker_conectando(datosApp);
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
+    //esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, client);
     error = esp_mqtt_client_start(client);
 
 

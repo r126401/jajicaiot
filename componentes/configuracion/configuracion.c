@@ -26,7 +26,7 @@
 
 static const char *TAG = "CONFIGURACION";
 
-
+extern const uint8_t mqtt_jajica_pem_start[]   asm("_binary_mqtt_cert_crt_start");
 
 esp_err_t crear_programas_defecto(DATOS_APLICACION *datosApp) {
 
@@ -71,6 +71,7 @@ esp_err_t configuracion_a_json(DATOS_APLICACION *datosApp, cJSON *conf) {
 	cJSON_AddNumberToObject(conf, MQTT_QOS , datosApp->datosGenerales->parametrosMqtt.qos);
 	cJSON_AddNumberToObject(conf, PROGRAM_STATE, datosApp->datosGenerales->estadoProgramacion);
 	cJSON_AddNumberToObject(conf, OTA_SW_VERSION, datosApp->datosGenerales->ota.swVersion);
+	cJSON_AddStringToObject(conf, "CERT_TLS", datosApp->datosGenerales->parametrosMqtt.cert);
     appuser_configuracion_a_json(datosApp, conf);
 
     	ESP_LOGI(TAG, ""TRAZAR"JSON creado:", INFOTRAZA);
@@ -116,6 +117,7 @@ esp_err_t cargar_configuracion_defecto(DATOS_APLICACION *datosApp) {
     strcpy(datosApp->datosGenerales->parametrosMqtt.subscribe, "/sub_");
     strcat(datosApp->datosGenerales->parametrosMqtt.subscribe, get_my_id());
     datosApp->datosGenerales->parametrosMqtt.qos = 0;
+    strcpy(datosApp->datosGenerales->parametrosMqtt.cert, (const char *) mqtt_jajica_pem_start);
     ESP_LOGI(TAG, ""TRAZAR"PARAMETROS CARGADOS EN DATOSAPP", INFOTRAZA);
     datosApp->datosGenerales->estadoApp = NORMAL_ARRANCANDO;
     datosApp->datosGenerales->estadoProgramacion = INVALID_PROG;
@@ -158,6 +160,7 @@ esp_err_t json_a_datos_aplicacion(DATOS_APLICACION *datosApp, char *datos) {
 		extraer_dato_int(nodo, MQTT_QOS, &datosApp->datosGenerales->parametrosMqtt.qos);
 		extraer_dato_int(nodo, PROGRAM_STATE, (int*) &datosApp->datosGenerales->estadoProgramacion);
 		extraer_dato_int(nodo, DEVICE, &datosApp->datosGenerales->tipoDispositivo );
+		extraer_dato_string(nodo, "CERT_TLS", datosApp->datosGenerales->parametrosMqtt.cert);
 		/*
 		extraer_dato_int(nodo, OTA_SW_VERSION, &version);
 		if (version <= datosApp->datosGenerales->ota.swVersion) {
