@@ -1,5 +1,0 @@
-(fp_lib_table
-  (lib (name esp12s)(type KiCad)(uri /home/t126401/trabajo/esp8266/idf/proyectos/iotOnOff/kicad/componentes/esp12s)(options "")(descr ""))
-  (lib (name terminalPhoenix)(type KiCad)(uri /home/t126401/trabajo/esp8266/idf/proyectos/iotOnOff/kicad/componentes/terminalPhoenix)(options "")(descr ""))
-  (lib (name esp12f)(type KiCad)(uri /home/t126401/trabajo/esp8266/idf/proyectos/iotOnOff/kicad/componentes/esp12f)(options "")(descr ""))
-)
