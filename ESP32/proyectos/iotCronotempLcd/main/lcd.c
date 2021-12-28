@@ -33,7 +33,7 @@ static lv_obj_t *barra_temperatura;
 
 static const char *TAG = "LCD";
 /**
- * DEFINES
+ * DEFINESSemaphoreHandle_t xGuiSemaphore;
  */
 
 //#define TAMANO_HORIZONTAL	CONFIG_LV_DISPLAY_WIDTH
@@ -1099,7 +1099,7 @@ void lv_pantalla_cronotermostato_app(DATOS_APLICACION *datosApp) {
 	lv_inicio_aplicacion_normal();
 	ESP_LOGE(TAG, "Hemos cargado la pantalla principal pero no la enseñamos aun");
 	if (datosApp->datosGenerales->estadoApp == ARRANQUE_FABRICA) {
-		ESP_LOGE(TAG, "cremaos la pantalla smartconfig");
+		ESP_LOGI(TAG, "creamos la pantalla smartconfig");
 		lv_crear_pantalla_smartconfig();
 		lv_scr_load(pantalla_smartconfig);
 	} else {

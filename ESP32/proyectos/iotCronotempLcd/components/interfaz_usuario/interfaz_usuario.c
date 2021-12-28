@@ -205,6 +205,7 @@ esp_err_t appuser_wifi_conectado(DATOS_APLICACION *datosApp) {
 	ets_timer_disarm(&temporizador_general);
 	gpio_set_level(CONFIG_GPIO_PIN_LED, ON);
 	lv_actualizar_estado_wifi_lcd(datosApp, COLOR_ICONO_OK);
+	datosApp->datosGenerales->estadoApp = NORMAL_ARRANCANDO;
 	//cerrar_popup_smart_wifi();
 
 

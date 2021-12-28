@@ -40,8 +40,9 @@
 #include "lcd.h"
 #include "esp_app_format.h"
 #include "esp_ota_ops.h"
+#include "esp_wifi.h"
 
-
+#include "esp_http_client.h"
 
 
 DATOS_APLICACION datosApp;
@@ -51,7 +52,13 @@ static const char *TAG = "IOTCRONOTEMPLCD";
 
 esp_err_t comprobar_puesta_nuevo() {
 
-	wifi_config_t conf_wifi;
+
+
+
+	wifi_config_t conf_wifi = {0};
+	wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+	esp_wifi_init(&cfg);
+	esp_wifi_get_config(WIFI_IF_STA, &conf_wifi);
 	int i;
 	for (i=0;i<32;i++) {
 		if (conf_wifi.sta.ssid[i] != 0) {
@@ -99,6 +106,8 @@ void app_main()
 	} else {
 		error = ESP_OK;
 	}
+
+
 
 	if(comprobar_puesta_nuevo() == ESP_OK) {
 

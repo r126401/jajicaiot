@@ -30,7 +30,7 @@
 #define LV_COLOR_TEXTO		LV_COLOR_WHITE
 #define LV_COLOR_FALLO		LV_COLOR_RED
 #define TAMANO_BOTON 		40
-#define MENSAJE_SMARTWIFI	"***** Puesta en marcha ******\n\nEs la primera vez que usas el dispositivo o has restaurado de fabrica.\n\nEjecuta la aplicacion movil y elije la opcion instalar dispositivo para enlazarlo a la red wifi.\n\nCuando este enlazado, el dispositivo arrancara normalmente."
+#define MENSAJE_SMARTWIFI	"***** Puesta en marcha ******\n\nEs la primera vez que usas el dispositivo o has restaurado de fabrica.\nEjecuta la aplicacion movil y elije la opcion instalar dispositivo para enlazarlo a la red wifi.\nCuando este enlazado, el dispositivo arrancara normalmente."
 
 #define LV_TICK_PERIOD_MS 1
 #define COLOR_FONDO LV_COLOR_BLACK
