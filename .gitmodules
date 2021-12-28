@@ -1,3 +1,6 @@
-[submodule "ESP32/proyectos/prueba/components/lvgl_esp32_drivers"]
-	path = ESP32/proyectos/prueba/components/lvgl_esp32_drivers
+[submodule "ESP32/proyectos/prueba2/components/lvgl"]
+	path = ESP32/proyectos/prueba2/components/lvgl
+	url = https://github.com/lvgl/lvgl.git
+[submodule "ESP32/proyectos/prueba2/components/lvgl_esp32_drivers"]
+	path = ESP32/proyectos/prueba2/components/lvgl_esp32_drivers
 	url = https://github.com/lvgl/lvgl_esp32_drivers.git
