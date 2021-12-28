@@ -126,7 +126,7 @@ void otaesp_task(void *pvParameter)
         .event_handler = _http_event_handler,
     };
 
-    config.skip_cert_common_name_check = true;
+    config.skip_cert_common_name_check = false;
 
     ESP_LOGI(TAG, ""TRAZAR"url definitiva2 %s", INFOTRAZA, config.url);
     ESP_LOGW(TAG, ""TRAZAR" memoria antes %d", INFOTRAZA,esp_get_free_heap_size ());
