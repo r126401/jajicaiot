@@ -19,8 +19,14 @@ environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/BATCH_B
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/BATCH_BUILD/operation=append
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/BATCH_BUILD/value=1
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/IDF_PATH/delimiter=\:
-environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/IDF_PATH/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/IDF_PATH/operation=replace
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/IDF_PATH/value=/opt/esp/ESP8266_RTOS_SDK
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/IDF_PYTHON_ENV_PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/IDF_PYTHON_ENV_PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/IDF_PYTHON_ENV_PATH/value=/home/t126401/.espressif/python_env/idf5.0_py3.8_env
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/OPENOCD_SCRIPTS/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/OPENOCD_SCRIPTS/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/OPENOCD_SCRIPTS/value=/home/t126401/.espressif/tools/openocd-esp32/v0.10.0-esp32-20211111/openocd-esp32/share/openocd/scripts
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/PATH/delimiter=\:
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/PATH/operation=replace
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.1222814719/PATH/value=/opt/esp/ESP8266_RTOS_SDK/components/esptool_py/esptool\:/opt/esp/ESP8266_RTOS_SDK/components/partition_table/\:/home/t126401/.espressif/tools/xtensa-lx106-elf/esp-2020r3-49-gd5524c1-8.4.0/xtensa-lx106-elf/bin\:/home/t126401/.espressif/tools/cmake/3.13.4/bin\:/home/t126401/.espressif/tools/ninja/1.9.0/\:/home/t126401/.espressif/python_env/rtos3.4_py3.8_env/bin\:/opt/esp/ESP8266_RTOS_SDK/tools\:/opt/maven/bin\:/opt/maven/bin\:/opt/maven/bin\:/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/usr/games\:/usr/local/games\:/snap/bin\:/usr/lib/jvm/java-16-oracle/bin\:/usr/lib/jvm/java-16-oracle/db/bin
