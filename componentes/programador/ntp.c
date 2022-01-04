@@ -14,6 +14,7 @@
 #include "programmer.h"
 #include "errores_proyecto.h"
 #include "time.h"
+#include "esp_sntp.h"
 
 
 #define TIMEOUT_NTP CONFIG_TIMEOUT_NTP
