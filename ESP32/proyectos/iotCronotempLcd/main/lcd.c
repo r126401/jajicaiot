@@ -439,7 +439,10 @@ void lv_actualizar_rele_lcd( enum ESTADO_RELE estado) {
 		escondido = true;
 		break;
 	}
-    lv_obj_set_hidden(rele_termostato, escondido);
+	if (rele_termostato != NULL) {
+		lv_obj_set_hidden(rele_termostato, escondido);
+	}
+
 
 }
 
@@ -1109,6 +1112,7 @@ void lv_pantalla_cronotermostato_app(DATOS_APLICACION *datosApp) {
 		lv_crear_pantalla_inicializando("Inicializando\nEspere un momento...");
 		ESP_LOGW(TAG, ""TRAZAR" ESTAMOS EN INICIALIZANDO", INFOTRAZA);
 		lv_scr_load(primera_pantalla);
+		ESP_LOGW(TAG, ""TRAZAR" DESPUES ESTAMOS EN INICIALIZANDO", INFOTRAZA);
 
 	}
 
@@ -1212,7 +1216,11 @@ void tarea_lcd(void *pvParameter) {
 }
 
 void lv_cargar_pantalla_principal() {
-	lv_obj_del(primera_pantalla);
+	if (primera_pantalla != NULL) {
+		lv_obj_del(primera_pantalla);
+		primera_pantalla = NULL;
+	}
+
 	lv_scr_load(pantalla_principal);
 
 

@@ -47,32 +47,10 @@
 
 DATOS_APLICACION datosApp;
 static const char *TAG = "IOTCRONOTEMPLCD";
+TaskHandle_t handle;
 
 
 
-esp_err_t comprobar_puesta_nuevo() {
-
-
-
-
-	wifi_config_t conf_wifi = {0};
-	wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-	esp_wifi_init(&cfg);
-	esp_wifi_get_config(WIFI_IF_STA, &conf_wifi);
-	int i;
-	for (i=0;i<32;i++) {
-		if (conf_wifi.sta.ssid[i] != 0) {
-			ESP_LOGW(TAG, ""TRAZAR" WIFI CONFIGURADA %s, %s", INFOTRAZA, (char*) conf_wifi.sta.ssid, (char*) conf_wifi.sta.password);
-			return ESP_FAIL;
-		}
-	}
-
-	ESP_LOGW(TAG, ""TRAZAR" WIFI NO CONFIGURADA", INFOTRAZA);
-
-	return ESP_OK;
-
-
-}
 
 
 void app_main()
@@ -91,13 +69,12 @@ void app_main()
 	//uart_set_baudrate(UART_NUM_0, 115200);
 
 
+
+
 	aplicacion = calloc(1, sizeof(esp_app_desc_t));
 	aplicacion = esp_ota_get_app_description();
 	ESP_LOGW(TAG, ""TRAZAR" app:%s, version: %s, hora: %s, dia:%s, idfver:%s", INFOTRAZA,
 			aplicacion->project_name, aplicacion->version, aplicacion->time, aplicacion->date, aplicacion->idf_ver);
-
-	int ver = atoi(aplicacion->version);
-	ESP_LOGW(TAG, ""TRAZAR" %d", INFOTRAZA, ver);
 
 	error = inicializar_nvs(CONFIG_NAMESPACE, &datosApp.handle);
 	if (error != ESP_OK) {
@@ -109,7 +86,7 @@ void app_main()
 
 
 
-	if(comprobar_puesta_nuevo() == ESP_OK) {
+	if(configurado_de_fabrica() == ESP_OK) {
 
 		datosApp.datosGenerales->estadoApp = ARRANQUE_FABRICA;
 
@@ -119,14 +96,7 @@ void app_main()
 		ESP_LOGE(TAG, ""TRAZAR" FALLO LA INICIALIZACION DE LA APLICACION", INFOTRAZA);
 	}
 
-
-
 	ESP_LOGI(TAG, ""TRAZAR" vamos a conectar al wifi", INFOTRAZA);
-
-
-
-
-	//quitar_popup(&datosApp);
 
 	conectar_dispositivo_wifi();
 
@@ -137,7 +107,9 @@ void app_main()
 		ESP_LOGE(TAG, ""TRAZAR"NO SE HA PODIDO INICIALIZAR EL DISPOSITIVO", INFOTRAZA);
 	}
 
-    xTaskCreate(mqtt_task, "mqtt_task", 4096, (void*) &datosApp, 10, NULL);
+	handle = NULL;
+	crear_tarea_mqtt(&datosApp);
+
 
     iniciar_gestion_programacion(&datosApp);
     xTaskCreate(tarea_lectura_temperatura, "tarea_lectura_temperatura", 4096, (void*) &datosApp, 4, NULL);
