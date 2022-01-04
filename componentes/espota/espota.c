@@ -129,7 +129,6 @@ void otaesp_task(void *pvParameter)
 
     esp_http_client_config_t config = {
         .url = url,
-		.keep_alive_enable = true,
         .event_handler = _http_event_handler,
 
 
