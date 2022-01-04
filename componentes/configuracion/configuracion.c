@@ -535,7 +535,7 @@ esp_err_t ota_a_json(DATOS_APLICACION *datosApp) {
 	cJSON_AddStringToObject(ota, OTA_SERVER, datosApp->datosGenerales->ota.server);
 	cJSON_AddStringToObject(ota, OTA_URL, datosApp->datosGenerales->ota.url);
 	cJSON_AddStringToObject(ota, OTA_FILE, datosApp->datosGenerales->ota.file);
-	cJSON_AddStringToObject(ota, OTA_SW_VERSION , datosApp->datosGenerales->ota.swVersion->version);
+	cJSON_AddStringToObject(ota, OTA_SW_VERSION , datosApp->datosGenerales->ota.newVersion);
 	cJSON_AddNumberToObject(ota, OTA_PORT, datosApp->datosGenerales->ota.puerto);
 	texto = cJSON_Print(ota);
 	if (texto != NULL) {
@@ -557,7 +557,7 @@ esp_err_t ota_a_json(DATOS_APLICACION *datosApp) {
 
 	return error;
 }
-/*
+
 esp_err_t json_a_ota(DATOS_APLICACION *datosApp) {
 
 	esp_err_t error;
@@ -575,7 +575,7 @@ esp_err_t json_a_ota(DATOS_APLICACION *datosApp) {
 
 	return error;
 }
-*/
+
 esp_err_t configurado_de_fabrica() {
 
 

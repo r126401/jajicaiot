@@ -125,6 +125,8 @@ void mqtt_task(void *arg) {
 
 
 
+
+
 esp_err_t establecer_conexion_mqtt(DATOS_APLICACION *datosApp) {
 	esp_err_t error;
 
@@ -159,7 +161,8 @@ esp_err_t establecer_conexion_mqtt(DATOS_APLICACION *datosApp) {
     } else {
 
     	ESP_LOGE(TAG, ""TRAZAR"No se ha añadido el certificado para la conexion mqtt", INFOTRAZA);
-    	strcpy(datosApp->datosGenerales->parametrosMqtt.cert, (const char*) mqtt_jajica_pem_start);
+    	datosApp->datosGenerales->parametrosMqtt.cert = (char*) mqtt_jajica_pem_start;
+    	//strcpy(datosApp->datosGenerales->parametrosMqtt.cert, (const char*) mqtt_jajica_pem_start);
     }
 
 
@@ -251,6 +254,17 @@ void eliminar_tarea_mqtt() {
 
 
 
+}
+
+
+esp_err_t obtener_certificado(DATOS_APLICACION *datosApp) {
+
+	datosApp->datosGenerales->parametrosMqtt.cert = (char*) mqtt_jajica_pem_start;
+
+
+
+
+	return ESP_OK;
 }
 
 

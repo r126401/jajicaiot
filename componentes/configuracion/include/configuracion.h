@@ -119,7 +119,7 @@ esp_err_t crear_programas_defecto(DATOS_APLICACION *datosApp);
  *
  */
 esp_err_t ota_a_json(DATOS_APLICACION *datosApp);
-//esp_err_t json_a_ota(DATOS_APLICACION *datosApp);
+esp_err_t json_a_ota(DATOS_APLICACION *datosApp);
 /**
  * Chequea si la configuracion del dispositivo es de fabrica.
  */
