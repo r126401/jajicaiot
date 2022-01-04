@@ -233,7 +233,7 @@ cJSON*  analizar_comando(DATOS_APLICACION *datosApp, char* info) {
      respuesta = cJSON_CreateObject();
      cJSON_AddStringToObject(respuesta, ID_DEVICE, get_my_id());
      cJSON_AddNumberToObject(respuesta, DEVICE, datosApp->datosGenerales->tipoDispositivo);
-     cJSON_AddNumberToObject(respuesta, OTA_SW_VERSION, datosApp->datosGenerales->ota.swVersion);
+     cJSON_AddStringToObject(respuesta, OTA_SW_VERSION, datosApp->datosGenerales->ota.swVersion->version);
      cJSON_AddStringToObject(respuesta, DATE, fecha);
      return respuesta;
 
@@ -764,7 +764,7 @@ esp_err_t   upgrade_ota(cJSON *peticion, struct DATOS_APLICACION *datosApp, cJSO
    extraer_dato_string(nodo, OTA_SERVER, datosApp->datosGenerales->ota.server);
    extraer_dato_string(nodo, OTA_URL, datosApp->datosGenerales->ota.url);
    extraer_dato_string(nodo, OTA_FILE, datosApp->datosGenerales->ota.file);
-   extraer_dato_int(nodo, OTA_SW_VERSION, &datosApp->datosGenerales->ota.swVersion);
+   extraer_dato_string(nodo, OTA_SW_VERSION, datosApp->datosGenerales->ota.newVersion);
    extraer_dato_int(nodo, OTA_PORT, &datosApp->datosGenerales->ota.puerto);
    ESP_LOGI(TAG, ""TRAZAR"PUERTO: %d", INFOTRAZA, datosApp->datosGenerales->ota.puerto);
 
