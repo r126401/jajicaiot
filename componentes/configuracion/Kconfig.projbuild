@@ -41,6 +41,12 @@ config PASSWORD_BROKER_DEFECTO
 	default ""
 	help
 		Password de acceso al servidor Mqtt
+
+config MQTT_TLS
+        int "habilita conexion segura"
+        default 0
+        help
+            Habilita conexion segura para el servidor mqtt.
 	
 config PREFIJO_SUSCRIPCION_DEFECTO
 	string "prefijo para los topics usados"

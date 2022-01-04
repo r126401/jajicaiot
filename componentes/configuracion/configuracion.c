@@ -26,7 +26,7 @@
 
 static const char *TAG = "CONFIGURACION";
 
-extern const uint8_t mqtt_jajica_pem_start[]   asm("_binary_mqtt_cert_crt_start");
+
 
 esp_err_t crear_programas_defecto(DATOS_APLICACION *datosApp) {
 
@@ -70,8 +70,9 @@ esp_err_t configuracion_a_json(DATOS_APLICACION *datosApp, cJSON *conf) {
 	cJSON_AddStringToObject(conf, MQTT_PUBLISH, datosApp->datosGenerales->parametrosMqtt.publish);
 	cJSON_AddNumberToObject(conf, MQTT_QOS , datosApp->datosGenerales->parametrosMqtt.qos);
 	cJSON_AddNumberToObject(conf, PROGRAM_STATE, datosApp->datosGenerales->estadoProgramacion);
-	cJSON_AddNumberToObject(conf, OTA_SW_VERSION, datosApp->datosGenerales->ota.swVersion);
-	cJSON_AddStringToObject(conf, MQTT_CERT_TLS, datosApp->datosGenerales->parametrosMqtt.cert);
+	cJSON_AddStringToObject(conf, OTA_SW_VERSION, datosApp->datosGenerales->ota.swVersion->version);
+	cJSON_AddBoolToObject(conf, MQTT_TLS, datosApp->datosGenerales->parametrosMqtt.tls);
+	//cJSON_AddStringToObject(conf, MQTT_CERT_TLS, datosApp->datosGenerales->parametrosMqtt.cert);
     appuser_configuracion_a_json(datosApp, conf);
 
     	ESP_LOGI(TAG, ""TRAZAR"JSON creado:", INFOTRAZA);
@@ -117,7 +118,9 @@ esp_err_t cargar_configuracion_defecto(DATOS_APLICACION *datosApp) {
     strcpy(datosApp->datosGenerales->parametrosMqtt.subscribe, "/sub_");
     strcat(datosApp->datosGenerales->parametrosMqtt.subscribe, get_my_id());
     datosApp->datosGenerales->parametrosMqtt.qos = 0;
-    strcpy(datosApp->datosGenerales->parametrosMqtt.cert, (const char *) mqtt_jajica_pem_start);
+    datosApp->datosGenerales->parametrosMqtt.tls = CONFIG_MQTT_TLS;
+    //strcpy(datosApp->datosGenerales->parametrosMqtt.cert, (const char *) mqtt_jajica_pem_start);
+    //datosApp->datosGenerales->parametrosMqtt.cert = (const char *) mqtt_jajica_pem_start;
     ESP_LOGI(TAG, ""TRAZAR"PARAMETROS CARGADOS EN DATOSAPP", INFOTRAZA);
     datosApp->datosGenerales->estadoApp = NORMAL_ARRANCANDO;
     datosApp->datosGenerales->estadoProgramacion = INVALID_PROG;
@@ -160,7 +163,8 @@ esp_err_t json_a_datos_aplicacion(DATOS_APLICACION *datosApp, char *datos) {
 		extraer_dato_int(nodo, MQTT_QOS, &datosApp->datosGenerales->parametrosMqtt.qos);
 		extraer_dato_int(nodo, PROGRAM_STATE, (int*) &datosApp->datosGenerales->estadoProgramacion);
 		extraer_dato_int(nodo, DEVICE, &datosApp->datosGenerales->tipoDispositivo );
-		extraer_dato_string(nodo, MQTT_CERT_TLS, datosApp->datosGenerales->parametrosMqtt.cert);
+		extraer_dato_uint8(nodo, MQTT_TLS, (uint8_t*) &datosApp->datosGenerales->parametrosMqtt.tls);
+		//extraer_dato_string(nodo, MQTT_CERT_TLS, datosApp->datosGenerales->parametrosMqtt.cert);
 		/*
 		extraer_dato_int(nodo, OTA_SW_VERSION, &version);
 		if (version <= datosApp->datosGenerales->ota.swVersion) {
@@ -214,13 +218,10 @@ esp_err_t inicializacion(DATOS_APLICACION *datosApp, bool forzado) {
 
 	esp_err_t error;
 	char datos[CONFIG_TAMANO_BUFFER_LECTURA];
-	const esp_app_desc_t *aplicacion;
-	//aplicacion = (esp_app_desc_t*) calloc(1, sizeof(esp_app_desc_t));
-	aplicacion = esp_ota_get_app_description();
-    datosApp->datosGenerales->ota.swVersion = atoi(aplicacion->version);
+    datosApp->datosGenerales->ota.swVersion = esp_ota_get_app_description();
     //free(aplicacion);
     ESP_LOGE(TAG, ""TRAZAR" VERSION DE LA APLICACION (1)", INFOTRAZA);
-    ESP_LOGE(TAG, ""TRAZAR" VERSION DE LA APLICACION %d", INFOTRAZA, datosApp->datosGenerales->ota.swVersion);
+    ESP_LOGE(TAG, ""TRAZAR" VERSION DE LA APLICACION %s", INFOTRAZA, datosApp->datosGenerales->ota.swVersion->version);
 
 	inicializacion_registros_alarmas(datosApp);
 	datosApp->datosGenerales->estadoApp = NORMAL_ARRANCANDO;
@@ -534,7 +535,7 @@ esp_err_t ota_a_json(DATOS_APLICACION *datosApp) {
 	cJSON_AddStringToObject(ota, OTA_SERVER, datosApp->datosGenerales->ota.server);
 	cJSON_AddStringToObject(ota, OTA_URL, datosApp->datosGenerales->ota.url);
 	cJSON_AddStringToObject(ota, OTA_FILE, datosApp->datosGenerales->ota.file);
-	cJSON_AddNumberToObject(ota, OTA_SW_VERSION , datosApp->datosGenerales->ota.swVersion);
+	cJSON_AddStringToObject(ota, OTA_SW_VERSION , datosApp->datosGenerales->ota.swVersion->version);
 	cJSON_AddNumberToObject(ota, OTA_PORT, datosApp->datosGenerales->ota.puerto);
 	texto = cJSON_Print(ota);
 	if (texto != NULL) {
@@ -556,7 +557,7 @@ esp_err_t ota_a_json(DATOS_APLICACION *datosApp) {
 
 	return error;
 }
-
+/*
 esp_err_t json_a_ota(DATOS_APLICACION *datosApp) {
 
 	esp_err_t error;
@@ -568,12 +569,35 @@ esp_err_t json_a_ota(DATOS_APLICACION *datosApp) {
 		extraer_dato_string(nodo, OTA_SERVER, datosApp->datosGenerales->ota.server);
 		extraer_dato_string(nodo, OTA_URL, datosApp->datosGenerales->ota.url);
 		extraer_dato_string(nodo, OTA_FILE, datosApp->datosGenerales->ota.file);
-		extraer_dato_int(nodo, OTA_SW_VERSION, &datosApp->datosGenerales->ota.swVersion);
+		extraer_dato_string(nodo, OTA_SW_VERSION, datosApp->datosGenerales->ota.newVersion);
 		extraer_dato_int(nodo, OTA_PORT, &datosApp->datosGenerales->ota.puerto);
 	}
 
 	return error;
 }
+*/
+esp_err_t configurado_de_fabrica() {
 
+
+
+
+	wifi_config_t conf_wifi = {0};
+	wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+	esp_wifi_init(&cfg);
+	esp_wifi_get_config(WIFI_IF_STA, &conf_wifi);
+	int i;
+	for (i=0;i<32;i++) {
+		if (conf_wifi.sta.ssid[i] != 0) {
+			ESP_LOGW(TAG, ""TRAZAR" WIFI CONFIGURADA %s, %s", INFOTRAZA, (char*) conf_wifi.sta.ssid, (char*) conf_wifi.sta.password);
+			return ESP_FAIL;
+		}
+	}
+
+	ESP_LOGW(TAG, ""TRAZAR" WIFI NO CONFIGURADA", INFOTRAZA);
+
+	return ESP_OK;
+
+
+}
 
 
