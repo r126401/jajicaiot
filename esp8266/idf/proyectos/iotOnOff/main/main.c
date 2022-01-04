@@ -44,7 +44,7 @@
 DATOS_APLICACION datosApp;
 static const char *TAG = "IOTONOFF";
 
-
+/*
 void preparar_datos_ota(DATOS_APLICACION *datosApp) {
 
 
@@ -57,10 +57,11 @@ void preparar_datos_ota(DATOS_APLICACION *datosApp) {
 
 
 }
-
+*/
 esp_err_t leer_upgrade_ota(DATOS_APLICACION *datosApp) {
 
 	if (json_a_ota(datosApp) == ESP_OK) {
+		obtener_certificado(datosApp);
 		tarea_upgrade_firmware(datosApp);
 		borrar_clave(&datosApp->handle, "UPGRADE");
 		return ESP_OK;
@@ -100,6 +101,9 @@ void app_main()
 
 	ESP_LOGI(TAG, ""TRAZAR" vamos a conectar al wifi", INFOTRAZA);
 	conectar_dispositivo_wifi();
+
+
+
 	if (leer_upgrade_ota(&datosApp) == ESP_OK) {
 
 	} else {
@@ -113,6 +117,7 @@ void app_main()
 	    xTaskCreate(mqtt_task, "mqtt_task", 4096, (void*) &datosApp, 2, NULL);
 
 	}
+
 
 
 
