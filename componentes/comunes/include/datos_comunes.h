@@ -21,6 +21,7 @@ Proyecto realizado por Emilio Jimenez Prieto
 #include "ntp.h"
 #include "stdint.h"
 #include "nvs_flash.h"
+#include "esp_app_format.h"
 
 char* pintar_fecha();
 
@@ -98,7 +99,8 @@ typedef struct OTADATA {
     char url[150];
     int puerto;
     char file[50];
-    int swVersion;
+    const esp_app_desc_t* swVersion;
+    char newVersion[32];
 
 
 }OTADATA;
