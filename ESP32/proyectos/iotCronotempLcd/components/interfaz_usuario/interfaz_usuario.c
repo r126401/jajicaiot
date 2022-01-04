@@ -148,8 +148,8 @@ esp_err_t appuser_acciones_ota(DATOS_APLICACION *datosApp) {
 	//datosApp->datosGenerales->ota.puerto = 80;
 	ESP_LOGI(TAG, ""TRAZAR"PUERTO: %d", INFOTRAZA, datosApp->datosGenerales->ota.puerto);
 	//ESP_LOGI(TAG, ""TRAZAR"PUERTO OTRA VEZ: %d", datosApp->datosGenerales->ota.puerto);
-	ESP_LOGI(TAG, ""TRAZAR"servidor ota: %s\n, puerto: %d\n, url: %s, version %d", INFOTRAZA,
-			datosApp->datosGenerales->ota.server, datosApp->datosGenerales->ota.puerto, datosApp->datosGenerales->ota.url, datosApp->datosGenerales->ota.swVersion);
+	ESP_LOGI(TAG, ""TRAZAR"servidor ota: %s\n, puerto: %d\n, url: %s, version %s", INFOTRAZA,
+			datosApp->datosGenerales->ota.server, datosApp->datosGenerales->ota.puerto, datosApp->datosGenerales->ota.url, datosApp->datosGenerales->ota.newVersion);
 
 
 	return ESP_OK;
@@ -491,6 +491,14 @@ esp_err_t appuser_modificarConfApp(cJSON *root, DATOS_APLICACION *datosApp, cJSO
        return ESP_FAIL;
    }
 
+   extraer_dato_uint8(nodo, MQTT_TLS, (uint8_t*) &datosApp->datosGenerales->parametrosMqtt.tls);
+   if (datosApp->datosGenerales->parametrosMqtt.tls == false) {
+	   datosApp->datosGenerales->parametrosMqtt.port = 1883;
+	   strcpy(datosApp->datosGenerales->parametrosMqtt.broker, (const char*) "mqtt://jajicaiot.ddns.net");
+   } else {
+	   datosApp->datosGenerales->parametrosMqtt.port = 8883;
+	  	   strcpy(datosApp->datosGenerales->parametrosMqtt.broker, (const char*) "mqtts://jajicaiot.ddns.net");
+   }
    extraer_dato_double(nodo, MARGEN_TEMPERATURA, &datosApp->termostato.margenTemperatura);
    extraer_dato_uint8(nodo, INTERVALO_LECTURA, &datosApp->termostato.intervaloLectura);
    extraer_dato_uint8(nodo, INTERVALO_REINTENTOS, &datosApp->termostato.intervaloReintentos);
