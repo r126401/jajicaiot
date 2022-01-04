@@ -1,0 +1,28 @@
+title diagrama de estados
+
+participant ARRANQUE_FABRICA
+participant ESPERA_FIN_ARRANQUE
+participant NORMAL_AUTO
+participant NORMAL_SIN_PROGRAMACION
+participant NORMAL_MANUAL
+participant NORMAL_ARRANCANDO
+participant NORMAL_AUTOMAN
+participant NORMAL_SINCRONIZANDO
+participant UPGRADE_EN_PROGRESO
+
+note left of ARRANQUE_FABRICA: Arranque de 0 del dispositivo
+
+ARRANQUE_FABRICA->ESPERA_FIN_ARRANQUE: conexion wifi
+note over ESPERA_FIN_ARRANQUE:Se comprueba si el dispositivo tiene programacion
+ESPERA_FIN_ARRANQUE->NORMAL_AUTO: Si tiene programacion
+ESPERA_FIN_ARRANQUE->NORMAL_SIN_PROGRAMACION: Si no tiene programacion o estan todos los programas inhibidos
+
+NORMAL_AUTO->NORMAL_AUTOMAN: Se manipulan los botones mas o menos
+NORMAL_AUTO->NORMAL_MANUAL: Se pulsa el boton modo
+NORMAL_MANUAL->NORMAL_AUTO: se pulsa el boton modo
+
+
+Alice->Bob:Click and drag to create a request or\ntype it in the source area to the left
+Alice<--Bob:drag to move
+note over Bob,Double click to edit text:Click Help menu for **instructions** and **examples**
+Bob->(3)Double click to edit text:non-instantaneous message
