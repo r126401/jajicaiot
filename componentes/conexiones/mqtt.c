@@ -15,6 +15,8 @@
 #include "alarmas.h"
 #include "interfaz_usuario.h"
 #include "dialogos_json.h"
+#include "esp_tls.h"
+#include "conexiones_mqtt.h"
 
 
 static const char *TAG = "MQTT";
@@ -22,13 +24,13 @@ static const char *TAG = "MQTT";
 
 //extern const uint8_t mqtt_jajica_pem_start[]   asm("_binary_mqtta_eclipse_org_pem_start");
 //extern const uint8_t mqtt_jajica_pem_end[]   asm("_binary_mqtt_eclipse_org_pem_end");
-
-
+extern const uint8_t mqtt_jajica_pem_start[]   asm("_binary_mqtt_cert_crt_start");
+extern const uint8_t mqtt_jajica_pem_end[]   asm("_binary_mqtt_cert_crt_end");
 extern DATOS_APLICACION datosApp;
 
 xQueueHandle cola_mqtt = NULL;
-
-
+esp_mqtt_client_handle_t client;
+TaskHandle_t handle;
 
 static esp_err_t mqtt_event_handler(esp_mqtt_event_handle_t event)
 {
@@ -132,11 +134,41 @@ esp_err_t establecer_conexion_mqtt(DATOS_APLICACION *datosApp) {
         .event_handle = mqtt_event_handler,
 		.username = datosApp->datosGenerales->parametrosMqtt.user,
 		.password = datosApp->datosGenerales->parametrosMqtt.password,
-		.cert_pem = datosApp->datosGenerales->parametrosMqtt.cert
+		//.cert_pem = (const char *) mqtt_jajica_pem_start,
     };
+
+    if (datosApp->datosGenerales->parametrosMqtt.tls == true) {
+    	ESP_LOGI(TAG, ""TRAZAR"Añadimos el certificado %s", INFOTRAZA, mqtt_jajica_pem_start);
+
+    	esp_tls_init();
+    	error = esp_tls_init_global_ca_store ();
+    	if (error != ESP_OK) {
+    		ESP_LOGE(TAG, ""TRAZAR"ERROR al inicializar el almacen CA %d", INFOTRAZA, sizeof ((const char*)mqtt_jajica_pem_start));
+    	}
+
+
+    	ESP_LOGE(TAG, ""TRAZAR"CA inicializada %d", INFOTRAZA, strlen ((const char*)mqtt_jajica_pem_start));
+
+    	error = esp_tls_set_global_ca_store (( const  unsigned  char *) mqtt_jajica_pem_start, mqtt_jajica_pem_end - mqtt_jajica_pem_start );
+    	if (error != ESP_OK) {
+    		ESP_LOGE(TAG, ""TRAZAR"ERROR al crear el almacen CA", INFOTRAZA);
+    	}
+    	//mqtt_cfg.cert_pem = (const char *) mqtt_jajica_pem_start;
+    	mqtt_cfg.use_global_ca_store = true;
+
+    } else {
+
+    	ESP_LOGE(TAG, ""TRAZAR"No se ha añadido el certificado para la conexion mqtt", INFOTRAZA);
+    	strcpy(datosApp->datosGenerales->parametrosMqtt.cert, (const char*) mqtt_jajica_pem_start);
+    }
+
+
+
+
     ESP_LOGI(TAG, ""TRAZAR"Nos conectamos al broker %s", INFOTRAZA, mqtt_cfg.uri);
     appuser_broker_conectando(datosApp);
-    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
+    client = esp_mqtt_client_init(&mqtt_cfg);
+    //esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
     //esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, client);
     error = esp_mqtt_client_start(client);
 
@@ -192,4 +224,34 @@ esp_err_t publicar_mensaje_json(DATOS_APLICACION *datosApp, cJSON *mensaje, char
 	cJSON_Delete(mensaje);
 	return ESP_OK;
 }
+
+
+void crear_tarea_mqtt(DATOS_APLICACION *datosApp) {
+
+
+
+    xTaskCreate(mqtt_task, "mqtt_task", 8192, (void*) datosApp, 10, &handle);
+    configASSERT(handle);
+
+    if (handle == NULL) {
+    	ESP_LOGE(TAG, ""TRAZAR"handle es nulo", INFOTRAZA);
+
+    } else {
+    	ESP_LOGE(TAG, ""TRAZAR"handle no es nulo", INFOTRAZA);
+    }
+
+
+}
+
+
+void eliminar_tarea_mqtt() {
+
+	esp_mqtt_client_destroy(client);
+	vTaskDelete(handle);
+
+
+
+}
+
+
 

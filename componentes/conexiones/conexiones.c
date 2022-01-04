@@ -213,9 +213,12 @@ static void on_wifi_disconnect(void *arg, esp_event_base_t event_base,
         esp_wifi_set_protocol(ESP_IF_WIFI_STA, WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G | WIFI_PROTOCOL_11N);
     }
 */
-    registrar_alarma(&datosApp, NOTIFICACION_ALARMA_WIFI, ALARMA_WIFI, ALARMA_ON, false);
-    ESP_ERROR_CHECK(esp_wifi_connect());
-    xEventGroupClearBits(grupo_eventos, CONNECTED_BIT);
+    if (datosApp.datosGenerales->estadoApp != UPGRADE_EN_PROGRESO) {
+    	registrar_alarma(&datosApp, NOTIFICACION_ALARMA_WIFI, ALARMA_WIFI, ALARMA_ON, false);
+    	ESP_ERROR_CHECK(esp_wifi_connect());
+    	xEventGroupClearBits(grupo_eventos, CONNECTED_BIT);
+    }
+
 
 }
 
@@ -233,8 +236,11 @@ static void on_got_ip(void *arg, esp_event_base_t event_base,
 
 inline static void conectar_wifi() {
 
+	ESP_LOGW(TAG, ""TRAZAR"Wi-Fi vamos a conectar", INFOTRAZA);
 	esp_wifi_connect();
+	ESP_LOGW(TAG, ""TRAZAR"Wi-Fi vamos 2 a conectar", INFOTRAZA);
 	xEventGroupWaitBits(grupo_eventos, CONNECTED_BIT, true, true, portMAX_DELAY);
+	ESP_LOGW(TAG, ""TRAZAR"Wi-Fi fin de vamos a conectar", INFOTRAZA);
 
 }
 
@@ -256,8 +262,6 @@ inline static void inicializar_wifi() {
 #ifdef CONFIG_IDF_TARGET_ESP32
     esp_netif_create_default_wifi_sta ();
 #endif
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
 
 
     //ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
@@ -270,6 +274,10 @@ inline static void inicializar_wifi() {
     ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &on_got_ip, NULL));
     ESP_ERROR_CHECK(esp_event_handler_register(SC_EVENT, ESP_EVENT_ANY_ID, &manejador_eventos_smart, NULL));
 #endif
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+
     //ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     //ESP_ERROR_CHECK(esp_wifi_start());
     ESP_LOGI(TAG, ""TRAZAR" WIFI INICIALIZADO", INFOTRAZA);
@@ -346,4 +354,8 @@ esp_err_t conectar_dispositivo_wifi() {
 
 	return ESP_OK;
 }
+
+
+
+
 

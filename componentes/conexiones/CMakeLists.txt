@@ -7,4 +7,6 @@ interfaz_usuario
 configuracion
 espota
 programador
-mqtt)
+mqtt 
+EMBED_TXTFILES certs/mqtt_cert.crt
+)

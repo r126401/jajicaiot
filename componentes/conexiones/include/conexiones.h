@@ -19,6 +19,7 @@ extern "C" {
 #include "smartconfig_ack.h"
 #include "configuracion_usuario.h"
 
+
 /**
  * Counterpart to example_connect, de-initializes Wi-Fi or Ethernet
  */
@@ -51,6 +52,7 @@ void tarea_smartconfig(void * parm);
 esp_err_t establecer_conexion_wifi(void);
 esp_err_t restaurar_wifi_fabrica();
 esp_err_t conectar_dispositivo_wifi();
+
 
 
 #ifdef __cplusplus
