@@ -139,6 +139,7 @@ esp_err_t appuser_acciones_ota(DATOS_APLICACION *datosApp) {
 	esp_err_t error;
 
 	//inicializar_nvs(CONFIG_NAMESPACE, &datosApp->handle);
+
 	error = ota_a_json(datosApp);
 	if (error == ESP_OK) {
 		ESP_LOGW(TAG, ""TRAZAR" PREPARADO PARA UPGRADE...", INFOTRAZA);
