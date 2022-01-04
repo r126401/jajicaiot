@@ -19,6 +19,9 @@
 #include <netdb.h>
 #include "espota.h"
 #include "api_json.h"
+#include "esp_tls.h"
+#include "conexiones_mqtt.h"
+
 
 
 
@@ -26,8 +29,9 @@
 
 
 static const char *TAG = "OTAESP";
-extern const uint8_t server_cert_pem_start[] asm("_binary_ca_cert_pem_start");
-extern const uint8_t server_cert_pem_end[] asm("_binary_ca_cert_pem_end");
+//extern const uint8_t server_cert_pem_start[] asm("_binary_ca_cert_pem_start");
+//extern const uint8_t server_cert_pem_end[] asm("_binary_ca_cert_pem_end");
+
 
 #define OTA_URL_SIZE 256
 
@@ -115,24 +119,47 @@ void otaesp_task(void *pvParameter)
     	ESP_LOGE(TAG, "Error al traducir de nombre a ip");
     }
 
+
     sprintf(url, "https://%s:%d/firmware/%s/%s", ip, datosApp->datosGenerales->ota.puerto,
     		aplicacion->project_name,datosApp->datosGenerales->ota.file);
 
     ESP_LOGI(TAG, ""TRAZAR"url definitiva %s", INFOTRAZA, url);
+
+
+
     esp_http_client_config_t config = {
         .url = url,
-		.port = datosApp->datosGenerales->ota.puerto,
-        .cert_pem = (char *)server_cert_pem_start,
+		.keep_alive_enable = true,
         .event_handler = _http_event_handler,
+
+
     };
 
-    config.skip_cert_common_name_check = false;
+    if (datosApp->datosGenerales->parametrosMqtt.tls == true) {
 
-    ESP_LOGI(TAG, ""TRAZAR"url definitiva2 %s", INFOTRAZA, config.url);
-    ESP_LOGW(TAG, ""TRAZAR" memoria antes %d", INFOTRAZA,esp_get_free_heap_size ());
+    	//Eliminamos la tarea mqtt para poder lanzar la peticion https sobre el servidor ftp
+    	eliminar_tarea_mqtt();
+    	config.use_global_ca_store = true;
+    	ESP_LOGI(TAG, ""TRAZAR"Usamos el almacen global", INFOTRAZA);
+
+    } else {
+    	ESP_LOGI(TAG, ""TRAZAR"El certificado es : %s\n", INFOTRAZA,datosApp->datosGenerales->parametrosMqtt.cert);
+    	config.cert_pem = datosApp->datosGenerales->parametrosMqtt.cert;
+    	//config.cert_pem = (const char *)mqtt_jajica_pem_start;
+    	config.transport_type = HTTP_TRANSPORT_OVER_SSL;
+    	ESP_LOGI(TAG, ""TRAZAR"Usamos el almacen local porque tls es false en mqtt", INFOTRAZA);
+
+    }
+    config.skip_cert_common_name_check = true;
     esp_err_t ret = esp_https_ota(&config);
-    ESP_LOGW(TAG, ""TRAZAR" memoria despues %d", INFOTRAZA,esp_get_free_heap_size ());
+
+    if (datosApp->datosGenerales->parametrosMqtt.tls == true) {
+    	crear_tarea_mqtt(datosApp);
+    }
+
     if (ret == ESP_OK) {
+    	if (datosApp->datosGenerales->parametrosMqtt.tls == true) {
+    	}
     	notificar_evento_ota(datosApp, OTA_UPGRADE_FINALIZADO);
         esp_restart();
     } else {
@@ -140,19 +167,14 @@ void otaesp_task(void *pvParameter)
         ESP_LOGE(TAG, ""TRAZAR" memoria error %d", INFOTRAZA,esp_get_free_heap_size ());
         notificar_evento_ota(datosApp, OTA_ERROR);
     }
-    /*
-    while (1) {
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    */
-    notificar_evento_ota(datosApp, OTA_ERROR);
+
     vTaskDelete(NULL);
 }
 
 
 
 void tarea_upgrade_firmware(DATOS_APLICACION *datosApp) {
-	xTaskCreate(otaesp_task, "ota_example_task", 8192, datosApp, 5, NULL);
+	xTaskCreate(otaesp_task, "ota_example_task", 4096, datosApp, 5, NULL);
 
 }
 
