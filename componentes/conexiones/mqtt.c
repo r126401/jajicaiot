@@ -157,6 +157,7 @@ esp_err_t establecer_conexion_mqtt(DATOS_APLICACION *datosApp) {
     	}
     	//mqtt_cfg.cert_pem = (const char *) mqtt_jajica_pem_start;
     	mqtt_cfg.use_global_ca_store = true;
+    	mqtt_cfg.skip_cert_common_name_check = true;
 
     } else {
 
