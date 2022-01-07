@@ -22,12 +22,13 @@
 #include "rom/ets_sys.h"
 #include "dht22.h"
 #include "alarmas.h"
+#include "ds18x20.h"
 
 
 static const char *TAG = "IOTTERMOMETRO";
 
 
-#define GPIO_OUTPUT_PIN_SEL	CONFIG_GPIO_PIN_LED
+#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<CONFIG_GPIO_PIN_LED)| (1ULL<<CONFIG_GPIO_PIN_DHT) | (1ULL<<CONFIG_GPIO_PIN_DS18B20))
 
 
 #define NUM_REPETICIONES    3
@@ -84,6 +85,17 @@ esp_err_t appuser_inicializar_aplicacion(DATOS_APLICACION *datosApp) {
     gpio_config(&io_conf);
 
 
+    io_conf.intr_type = GPIO_INTR_POSEDGE;
+    //bit mask of the pins, use GPIO4/5 here
+    io_conf.pin_bit_mask = GPIO_OUTPUT_PIN_SEL;
+    //set as input mode
+    io_conf.mode = GPIO_MODE_OUTPUT;
+    //enable pull-up mode
+    io_conf.pull_up_en = 1;
+    gpio_config(&io_conf);
+
+
+
 
 
     return error;
@@ -99,41 +111,48 @@ esp_err_t leer_temperatura_local(DATOS_APLICACION *datosApp) {
     static uint8_t contador = 0;
 
 
-    ESP_LOGI(TAG, ""TRAZAR" Leyendo desde el sensor dht", INFOTRAZA);
+    ESP_LOGI(TAG, ""TRAZAR" Leyendo desde el sensor", INFOTRAZA);
     while (error != ESP_OK) {
+#ifdef CONFIG_DHT22
+
     	error = dht_read_float_data(
     			DHT_TYPE_AM2301,
     			CONFIG_GPIO_PIN_DHT,
     			&datosApp->termostato.humedad,
     			&datosApp->termostato.tempActual);
 
+    	float dato;
+    	lectura_temperatura_ds18x20(&dato);
+    	ESP_LOGI(TAG, ""TRAZAR" lectura ds18x20: %lf", INFOTRAZA, dato);
+
+#endif
+#ifdef CONFIG_DS18B20
+    	error = lectura_temperatura_ds18x20(&datosApp->termostato.tempActual);
+    	datosApp->termostato.humedad = 5;
+#endif
 
     	if ((error == ESP_OK) && ((datosApp->termostato.humedad != 0) && (datosApp->termostato.tempActual != 0))) {
     		ESP_LOGI(TAG, ""TRAZAR" Lectura local correcta!. ", INFOTRAZA);
-    		datosApp->termostato.tempActual = datosApp->termostato.tempActual + datosApp->termostato.calibrado;
-    		contador = 0;
-    	} else {
-    		contador++;
-    		if (contador == 4)  {
-    			registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_WARNING, true);
-
-    		}
-    		if (contador == 10) {
-    			registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_ON, true);
-
-    		}
-    		ESP_LOGE(TAG, ""TRAZAR" ERROR AL TOMAR LA LECTURA. REINTENTAMOS EN %d SEGUNDOS", INFOTRAZA, datosApp->termostato.intervaloReintentos);
-        	vTaskDelay(datosApp->termostato.intervaloReintentos * 1000 / portTICK_RATE_MS);
+    	    datosApp->termostato.tempActual = datosApp->termostato.tempActual + datosApp->termostato.calibrado;
+    	    break;
     	}
 
+    	if (contador == 4) {
+    		registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_WARNING, true);
+    	}
+    	if (contador == 10) {
+    		registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_ON, true);
+    	}
+    	ESP_LOGE(TAG, ""TRAZAR" ERROR AL TOMAR LA LECTURA. REINTENTAMOS EN %d SEGUNDOS", INFOTRAZA, datosApp->termostato.intervaloReintentos);
+    	//vTaskDelay(datosApp->termostato.intervaloReintentos * 1000 / portTICK_RATE_MS);
+    	vTaskDelay(10000 / portTICK_RATE_MS);
+    	if (datosApp->alarmas[ALARMA_SENSOR_DHT].estado_alarma > ALARMA_OFF) {
+    		registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_OFF, true);
+    	}
     }
-
-    if (datosApp->alarmas[ALARMA_SENSOR_DHT].estado_alarma > ALARMA_OFF) {
-    	registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_OFF, true);
-    }
-
 
     return ESP_OK;
+
 
 }
 

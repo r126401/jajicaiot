@@ -43,59 +43,10 @@
 #define CONFIG_EXAMPLE_WIFI_SSID "hh"
 
 DATOS_APLICACION datosApp;
-static const char *TAG = "IOTONOFF";
-
-
-/*
-esp_err_t is_wifi_confesp-tls: create_ssl_handle failedigurada() {
-
-	wifi_config_t conf_wifi;
-	int i;
-
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    tcpip_adapter_init();
-    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
-    esp_wifi_get_config(WIFI_IF_STA, &conf_wifi);
+static const char *TAG = "IOTTERMOMETRO";
 
 
 
-	for (i=0;i<32;i++) {
-		if (conf_wifi.sta.ssid[i] != 0) {
-			ESP_LOGW(TAG, ""TRAZAR" WIFI CONFIGURADA %s, %s", INFOTRAZA, (char*) conf_wifi.sta.ssid, (char*) conf_wifi.sta.password);
-			return ESP_OK;
-		}
-	}
-
-
-	ESP_LOGW(TAG, ""TRAZAR" WIFI NO CONFIGURADA", INFOTRAZA);
-	return ESP_FAIL;
-}
-
-void prueba_json() {
-
-	cJSON *objeto;
-	char *texto = NULL;
-	objeto = cJSON_CreateObject();
-	cJSON_AddNumberToObject(objeto, "prueba", 33);
-	texto = cJSON_Print(objeto);
-	ESP_LOGI(TAG, "PRUEBA JSON: %s", texto);
-
-}
-*/
-
-
-void preparar_datos_ota(DATOS_APLICACION *datosApp) {
-
-
-	strcpy(datosApp->datosGenerales->ota.file,"newVersion_2103181249.ota.bin");
-	strcpy(datosApp->datosGenerales->ota.server, "jajicaiot.ddns.net");
-	strcpy(datosApp->datosGenerales->ota.url, "/firmware/iotOnOff/");
-	datosApp->datosGenerales->ota.puerto= 8070;
-	datosApp->datosGenerales->ota.swVersion = 2103181249;
-	tarea_upgrade_firmware(datosApp);
-
-
-}
 
 esp_err_t leer_upgrade_ota(DATOS_APLICACION *datosApp) {
 
@@ -114,17 +65,14 @@ void app_main()
 {
 
 
-    //static os_timer_t temporizador;
+
 	esp_timer_init();
 	esp_err_t error = ESP_OK;
-	ESP_LOGI(TAG, ""TRAZAR"COMIENZO DE LA APLICACION version", INFOTRAZA);
-	//ESP_LOGI(TAG, ""TRAZAR"VERSION ORIGINAL DE COMPILACION: %d", INFOTRAZA, VERSION_SW);
 	DATOS_GENERALES *datosGenerales;
 	datosGenerales = (DATOS_GENERALES*) calloc(1, sizeof(DATOS_GENERALES));
 	datosApp.datosGenerales = datosGenerales;
-	//uart_set_baudrate(UART_NUM_0, 115200);
 
-	//prueba_json();
+
 	error = inicializar_nvs(CONFIG_NAMESPACE, &datosApp.handle);
 	if (error != ESP_OK) {
 		ESP_LOGE(TAG, ""TRAZAR" ERROR AL INICIALIZAR NVS", INFOTRAZA);
@@ -149,7 +97,7 @@ void app_main()
 			ESP_LOGE(TAG, ""TRAZAR"NO SE HA PODIDO INICIALIZAR EL DISPOSITIVO", INFOTRAZA);
 		}
 		iniciar_gestion_programacion(&datosApp);
-	    xTaskCreate(mqtt_task, "mqtt_task", 4096, (void*) &datosApp, 2, NULL);
+	    xTaskCreate(mqtt_task, "mqtt_task", 8192, (void*) &datosApp, 2, NULL);
 	    xTaskCreate(tarea_lectura_temperatura, "tarea_lectura_temperatura", 4096, (void*) &datosApp, 4, NULL);
 
 

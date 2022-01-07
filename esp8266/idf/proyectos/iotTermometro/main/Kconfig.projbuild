@@ -14,5 +14,17 @@ config GPIO_PIN_LED
 		Indica el pin gpio con el que se activa el LED
 
 
+choice
+        prompt "Seleccion del tipo de sensor de temperatura"
+        default DHT22
+        help
+            Selecciona el tipo de sensor
+    
+        config DHT22
+            bool "DHT22"
+        config DS18B20
+            bool "DS18B20"
+        endchoice
+
 
 endmenu
