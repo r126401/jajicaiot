@@ -84,10 +84,16 @@ void aplicar_temporizacion(int cadencia, esp_timer_cb_t funcion, char* nombre) {
 esp_err_t appuser_configuracion_defecto(DATOS_APLICACION *datosApp) {
 
 	ESP_LOGI(TAG, ""TRAZAR"Ejecutando configuraciones adicionales de la aplicacion por defecto...", INFOTRAZA);
-	datosApp->datosGenerales->tipoDispositivo = INTERRUPTOR;
+	//datosApp->datosGenerales->tipoDispositivo = TERMOMETRO;
     //Escribe aqui el codigo de inicializacion por defecto de la aplicacion.
 	// Esta funcion es llamada desde el componente configuracion defaultConfig.
 	// Aqui puedes establecer los valores por defecto para tu aplicacion.
+
+    datosApp->termostato.reintentosLectura = 5;
+    datosApp->termostato.intervaloReintentos = 3;
+    datosApp->termostato.margenTemperatura = 0.5;
+    datosApp->termostato.intervaloLectura = 10;
+    datosApp->termostato.calibrado = -3.5;
 
 	return ESP_OK;
 }
@@ -225,16 +231,9 @@ esp_err_t appuser_temporizador_cumplido(DATOS_APLICACION *datosApp) {
 esp_err_t appuser_notificar_alarma_localmente(DATOS_APLICACION *datosApp, uint8_t indice) {
 
 	if (datosApp->alarmas[indice].estado_alarma == ALARMA_OFF) {
-		//eliminar_temporizacion();
-		//os_timer_disarm(&temporizador_general);
 		ESP_LOGI(TAG, ""TRAZAR" ALARMA OFF NOTIFICADA", INFOTRAZA);
 	} else {
-		//aplicar_temporizacion(CADENCIA_ALARMA, parapadeo_led);
-		/*
-		os_timer_disarm(&temporizador_general);
-		os_timer_setfn(&temporizador_general, (os_timer_func_t*) parapadeo_led, NULL);
-		os_timer_arm(&temporizador_general, CADENCIA_ALARMA, true);
-		*/
+
 		ESP_LOGI(TAG, ""TRAZAR" ALARMA ON NOTIFICADA", INFOTRAZA);
 
 	}
@@ -256,26 +255,16 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
 
             cJSON_AddNumberToObject(respuesta, PROGRAMMER_STATE, datosApp->datosGenerales->estadoProgramacion);
             cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
+            cJSON_AddNumberToObject(respuesta, TEMPERATURA, datosApp->termostato.tempActual);
+            cJSON_AddNumberToObject(respuesta, HUMEDAD, datosApp->termostato.humedad);
             escribir_programa_actual(datosApp, respuesta);
             codigoRespuesta(respuesta,RESP_OK);
             break;
-        case ACTUACION_RELE_LOCAL:
+        case CAMBIO_TEMPERATURA:
             cJSON_AddNumberToObject(respuesta, PROGRAMMER_STATE, datosApp->datosGenerales->estadoProgramacion);
             cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
-            escribir_programa_actual(datosApp, respuesta);
-            codigoRespuesta(respuesta,RESP_OK);
-
-            break;
-        case CAMBIO_DE_PROGRAMA:
-            cJSON_AddNumberToObject(respuesta, PROGRAMMER_STATE, datosApp->datosGenerales->estadoProgramacion);;
-            cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
-            escribir_programa_actual(datosApp, respuesta);
-            codigoRespuesta(respuesta,RESP_OK);
-            break;
-        case RELE_TEMPORIZADO:
-            cJSON_AddNumberToObject(respuesta, PROGRAMMER_STATE, datosApp->datosGenerales->estadoProgramacion);
-            cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
-            escribir_programa_actual(datosApp, respuesta);
+            cJSON_AddNumberToObject(respuesta, TEMPERATURA, datosApp->termostato.tempActual);
+            cJSON_AddNumberToObject(respuesta, HUMEDAD, datosApp->termostato.humedad);
             codigoRespuesta(respuesta,RESP_OK);
             break;
         default:
@@ -299,11 +288,22 @@ esp_err_t appuser_configuracion_a_json(DATOS_APLICACION *datosApp, cJSON *conf) 
 
 	//cJSON_AddNumberToObject(conf, DEVICE , INTERRUPTOR);
 	ESP_LOGI(TAG, ""TRAZAR" CONFIGURACION A JSON DEL DISPOSITIVO...", INFOTRAZA);
+    cJSON_AddNumberToObject(conf, MARGEN_TEMPERATURA, datosApp->termostato.margenTemperatura);
+    cJSON_AddNumberToObject(conf, INTERVALO_LECTURA, datosApp->termostato.intervaloLectura);
+    cJSON_AddNumberToObject(conf, INTERVALO_REINTENTOS, datosApp->termostato.intervaloReintentos);
+    cJSON_AddNumberToObject(conf, REINTENTOS_LECTURA, datosApp->termostato.reintentosLectura);
+    cJSON_AddNumberToObject(conf, CALIBRADO, datosApp->termostato.calibrado);
+
 	return ESP_OK;
 }
 
 esp_err_t appuser_json_a_datos(DATOS_APLICACION *datosApp, cJSON *datos) {
 
+	extraer_dato_double(datos, MARGEN_TEMPERATURA, &datosApp->termostato.margenTemperatura);
+	extraer_dato_uint8(datos, INTERVALO_LECTURA, &datosApp->termostato.intervaloLectura);
+	extraer_dato_uint8(datos, INTERVALO_REINTENTOS, &datosApp->termostato.intervaloReintentos);
+	extraer_dato_uint8(datos, REINTENTOS_LECTURA, &datosApp->termostato.reintentosLectura);
+	extraer_dato_double(datos, CALIBRADO, &datosApp->termostato.calibrado);
 	return ESP_OK;
 }
 

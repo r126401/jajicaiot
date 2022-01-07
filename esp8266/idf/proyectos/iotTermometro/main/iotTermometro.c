@@ -104,14 +104,14 @@ esp_err_t appuser_inicializar_aplicacion(DATOS_APLICACION *datosApp) {
 }
 
 
-
 esp_err_t leer_temperatura_local(DATOS_APLICACION *datosApp) {
 
     esp_err_t error = ESP_FAIL;
     static uint8_t contador = 0;
+    char temp[15]={0};
 
 
-    ESP_LOGI(TAG, ""TRAZAR" Leyendo desde el sensor", INFOTRAZA);
+    ESP_LOGI(TAG, ""TRAZAR" Leyendo desde el sensor dht", INFOTRAZA);
     while (error != ESP_OK) {
 #ifdef CONFIG_DHT22
 
@@ -133,26 +133,32 @@ esp_err_t leer_temperatura_local(DATOS_APLICACION *datosApp) {
 
     	if ((error == ESP_OK) && ((datosApp->termostato.humedad != 0) && (datosApp->termostato.tempActual != 0))) {
     		ESP_LOGI(TAG, ""TRAZAR" Lectura local correcta!. ", INFOTRAZA);
-    	    datosApp->termostato.tempActual = datosApp->termostato.tempActual + datosApp->termostato.calibrado;
-    	    break;
+    		datosApp->termostato.tempActual = datosApp->termostato.tempActual + datosApp->termostato.calibrado;
+    		contador = 0;
+    	} else {
+    		contador++;
+    		if (contador == 4)  {
+    			registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_WARNING, true);
+
+    		}
+    		if (contador == 10) {
+    			registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_ON, true);
+
+    		}
+    		ESP_LOGE(TAG, ""TRAZAR" ERROR AL TOMAR LA LECTURA. REINTENTAMOS EN %d SEGUNDOS", INFOTRAZA, datosApp->termostato.intervaloReintentos);
+        	vTaskDelay(datosApp->termostato.intervaloReintentos * 1000 / portTICK_RATE_MS);
     	}
 
-    	if (contador == 4) {
-    		registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_WARNING, true);
-    	}
-    	if (contador == 10) {
-    		registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_ON, true);
-    	}
-    	ESP_LOGE(TAG, ""TRAZAR" ERROR AL TOMAR LA LECTURA. REINTENTAMOS EN %d SEGUNDOS", INFOTRAZA, datosApp->termostato.intervaloReintentos);
-    	//vTaskDelay(datosApp->termostato.intervaloReintentos * 1000 / portTICK_RATE_MS);
-    	vTaskDelay(10000 / portTICK_RATE_MS);
-    	if (datosApp->alarmas[ALARMA_SENSOR_DHT].estado_alarma > ALARMA_OFF) {
-    		registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_OFF, true);
-    	}
     }
 
-    return ESP_OK;
+    if (datosApp->alarmas[ALARMA_SENSOR_DHT].estado_alarma > ALARMA_OFF) {
+    	registrar_alarma(datosApp, NOTIFICACION_ALARMA_SENSOR_DHT, ALARMA_SENSOR_DHT, ALARMA_OFF, true);
+    }
 
+    sprintf(temp,"%.02lf ºC", datosApp->termostato.tempActual);
+    //notificar_fin_arranque(datosApp);
+    ESP_LOGI(TAG, ""TRAZAR" Lectura local correcta!. %lf ", INFOTRAZA, datosApp->termostato.tempActual);
+    return ESP_OK;
 
 }
 
@@ -170,10 +176,12 @@ void tarea_lectura_temperatura(void *parametros) {
     	ESP_LOGI(TAG, ""TRAZAR" temperatura :%lf, humedad:%lf, temperatura anterior :%lf", INFOTRAZA, datosApp->termostato.tempActual, datosApp->termostato.humedad, lecturaAnterior);
 
 	    if (lecturaAnterior != datosApp->termostato.tempActual) {
+	    	ESP_LOGW(TAG, ""TRAZAR"La temperatura ha variado y se va a informar", INFOTRAZA);
             informe = appuser_generar_informe_espontaneo(datosApp, CAMBIO_TEMPERATURA, NULL);
             publicar_mensaje_json(datosApp, informe, NULL);
 	    }
 	    lecturaAnterior = datosApp->termostato.tempActual;
+	    ESP_LOGW(TAG, ""TRAZAR"Dormimos hasta la siguiente lectura", INFOTRAZA);
 	    vTaskDelay(datosApp->termostato.intervaloLectura * 1000 / portTICK_RATE_MS);
 
 

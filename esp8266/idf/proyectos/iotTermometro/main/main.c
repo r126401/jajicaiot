@@ -96,7 +96,7 @@ void app_main()
 		} else {
 			ESP_LOGE(TAG, ""TRAZAR"NO SE HA PODIDO INICIALIZAR EL DISPOSITIVO", INFOTRAZA);
 		}
-		iniciar_gestion_programacion(&datosApp);
+		//iniciar_gestion_programacion(&datosApp);
 	    xTaskCreate(mqtt_task, "mqtt_task", 8192, (void*) &datosApp, 2, NULL);
 	    xTaskCreate(tarea_lectura_temperatura, "tarea_lectura_temperatura", 4096, (void*) &datosApp, 4, NULL);
 
