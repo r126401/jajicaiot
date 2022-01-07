@@ -338,7 +338,33 @@ esp_err_t appuser_visualizar_dato_programa(TIME_PROGRAM *programa_actual, cJSON 
 
 esp_err_t appuser_modificarConfApp(cJSON *root, DATOS_APLICACION *datosApp, cJSON *respuesta) {
 
-	return ESP_OK;
+	   cJSON *nodo;
+
+	   ESP_LOGI(TAG, ""TRAZAR" Modificando configuracion App", INFOTRAZA);
+	   nodo = cJSON_GetObjectItem(root, APP_PARAMS);
+	   if(nodo == NULL) {
+	       codigoRespuesta(respuesta, RESP_NOK);
+	       return ESP_FAIL;
+	   }
+
+	   extraer_dato_uint8(nodo, MQTT_TLS, (uint8_t*) &datosApp->datosGenerales->parametrosMqtt.tls);
+	   if (datosApp->datosGenerales->parametrosMqtt.tls == false) {
+		   datosApp->datosGenerales->parametrosMqtt.port = 1883;
+		   strcpy(datosApp->datosGenerales->parametrosMqtt.broker, (const char*) "mqtt://jajicaiot.ddns.net");
+	   } else {
+		   datosApp->datosGenerales->parametrosMqtt.port = 8883;
+		  	   strcpy(datosApp->datosGenerales->parametrosMqtt.broker, (const char*) "mqtts://jajicaiot.ddns.net");
+	   }
+	   extraer_dato_double(nodo, MARGEN_TEMPERATURA, &datosApp->termostato.margenTemperatura);
+	   extraer_dato_uint8(nodo, INTERVALO_LECTURA, &datosApp->termostato.intervaloLectura);
+	   extraer_dato_uint8(nodo, INTERVALO_REINTENTOS, &datosApp->termostato.intervaloReintentos);
+	   extraer_dato_uint8(nodo, REINTENTOS_LECTURA, &datosApp->termostato.reintentosLectura);
+	   extraer_dato_double(nodo, CALIBRADO, &datosApp->termostato.calibrado);
+	   codigoRespuesta(respuesta, RESP_OK);
+
+	   ESP_LOGI(TAG, ""TRAZAR" parametros de configuracion  modificados", INFOTRAZA);
+	   return salvar_configuracion_general(datosApp);
+
 
 }
 

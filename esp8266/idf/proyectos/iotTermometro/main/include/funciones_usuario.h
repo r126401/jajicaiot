@@ -15,7 +15,12 @@ Proyecto realizado por Emilio Jimenez Prieto
 #ifndef MAIN_INCLUDE_IOTOTERMOMETRO_H_
 #define MAIN_INCLUDE_IOTTERMOMETRO_H_
 
+enum COMANDOS_APP {
+	STATUS_DISPOSITIVO = 51
+};
 
+#define MODIFICAR_APP "modificarApp"
+#define APP_PARAMS "configApp"
 
 void tarea_lectura_temperatura(void *parametros);
 

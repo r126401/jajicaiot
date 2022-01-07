@@ -41,6 +41,14 @@ void consultarEstadoAplicacion(DATOS_APLICACION *datosApp, cJSON *respuesta) {
 
 	ESP_LOGI(TAG, ""TRAZAR"Consultamos el estado de la aplicacion", INFOTRAZA);
     cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
+    cJSON_AddNumberToObject(respuesta, TEMPERATURA, datosApp->termostato.tempActual);
+    cJSON_AddNumberToObject(respuesta, HUMEDAD, datosApp->termostato.humedad);
+    cJSON_AddNumberToObject(respuesta, MARGEN_TEMPERATURA, datosApp->termostato.margenTemperatura);
+    cJSON_AddNumberToObject(respuesta, INTERVALO_LECTURA, datosApp->termostato.intervaloLectura);
+    cJSON_AddNumberToObject(respuesta, INTERVALO_REINTENTOS, datosApp->termostato.intervaloReintentos);
+    cJSON_AddNumberToObject(respuesta, REINTENTOS_LECTURA, datosApp->termostato.reintentosLectura);
+    cJSON_AddNumberToObject(respuesta, CALIBRADO, datosApp->termostato.calibrado);
+
     codigoRespuesta(respuesta,RESP_OK);
 
 
@@ -49,11 +57,23 @@ void consultarEstadoAplicacion(DATOS_APLICACION *datosApp, cJSON *respuesta) {
 
 
 
+
+
 esp_err_t appUser_analizarComandoAplicacion(cJSON *peticion, int nComando, DATOS_APLICACION *datosApp, cJSON *respuesta) {
 
 	ESP_LOGI(TAG, ""TRAZAR"Analizamos el comando de aplicacion especifico al dispositivo...", INFOTRAZA);
 
-	visualizar_comando_desconocido(datosApp, respuesta);
+    switch(nComando) {
+
+        case STATUS_DISPOSITIVO:
+            consultarEstadoAplicacion(datosApp, respuesta);
+            break;
+
+        default:
+            visualizar_comando_desconocido(datosApp, respuesta);
+            break;
+    }
+
 
 	return ESP_OK;
 }
