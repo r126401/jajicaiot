@@ -115,7 +115,7 @@ esp_err_t appuser_notificar_smartconfig() {
 
 esp_err_t appuser_arranque_aplicacion(DATOS_APLICACION *datosApp) {
 
-	cJSON *informe;
+	cJSON *informe = NULL;
 
 	informe = appuser_generar_informe_espontaneo(datosApp, ARRANQUE_APLICACION, NULL);
 
