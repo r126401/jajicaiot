@@ -19,6 +19,8 @@ string(TIMESTAMP variable "%y%m%d%H%M")
 
 set(PROJECT_VER ${variable})
 
+target_add_binary_data(mqtt_ssl.elf "main/ca.crt" TEXT)
+
 #add_custom_target( instalar ALL COMMAND 
 #python ${PROJECT_DIR}/instalar.py ${SERVIDOR_OTA} ${PUERTO_OTA} ${PROJECT_NAME} ${DIR_REPOSITORIO} 
 #${BUILD_DIR} ${PROJECT_VER} ${PREFIJO_OTA} ${DIR_LASTVERSION} ${URL} DEPENDS app)
