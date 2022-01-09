@@ -22,6 +22,7 @@ enum COMANDOS_APP {
 #define MODIFICAR_APP "modificarApp"
 #define APP_PARAMS "configApp"
 
+
 void tarea_lectura_temperatura(void *parametros);
 
 

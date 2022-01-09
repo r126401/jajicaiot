@@ -28,7 +28,8 @@
 static const char *TAG = "IOTTERMOMETRO";
 
 
-#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<CONFIG_GPIO_PIN_LED)| (1ULL<<CONFIG_GPIO_PIN_DHT) | (1ULL<<CONFIG_GPIO_PIN_DS18B20))
+#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<CONFIG_GPIO_PIN_LED)| (1ULL<<CONFIG_GPIO_PIN_DHT) | (1ULL<<CONFIG_GPIO_PIN_DS18B20) | (1ULL<< CONFIG_GPIO_PIN_LED_ALARMA))
+//#define GPIO_INPUT_PIN_SEL  ( (1ULL<<CONFIG_GPIO_PIN_BOTON))
 
 
 #define NUM_REPETICIONES    3
@@ -86,6 +87,9 @@ esp_err_t appUser_analizarComandoAplicacion(cJSON *peticion, int nComando, DATOS
  */
 esp_err_t appuser_inicializar_aplicacion(DATOS_APLICACION *datosApp) {
 
+
+
+
 	esp_err_t error = ESP_OK;
 
     datosApp->datosGenerales->botonPulsado = false;
@@ -114,11 +118,12 @@ esp_err_t appuser_inicializar_aplicacion(DATOS_APLICACION *datosApp) {
     io_conf.pull_up_en = 1;
     gpio_config(&io_conf);
 
+    gpio_set_level(CONFIG_GPIO_PIN_LED_ALARMA, OFF);
 
 
 
 
-    return error;
+    return ESP_OK;
 
 
 }

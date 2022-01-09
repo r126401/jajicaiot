@@ -81,6 +81,7 @@ void aplicar_temporizacion(int cadencia, esp_timer_cb_t funcion, char* nombre) {
 
 }
 
+
 esp_err_t appuser_configuracion_defecto(DATOS_APLICACION *datosApp) {
 
 	ESP_LOGI(TAG, ""TRAZAR"Ejecutando configuraciones adicionales de la aplicacion por defecto...", INFOTRAZA);
@@ -126,11 +127,12 @@ esp_err_t appuser_arranque_aplicacion(DATOS_APLICACION *datosApp) {
 	informe = appuser_generar_informe_espontaneo(datosApp, ARRANQUE_APLICACION, NULL);
 
 	ESP_LOGI(TAG, ""TRAZAR" vamos a publicar el arranque del dispositivo", INFOTRAZA);
+	datosApp->datosGenerales->estadoApp = NORMAL_AUTO;
 	if (informe != NULL) {
 		publicar_mensaje_json(datosApp, informe, NULL);
 		ESP_LOGI(TAG, ""TRAZAR" PUBLICADO", INFOTRAZA);
 	}
-	datosApp->datosGenerales->estadoApp = NORMAL_AUTO;
+
 
 	return ESP_OK;
 }
@@ -236,6 +238,16 @@ esp_err_t appuser_notificar_alarma_localmente(DATOS_APLICACION *datosApp, uint8_
 
 		ESP_LOGI(TAG, ""TRAZAR" ALARMA ON NOTIFICADA", INFOTRAZA);
 
+	}
+
+	int i;
+	for (i=0;i < NUM_TIPOS_ALARMAS; i++) {
+		if (datosApp->alarmas[i].estado_alarma == ALARMA_ON) {
+			gpio_set_level(CONFIG_GPIO_PIN_LED_ALARMA, ON);
+			break;
+		} else {
+			gpio_set_level(CONFIG_GPIO_PIN_LED_ALARMA, OFF);
+		}
 	}
 
 

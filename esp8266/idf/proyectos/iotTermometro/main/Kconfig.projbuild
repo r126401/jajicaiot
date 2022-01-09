@@ -5,13 +5,24 @@ config TIPO_DISPOSITIVO
 	default 0
 	help
 		indica el tipo de dispositivo
+		0 interruptor.
+		1 cronotermostato
+		2 termometro
 
 
 config GPIO_PIN_LED
-	int "Pin gipo para activar el led"
+	int "Pin gpio para activar el led"
 	default 13
 	help 
 		Indica el pin gpio con el que se activa el LED
+
+
+                Indica el pin gpi con el que se activa el boton
+config GPIO_PIN_LED_ALARMA
+        int "Pin gpio para encender la alarma"
+        default 4
+        help 
+                Indica el pin gpi con el que se activa el boton
 
 
 choice
