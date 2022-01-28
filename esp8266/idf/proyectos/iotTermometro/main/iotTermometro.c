@@ -26,7 +26,7 @@
 
 
 static const char *TAG = "IOTTERMOMETRO";
-
+xQueueHandle cola_gpio = NULL;
 
 #define GPIO_OUTPUT_PIN_SEL  ((1ULL<<CONFIG_GPIO_PIN_LED)| (1ULL<<CONFIG_GPIO_PIN_DHT) | (1ULL<<CONFIG_GPIO_PIN_DS18B20) | (1ULL<< CONFIG_GPIO_PIN_LED_ALARMA))
 //#define GPIO_INPUT_PIN_SEL  ( (1ULL<<CONFIG_GPIO_PIN_BOTON))
@@ -81,6 +81,120 @@ esp_err_t appUser_analizarComandoAplicacion(cJSON *peticion, int nComando, DATOS
 
 
 
+void pulsacion(DATOS_APLICACION *datosApp) {
+
+    static ETSTimer repeticion;
+    static uint8_t rep=0;
+    cJSON *informe;
+
+
+
+
+    ESP_LOGI(TAG, ""TRAZAR"RUTINA QUE TRATA LAS INTERRUPCIONES", INFOTRAZA);
+    if (gpio_get_level(CONFIG_GPIO_PIN_BOTON) == OFF) {
+        ets_timer_disarm(&repeticion);
+        ets_timer_setfn(&repeticion, (ETSTimerFunc*) pulsacion, datosApp);
+        ets_timer_arm(&repeticion, 500,0);
+        rep++;
+        ESP_LOGI(TAG, ""TRAZAR"repeticion %d", INFOTRAZA, rep);
+
+    } else {
+        datosApp->datosGenerales->botonPulsado = false;
+        //*rebote = false;
+        //printf("Rebote cancelado, rep = %d\n", rep);
+        if (rep > NUM_REPETICIONES) {
+
+            ESP_LOGI(TAG, ""TRAZAR"pulsacion larga", INFOTRAZA);
+
+
+
+            if (tcpip_adapter_is_netif_up(ESP_IF_WIFI_STA) == true) {
+            	ESP_LOGI(TAG, ""TRAZAR"EJECUTAMOS RESTART", INFOTRAZA);
+                esp_restart();
+            } else {
+                //smartconfig
+                ESP_LOGI(TAG,"sin ip, entramos en smartconfig...");
+                //smartconfig_set_type(SC_TYPE_ESPTOUCH);
+                ESP_LOGI(TAG, ""TRAZAR"AQUI LANZARIAMOS LA RUTINA DE SMARTCONFIG", INFOTRAZA);
+                appuser_notificar_smartconfig();
+                xTaskCreate(tarea_smartconfig, "tarea_smart", 2048, (void*)&datosApp, tskIDLE_PRIORITY + 0, NULL);
+
+
+            }
+
+        } else {
+
+        	if (rep > NUM_REPETICIONES -3){
+                ESP_LOGI(TAG, ""TRAZAR"pulsacion corta", INFOTRAZA);
+                //operacion_rele(datosApp, MANUAL, INDETERMINADO);
+                ESP_LOGI(TAG, ""TRAZAR"AQUI ENVIAREMOS EL REPORTE DE QUE SE HA PULSADO EL BOTON", INFOTRAZA);
+                informe = appuser_generar_informe_espontaneo(datosApp, ACTUACION_RELE_LOCAL, NULL);
+
+                ESP_LOGI(TAG, ""TRAZAR"REPORTE GENERADO Y DISPUESTO PARA ENVIAR", INFOTRAZA);
+                if (informe != NULL) {
+                	publicar_mensaje_json(datosApp, informe, NULL);
+
+                } else {
+                	ESP_LOGE(TAG, ""TRAZAR"MENSAJE DE PULSACION CORTA INVALIDO", INFOTRAZA);
+                }
+        	}
+
+
+
+
+        }
+
+        rep=0;
+    }
+}
+
+static void tratarInterrupcionesPulsador(DATOS_APLICACION *datosApp) {
+
+
+
+
+    //uint32 gpio_status = GPIO_REG_READ(GPIO_STATUS_ADDRESS);
+    static ETSTimer temporizador;
+    //static bool rebote = false;
+    //printf("han pulsado un boton....\n");
+
+    if (datosApp->datosGenerales->botonPulsado == false) {
+        datosApp->datosGenerales->botonPulsado = true;
+        //os_timer_disarm(&notificacionWifi);
+        ets_timer_disarm(&temporizador);
+        ets_timer_setfn(&temporizador, (ETSTimerFunc*) pulsacion, datosApp);
+        ets_timer_arm(&temporizador, 250,0);
+
+    }
+
+
+
+
+    //GPIO_REG_WRITE(GPIO_STATUS_W1TC_ADDRESS, gpio_status );
+}
+
+static void tratar_interrupciones(void *arg)
+{
+    DATOS_APLICACION datosApp;
+
+    ESP_LOGI(TAG, ""TRAZAR"COMIENZO DE LA TAREA DE ATENCION A LA INTERRUPCION", INFOTRAZA);
+
+    for (;;) {
+        if (xQueueReceive(cola_gpio, &datosApp, portMAX_DELAY)) {
+            tratarInterrupcionesPulsador(&datosApp);
+        }
+    }
+}
+
+
+ static void isr_handler(void *dato) {
+
+	DATOS_APLICACION *datosApp = dato;
+	xQueueSendFromISR(cola_gpio, datosApp, NULL);
+
+}
+
+
 /**
  * @brief Esta funcion inicializa los parametros iniciales especificos para la aplicacion.
  * @param datosApp. Estructura completa de la aplicacion
@@ -89,8 +203,6 @@ esp_err_t appuser_inicializar_aplicacion(DATOS_APLICACION *datosApp) {
 
 
 
-
-	esp_err_t error = ESP_OK;
 
     datosApp->datosGenerales->botonPulsado = false;
 
@@ -120,6 +232,19 @@ esp_err_t appuser_inicializar_aplicacion(DATOS_APLICACION *datosApp) {
 
     gpio_set_level(CONFIG_GPIO_PIN_LED_ALARMA, OFF);
 
+    gpio_pullup_en(CONFIG_GPIO_PIN_BOTON);
+    //change gpio intrrupt type for one pin
+    gpio_set_intr_type(CONFIG_GPIO_PIN_BOTON, GPIO_INTR_NEGEDGE);
+
+
+    //create a queue to handle gpio event from isr
+    cola_gpio = xQueueCreate(1, sizeof(DATOS_APLICACION));
+
+    xTaskCreate(tratar_interrupciones, "tratar_interrupciones", 4096, NULL, 10, NULL);
+    //install gpio isr service
+    gpio_install_isr_service(0);
+    //hook isr handler for specific gpio pin
+    gpio_isr_handler_add(CONFIG_GPIO_PIN_BOTON, isr_handler, (void *) datosApp);
 
 
 
