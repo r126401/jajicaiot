@@ -24,6 +24,7 @@ enum COMANDOS_APP {
 
 
 void tarea_lectura_temperatura(void *parametros);
+esp_err_t leer_temperatura_local(DATOS_APLICACION *datosApp);
 
 
 
