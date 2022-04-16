@@ -245,7 +245,9 @@ esp_err_t appuser_broker_desconectado(DATOS_APLICACION *datosApp) {
 
 
 
-
+/**
+ * Esta funcion se ejecuta cuando vence el temporizador de duracion cuando este es mayor que 0
+ */
 void appuser_ejecucion_accion_temporizada(void *datosApp) {
 
     cJSON * respuesta = NULL;
@@ -389,6 +391,16 @@ esp_err_t appuser_cargar_programa_especifico(DATOS_APLICACION *datosApp, TIME_PR
 		}
 
 	}
+
+	item = cJSON_GetObjectItem(nodo, DURATION_PROGRAM);
+	if (item != NULL) {
+		programa_actual->duracion = item->valueint;
+		ESP_LOGI(TAG, ""TRAZAR"DURACION = %d", INFOTRAZA, programa_actual->duracion);
+	} else {
+		programa_actual->duracion = 0;
+		ESP_LOGI(TAG, ""TRAZAR"NO SE GUARDA DURACION: %d", INFOTRAZA, programa_actual->duracion);
+	}
+
 	ESP_LOGI(TAG, ""TRAZAR" VAMOS A CALCULAR LA TEMPERATURA UMBRAL", INFOTRAZA);
 	extraer_dato_double(nodo, UMBRAL_TEMPERATURA, &programa_actual->temperatura);
 	datosApp->termostato.tempUmbral = programa_actual->temperatura;
@@ -461,6 +473,9 @@ esp_err_t appuser_extraer_datos_programa(TIME_PROGRAM *programa_actual, cJSON *n
 
 	extraer_dato_double(nodo, UMBRAL_TEMPERATURA, &programa_actual->temperatura);
 	extraer_dato_double(nodo, HUMEDAD, &programa_actual->humedad);
+    if(extraer_dato_int(nodo, DURATION_PROGRAM, (int*) &programa_actual->duracion) != ESP_OK) {
+    	programa_actual->duracion = 0;
+    }
 
 
 	return ESP_OK;
@@ -470,6 +485,7 @@ esp_err_t appuser_modificar_dato_programa(TIME_PROGRAM *programa_actual,cJSON *n
 
 	extraer_dato_double(nodo, UMBRAL_TEMPERATURA, &programa_actual->temperatura);
 	extraer_dato_double(nodo, HUMEDAD, &programa_actual->humedad);
+	extraer_dato_uint32(nodo, DURATION_PROGRAM, &programa_actual->duracion);
 
 	return ESP_OK;
 }
@@ -477,6 +493,11 @@ esp_err_t appuser_modificar_dato_programa(TIME_PROGRAM *programa_actual,cJSON *n
 esp_err_t appuser_visualizar_dato_programa(TIME_PROGRAM *programa_actual, cJSON *nodo) {
 
     cJSON_AddNumberToObject(nodo, UMBRAL_TEMPERATURA, programa_actual->temperatura);
+    if (programa_actual->duracion > 0) {
+        cJSON_AddNumberToObject(nodo, DURATION_PROGRAM, programa_actual->duracion);
+
+    }
+
 	return ESP_OK;
 }
 

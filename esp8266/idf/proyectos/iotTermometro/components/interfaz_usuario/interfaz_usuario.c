@@ -124,14 +124,19 @@ esp_err_t appuser_arranque_aplicacion(DATOS_APLICACION *datosApp) {
 
 	cJSON *informe = NULL;
 
-	informe = appuser_generar_informe_espontaneo(datosApp, ARRANQUE_APLICACION, NULL);
+	if (leer_temperatura_local(datosApp) == ESP_OK) {
+		informe = appuser_generar_informe_espontaneo(datosApp, ARRANQUE_APLICACION, NULL);
 
-	ESP_LOGI(TAG, ""TRAZAR" vamos a publicar el arranque del dispositivo", INFOTRAZA);
-	datosApp->datosGenerales->estadoApp = NORMAL_AUTO;
-	if (informe != NULL) {
-		publicar_mensaje_json(datosApp, informe, NULL);
-		ESP_LOGI(TAG, ""TRAZAR" PUBLICADO", INFOTRAZA);
+		ESP_LOGI(TAG, ""TRAZAR" vamos a publicar el arranque del dispositivo", INFOTRAZA);
+		datosApp->datosGenerales->estadoApp = NORMAL_AUTO;
+		if (informe != NULL) {
+			publicar_mensaje_json(datosApp, informe, NULL);
+			ESP_LOGI(TAG, ""TRAZAR" PUBLICADO", INFOTRAZA);
+		}
+
 	}
+
+
 
 
 	return ESP_OK;
