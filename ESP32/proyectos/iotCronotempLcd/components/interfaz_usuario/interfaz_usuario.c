@@ -248,16 +248,16 @@ esp_err_t appuser_broker_desconectado(DATOS_APLICACION *datosApp) {
 /**
  * Esta funcion se ejecuta cuando vence el temporizador de duracion cuando este es mayor que 0
  */
-void appuser_ejecucion_accion_temporizada(void *datosApp) {
+void appuser_ejecucion_accion_temporizada(DATOS_APLICACION *datosApp) {
 
     cJSON * respuesta = NULL;
-    ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. SE APAGA EL RELE", INFOTRAZA);
-    operacion_rele(datosApp, TEMPORIZADA, OFF);
+    ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. SE PASA A TEMPERATURA DE DEFECTO", INFOTRAZA);
+    datosApp->termostato.tempUmbral = datosApp->termostato.tempUmbralDefecto;
     respuesta = appuser_generar_informe_espontaneo(datosApp, RELE_TEMPORIZADO, NULL);
     if (respuesta != NULL) {
     	publicar_mensaje_json(datosApp, respuesta, NULL);
     }
-    ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. RELE APAGADO", INFOTRAZA);
+    ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. SE PASA A LA TEMPERATURA DE DEFECTO", INFOTRAZA);
 }
 
 esp_err_t appuser_temporizador_cumplido(DATOS_APLICACION *datosApp) {
@@ -346,6 +346,7 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
         cJSON_AddStringToObject(respuesta, SENSOR_REMOTO, datosApp->termostato.sensor_remoto);
         escribir_programa_actual(datosApp, respuesta);
         break;
+    case RELE_TEMPORIZADO:
     case CAMBIO_TEMPERATURA:
     case CAMBIO_UMBRAL_TEMPERATURA:
     case CAMBIO_ESTADO_APLICACION:
