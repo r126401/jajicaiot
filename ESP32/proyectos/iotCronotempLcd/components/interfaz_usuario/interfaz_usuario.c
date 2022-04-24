@@ -253,6 +253,7 @@ void appuser_ejecucion_accion_temporizada(DATOS_APLICACION *datosApp) {
     cJSON * respuesta = NULL;
     ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. SE PASA A TEMPERATURA DE DEFECTO", INFOTRAZA);
     datosApp->termostato.tempUmbral = datosApp->termostato.tempUmbralDefecto;
+    lv_actualizar_umbral_temperatura_lcd(datosApp);
     respuesta = appuser_generar_informe_espontaneo(datosApp, RELE_TEMPORIZADO, NULL);
     if (respuesta != NULL) {
     	publicar_mensaje_json(datosApp, respuesta, NULL);
@@ -526,6 +527,7 @@ esp_err_t appuser_modificarConfApp(cJSON *root, DATOS_APLICACION *datosApp, cJSO
    extraer_dato_uint8(nodo, INTERVALO_REINTENTOS, &datosApp->termostato.intervaloReintentos);
    extraer_dato_uint8(nodo, REINTENTOS_LECTURA, &datosApp->termostato.reintentosLectura);
    extraer_dato_double(nodo, CALIBRADO, &datosApp->termostato.calibrado);
+   extraer_dato_float(nodo, UMBRAL_DEFECTO, &datosApp->termostato.tempUmbralDefecto);
    extraer_dato_float(nodo, INCDEC, &datosApp->termostato.incdec);
    if ((extraer_dato_uint8(nodo,  MASTER, (uint8_t*) &datosApp->termostato.master)) == ESP_OK) {
 	   extraer_dato_string(nodo, SENSOR_REMOTO, datosApp->termostato.sensor_remoto);
