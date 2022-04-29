@@ -321,7 +321,7 @@ void lv_actualizar_intervalo_programa(DATOS_APLICACION *datosApp, bool comienzo_
 	static time_t longitud_intervalo;
 	time_t puntero_actual = 0;
 	TIME_PROGRAM programacion_actual;
-
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_intervalo_programa", INFOTRAZA);
 	programacion_actual.programa = 0;
 
 	hora_actual = datosApp->datosGenerales->clock.time;
@@ -402,24 +402,33 @@ void lv_actualizar_hora_lcd(DATOS_APLICACION *datosApp) {
 
 void lv_actualizar_estado_ntp_lcd(DATOS_APLICACION *datosApp, lv_color_t color) {
 
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_estado_ntp_lcd", INFOTRAZA);
 	lv_obj_set_style_local_text_color(reloj, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, color);
 
 }
 void lv_actualizar_estado_broker_lcd(DATOS_APLICACION *datosApp, lv_color_t color) {
 
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_estado_broker_lcd", INFOTRAZA);
 	lv_obj_set_style_local_text_color(conexion, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, color);
 
 }
 
 void lv_actualizar_temperatura_lcd(DATOS_APLICACION *datosApp) {
 
-	lv_label_set_text_fmt(texto_temperatura, "%.01lf ºC", datosApp->termostato.tempActual);
-lv_obj_set_style_local_text_color(texto_temperatura, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, COLOR_ICONO_OK);
+
+	//char temperatura[10];
+	//sprintf(temperatura, "%.1f ºC", datosApp->termostato.tempActual);
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_temperatura_lcd %.1f", INFOTRAZA, datosApp->termostato.tempActual);
+	//lv_label_set_text(texto_temperatura, temperatura);
+	lv_label_set_text_fmt(texto_temperatura, "%.1f ºC", datosApp->termostato.tempActual);
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_temperatura_lcd despues", INFOTRAZA);
+	lv_obj_set_style_local_text_color(texto_temperatura, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, COLOR_ICONO_OK);
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_temperatura_lcd despuessssssss", INFOTRAZA);
 }
 
 void lv_actualizar_humedad_lcd(DATOS_APLICACION *datosApp) {
 
-
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_humedad_lcd", INFOTRAZA);
 	//lv_label_set_text_fmt(texto_humedad, "%.01lf %%", datosApp->termostato.humedad);
 
 }
@@ -427,6 +436,7 @@ void lv_actualizar_humedad_lcd(DATOS_APLICACION *datosApp) {
 void lv_actualizar_rele_lcd( enum ESTADO_RELE estado) {
 
 	bool escondido = false;
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_rele_lcd", INFOTRAZA);
 
 	switch (estado) {
 	case ON:
@@ -458,6 +468,7 @@ void lv_actualizar_estado_alarma_lcd(DATOS_APLICACION *datosApp) {
 
 	int i;
 	bool escondido;
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_estado_alarma_lcd", INFOTRAZA);
 	for (i=0;i< NUM_TIPOS_ALARMAS; i++) {
 
 		if (datosApp->alarmas[i].estado_alarma == ALARMA_OFF) {
@@ -477,6 +488,7 @@ void lv_actualizar_estado_alarma_lcd(DATOS_APLICACION *datosApp) {
 void lv_actualizar_modo_aplicacion_lcd(enum ESTADO_APP estado) {
 
 	bool esconder;
+	ESP_LOGI(TAG, ""TRAZAR" entramos en lv_actualizar_modo_aplicacion_lcd", INFOTRAZA);
 	switch (estado) {
 
 	case NORMAL_AUTO:

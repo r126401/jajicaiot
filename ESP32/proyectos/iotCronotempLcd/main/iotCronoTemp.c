@@ -6,7 +6,7 @@
  */
 
 
-
+#include <math.h>
 #include <dialogos_json.h>
 #include "esp_err.h"
 #include "esp_log.h"
@@ -90,6 +90,27 @@ void gpio_rele_in_out() {
     gpio_config(&io_conf);
     ESP_LOGW(TAG, ""TRAZAR" gpio rele en E/S", INFOTRAZA);
 
+}
+
+
+
+void accionar_termostato(DATOS_APLICACION *datosApp) {
+
+	enum ESTADO_RELE accion_rele;
+	enum TIPO_ACCION_TERMOSTATO accion_termostato;
+	cJSON* informe = NULL;
+	static float lecturaAnterior = -1000;
+
+    if (((accion_termostato = calcular_accion_termostato(datosApp, &accion_rele)) == ACCIONAR_TERMOSTATO)) {
+    	operacion_rele(datosApp, TEMPORIZADA, accion_rele);
+    }
+
+    if ((accion_termostato == ACCIONAR_TERMOSTATO) || (lecturaAnterior != datosApp->termostato.tempActual)) {
+    	lv_actualizar_temperatura_lcd(datosApp);
+        informe = appuser_generar_informe_espontaneo(datosApp, CAMBIO_TEMPERATURA, NULL);
+        publicar_mensaje_json(datosApp, informe, NULL);
+    }
+    lecturaAnterior = datosApp->termostato.tempActual;
 }
 
 
@@ -219,6 +240,7 @@ bool modificarUmbralTemperatura(cJSON *peticion, DATOS_APLICACION *datosApp, cJS
 
 
 
+
     nodo = cJSON_GetObjectItem(peticion, MODIFICAR_APP);
    if(nodo == NULL) {
        return NULL;
@@ -229,9 +251,11 @@ bool modificarUmbralTemperatura(cJSON *peticion, DATOS_APLICACION *datosApp, cJS
        if((campo != NULL) && (campo->type == cJSON_Number)) {
            printf("modificando umbral\n");
            datosApp->termostato.tempUmbral = campo->valuedouble;
+           /*
            if (datosApp->datosGenerales->estadoApp == NORMAL_AUTO) {
         	   appuser_cambiar_modo_aplicacion(datosApp, NORMAL_AUTOMAN);
            }
+           */
            lv_actualizar_umbral_temperatura_lcd(datosApp);
            //datosApp->datosGenerales->estadoApp = NORMAL_AUTOMAN;
            //guardarConfiguracion(datosApp, 0);
@@ -258,7 +282,9 @@ esp_err_t appUser_analizarComandoAplicacion(cJSON *peticion, int nComando, DATOS
             consultarEstadoAplicacion(datosApp, respuesta);
             break;
         case MODIFICAR_UMBRAL:
-            modificarUmbralTemperatura(peticion, datosApp, respuesta);
+            if ((modificarUmbralTemperatura(peticion, datosApp, respuesta) == true)) {
+            	accionar_termostato(datosApp);
+            }
             break;
         case SELECCIONAR_SENSOR:
         	seleccionarSensorTemperatura(peticion, datosApp, respuesta);
@@ -427,7 +453,7 @@ esp_err_t appuser_inicializar_lcd(DATOS_APLICACION *datosApp) {
 
 
 	//xTaskCreatePinnedToCore(tarea_lcd, "gui", 4096*2, datosApp, 5, NULL, 1);
-	xTaskCreate(tarea_lcd, "gui", 4096*2, datosApp, 5, NULL);
+	xTaskCreate(tarea_lcd, "gui", 2048*2, datosApp, 5, NULL);
 
     //xTaskCreate(tarea_lcd, "gui", 4096*2, datosApp, 10, NULL);
 
@@ -527,6 +553,26 @@ esp_err_t appuser_inicializar_aplicacion(DATOS_APLICACION *datosApp) {
 
 }
 
+float redondear_temperatura(float temperatura) {
+
+	float redondeado;
+	float diferencia;
+	float resultado = 0;
+	float valor_absoluto;
+
+	redondeado = lround(temperatura);
+	diferencia = temperatura - redondeado;
+	valor_absoluto = fabs(redondeado);
+	if (diferencia < 0.25) resultado = valor_absoluto;
+	if ((diferencia > 0.25 ) && (diferencia < 0.5)) resultado = valor_absoluto + 0.5;
+
+	if ((diferencia < -0.25)) resultado = valor_absoluto - 0.5;
+
+	return resultado;
+
+}
+
+
 enum TIPO_ACCION_TERMOSTATO calcular_accion_termostato(DATOS_APLICACION *datosApp, enum ESTADO_RELE *accion) {
 
     // El termostato esta apagado y la temperatura actual es menor o igual que la umbral.
@@ -565,6 +611,7 @@ esp_err_t leer_temperatura_local(DATOS_APLICACION *datosApp) {
     esp_err_t error = ESP_FAIL;
     static uint8_t contador = 0;
     char temp[15]={0};
+	float temperatura_a_redondear;
 
 
     ESP_LOGI(TAG, ""TRAZAR" Leyendo desde el sensor dht", INFOTRAZA);
@@ -583,14 +630,23 @@ esp_err_t leer_temperatura_local(DATOS_APLICACION *datosApp) {
 
 #endif
 #ifdef CONFIG_DS18B20
+
     	error = lectura_temperatura_ds18x20(&datosApp->termostato.tempActual);
+
+
     	datosApp->termostato.humedad = 5;
+
 #endif
+
+
 
     	if ((error == ESP_OK) && ((datosApp->termostato.humedad != 0) && (datosApp->termostato.tempActual != 0))) {
     		ESP_LOGI(TAG, ""TRAZAR" Lectura local correcta!. ", INFOTRAZA);
     		datosApp->termostato.tempActual = datosApp->termostato.tempActual + datosApp->termostato.calibrado;
-    		contador = 0;
+    		temperatura_a_redondear = datosApp->termostato.tempActual;
+          	datosApp->termostato.tempActual = redondear_temperatura(temperatura_a_redondear);
+            	ESP_LOGI(TAG, ""TRAZAR" Temp sin redondeo %.01lf, Temp redondeada %.01lf ", INFOTRAZA, temperatura_a_redondear,datosApp->termostato.tempActual );
+      		contador = 0;
     	} else {
     		contador++;
     		if (contador == 4)  {
@@ -700,6 +756,10 @@ esp_err_t leer_temperatura_remota(DATOS_APLICACION *datosApp) {
 }
 
 
+
+
+
+
 void tarea_lectura_temperatura(void *parametros) {
     enum ESTADO_RELE accion_rele;
     cJSON* informe = NULL;
@@ -713,17 +773,22 @@ void tarea_lectura_temperatura(void *parametros) {
     	ESP_LOGE(TAG, ""TRAZAR" tempUmbral %.02f", INFOTRAZA, datosApp->termostato.tempUmbral);
     	leer_temperatura(datosApp);
     	ESP_LOGE(TAG, ""TRAZAR" tempUmbral %.02f", INFOTRAZA, datosApp->termostato.tempUmbral);
+    	accionar_termostato(datosApp);
+    	/*
 	    if (((accion_termostato = calcular_accion_termostato(datosApp, &accion_rele)) == ACCIONAR_TERMOSTATO)) {
 	    	operacion_rele(datosApp, TEMPORIZADA, accion_rele);
 	    }
 
 	    if ((accion_termostato == ACCIONAR_TERMOSTATO) || (lecturaAnterior != datosApp->termostato.tempActual)) {
+	    	lv_actualizar_temperatura_lcd(datosApp);
             informe = appuser_generar_informe_espontaneo(datosApp, CAMBIO_TEMPERATURA, NULL);
             publicar_mensaje_json(datosApp, informe, NULL);
-            lv_actualizar_temperatura_lcd(datosApp);
-            lv_actualizar_humedad_lcd(datosApp);
+
+            //lv_actualizar_humedad_lcd(datosApp);
 	    }
+
 	    lecturaAnterior = datosApp->termostato.tempActual;
+	    */
 	    vTaskDelay(datosApp->termostato.intervaloLectura * 1000 / portTICK_RATE_MS);
 
 
