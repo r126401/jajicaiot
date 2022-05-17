@@ -230,6 +230,7 @@ void appuser_ejecucion_accion_temporizada(void *datosApp) {
     if (respuesta != NULL) {
     	publicar_mensaje_json(datosApp, respuesta, NULL);
     }
+    appuser_cambiar_modo_aplicacion(datosApp, NORMAL_AUTO);
     ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. RELE APAGADO", INFOTRAZA);
 }
 
