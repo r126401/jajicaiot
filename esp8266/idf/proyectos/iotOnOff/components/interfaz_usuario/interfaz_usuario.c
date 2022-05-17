@@ -117,6 +117,11 @@ esp_err_t appuser_arranque_aplicacion(DATOS_APLICACION *datosApp) {
 
 	cJSON *informe;
 
+	if (datosApp->datosGenerales->nProgramaCandidato == -1) {
+		ESP_LOGW(TAG, ""TRAZAR"NO HAY PROGRAMA ACTIVO Y SE APAGA EL RELE", INFOTRAZA);
+		gpio_set_level(CONFIG_GPIO_PIN_RELE, OFF);
+	}
+
 	informe = appuser_generar_informe_espontaneo(datosApp, ARRANQUE_APLICACION, NULL);
 
 	ESP_LOGI(TAG, ""TRAZAR" vamos a publicar el arranque del dispositivo", INFOTRAZA);
@@ -290,7 +295,7 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
             cJSON_AddNumberToObject(respuesta, PROGRAMMER_STATE, datosApp->datosGenerales->estadoProgramacion);
             cJSON_AddNumberToObject(respuesta, APP_COMAND_ESTADO_RELE, gpio_get_level(CONFIG_GPIO_PIN_RELE));
             cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
-            escribir_programa_actual(datosApp, respuesta);
+            //escribir_programa_actual(datosApp, respuesta);
             codigoRespuesta(respuesta,RESP_OK);
             break;
         case RELE_TEMPORIZADO:
@@ -362,6 +367,7 @@ esp_err_t appuser_json_a_datos(DATOS_APLICACION *datosApp, cJSON *datos) {
 
 esp_err_t appuser_cargar_programas_defecto(DATOS_APLICACION *datosApp, cJSON *array) {
 
+	/*
 	cJSON *item = NULL;
 
 	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
@@ -375,7 +381,7 @@ esp_err_t appuser_cargar_programas_defecto(DATOS_APLICACION *datosApp, cJSON *ar
 	cJSON_AddStringToObject(item, PROGRAM_ID, "001038007f11");
 	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
 	cJSON_AddStringToObject(item, PROGRAM_ID, "021715000120081611");
-
+*/
 	return ESP_OK;
 }
 
@@ -485,6 +491,8 @@ esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTAD
 }
 
 esp_err_t appuser_actualizar_gestion_programas(DATOS_APLICACION *datosApp) {
+
+
 
 
 	return ESP_OK;
