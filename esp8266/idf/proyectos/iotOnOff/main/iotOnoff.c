@@ -93,6 +93,7 @@ enum ESTADO_RELE operacion_rele(DATOS_APLICACION *datosApp, enum TIPO_ACTUACION_
 	        case TEMPORIZADA:
 	        	gpio_set_level(CONFIG_GPIO_PIN_RELE, operacion);
 	        	gpio_set_level(CONFIG_GPIO_PIN_LED, operacion);
+	        	ESP_LOGW(TAG, ""TRAZAR"EL LED Y EL RELE SE HAN PUESTO A %d", INFOTRAZA, gpio_get_level(CONFIG_GPIO_PIN_LED));
 	            break;
 	        default:
 	            break;

@@ -61,6 +61,12 @@ void eliminar_temporizacion(char* nombre) {
 		esp_timer_stop(temporizador_nuevo);
 		esp_timer_delete(temporizador_nuevo);
 		temporizador_nuevo = NULL;
+		if (gpio_get_level(CONFIG_GPIO_PIN_RELE) == ON){
+			gpio_set_level(CONFIG_GPIO_PIN_LED, ON);
+		} else {
+			gpio_set_level(CONFIG_GPIO_PIN_LED, OFF);
+		}
+
 	}
 
 }
@@ -296,7 +302,7 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
             cJSON_AddNumberToObject(respuesta, PROGRAMMER_STATE, datosApp->datosGenerales->estadoProgramacion);
             cJSON_AddNumberToObject(respuesta, APP_COMAND_ESTADO_RELE, gpio_get_level(CONFIG_GPIO_PIN_RELE));
             cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
-            //escribir_programa_actual(datosApp, respuesta);
+            escribir_programa_actual(datosApp, respuesta);
             codigoRespuesta(respuesta,RESP_OK);
             break;
         case RELE_TEMPORIZADO:
