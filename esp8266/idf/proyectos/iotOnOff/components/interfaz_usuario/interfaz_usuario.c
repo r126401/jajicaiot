@@ -154,7 +154,7 @@ esp_err_t appuser_acciones_ota(DATOS_APLICACION *datosApp) {
 	error = ota_a_json(datosApp);
 	if (error == ESP_OK) {
 		ESP_LOGW(TAG, ""TRAZAR" PREPARADO PARA UPGRADE...", INFOTRAZA);
-		esp_restart();
+		return RESP_RESTART;
 	}
 
 
@@ -278,16 +278,23 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
 
 
     cJSON *respuesta = NULL;
+	char valor[20];
 
 
     respuesta = cabecera_espontaneo(datosApp, tipoInforme);
     switch(tipoInforme) {
         case ARRANQUE_APLICACION:
+
             printf("generarReporte--> enviando arranqueAplicacion");
             cJSON_AddNumberToObject(respuesta, APP_COMAND_ESTADO_RELE, gpio_get_level(CONFIG_GPIO_PIN_RELE));
             cJSON_AddNumberToObject(respuesta, PROGRAMMER_STATE, datosApp->datosGenerales->estadoProgramacion);
             cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
             escribir_programa_actual(datosApp, respuesta);
+            if (leer_configuracion(datosApp, "FIN_UPGRADE", valor) == ESP_OK) {
+            	ESP_LOGI(TAG, ""TRAZAR" ESCRIBIMOS EL FIN DE UPGRADE", INFOTRAZA);
+            	cJSON_AddBoolToObject(respuesta, "finUpgrade", true);
+            	borrar_clave(&datosApp->handle, "FIN_UPGRADE");
+            }
             codigoRespuesta(respuesta,RESP_OK);
             break;
         case ACTUACION_RELE_LOCAL:
