@@ -1,0 +1,72 @@
+title upgrade firmware esp8266
+
+participant aplicacion
+participant servidor mqtt ota
+participant api_json
+participant espota
+participant interfaz_usuario
+participant main
+participant configuracion
+participant esp32
+participant servidor http ota
+participant nvs
+
+
+
+aplicacion->servidor mqtt ota: get_ultima_version_disponible
+servidor mqtt ota->aplicacion: 200 ok, datos_nueva_version
+aplicacion->aplicacion: check_update
+
+alt case nueva version disponible
+aplicacion->aplicacion: aparece boton upgrade
+
+
+== Aplicacion inicia upgrade ==
+
+aplicacion->api_json:upgrade_firmware(datos_nueva_version)
+
+
+
+api_json->interfaz_usuario: appuser_acciones_ota.
+interfaz_usuario->configuracion: guardar_configuracion(UPGRADE)
+interfaz_usuario->api_json: RESP_RESTART
+
+alt case RESP_RESTART
+api_json->api_json: ejecutar_reset( delay 3 sg)
+
+note left of api_json:durante ese tiempo el dispositivo responde a la aplicacion \nque el upgrade comienza despues del restart
+
+api_json->aplicacion: 200 ok upgrade despues de restart
+
+api_json->api_json:esp_restart()
+
+== Reinicio para upgrade ==
+
+main->main: leer_upgrade_ota(UPGRADE)
+main->main:borrar_clave(UPGRADE)
+main->espota:tarea_upgrade_firmware
+
+
+espota->servidor http ota: get fichero ota
+servidor http ota->espota: 200k envio fichero ota
+espota->espota: upgrade
+
+alt case upgrade ok
+espota->configuracion:guardar FIN_UPGRADE=true
+else case upgrade nok
+espota->configuracion: guardar FIN_UPGRADE=false
+end 
+
+espota->espota:esp_restart()
+
+== Reinicio despues del upgrade ==
+
+main->main: reinicio normal
+
+alt case FIN_UPGRADE=true
+interfaz_usuario->aplicacion: arranque_aplicacion (FIN_UPGRADE=true)
+interfaz_usuario->interfaz_usuario:borrar_clave(FIN_UPGRADE)
+else 
+interfaz_usuario->aplicacion: arranque_aplicacion (FIN_UPGRADE=false)
+interfaz_usuario->interfaz_usuario:borrar_clave(FIN_UPGRADE)
+end
