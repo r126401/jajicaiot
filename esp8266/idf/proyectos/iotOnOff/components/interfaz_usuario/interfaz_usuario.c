@@ -290,10 +290,14 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
             cJSON_AddNumberToObject(respuesta, PROGRAMMER_STATE, datosApp->datosGenerales->estadoProgramacion);
             cJSON_AddNumberToObject(respuesta, DEVICE_STATE, datosApp->datosGenerales->estadoApp);
             escribir_programa_actual(datosApp, respuesta);
-            if (leer_configuracion(datosApp, "FIN_UPGRADE", valor) == ESP_OK) {
+            if (leer_configuracion(datosApp, FIN_UPGRADE, valor) == ESP_OK) {
+            	cJSON *upgrade;
+            	int dato;
+            	upgrade = cJSON_Parse(valor);
+            	extraer_dato_int(upgrade, FIN_UPGRADE, &dato);
             	ESP_LOGI(TAG, ""TRAZAR" ESCRIBIMOS EL FIN DE UPGRADE", INFOTRAZA);
-            	cJSON_AddBoolToObject(respuesta, "finUpgrade", true);
-            	borrar_clave(&datosApp->handle, "FIN_UPGRADE");
+            	cJSON_AddNumberToObject(respuesta, FIN_UPGRADE, dato);
+            	borrar_clave(&datosApp->handle, FIN_UPGRADE);
             }
             codigoRespuesta(respuesta,RESP_OK);
             break;
