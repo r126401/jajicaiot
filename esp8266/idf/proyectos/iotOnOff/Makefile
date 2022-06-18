@@ -19,7 +19,7 @@ include $(IDF_PATH)/make/project.mk
 EJECUTABLE_COPIAR=instalar.py
 SERVIDOR_OTA = "jajicaiot.ddns.net"
 PUERTO_OTA = 8070
-DIR_REPOSITORIO = /opt/trastero/servidorWeb
+DIR_REPOSITORIO = /opt/trastero
 DIR_INSTALL = firmware
 PREFIJO_OTA = "newVersion"
 DIR_LASTVERSION = "lastVersion"
