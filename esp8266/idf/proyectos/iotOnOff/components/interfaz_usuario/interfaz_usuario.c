@@ -103,9 +103,12 @@ esp_err_t appuser_configuracion_defecto(DATOS_APLICACION *datosApp) {
 
 esp_err_t appUser_ejecutar_accion_programa_defecto(DATOS_APLICACION *datosApp) {
 
+	cJSON* informe;
 	ESP_LOGI(TAG, ""TRAZAR"Ejecutando acciones de programa por defecto", INFOTRAZA);
 	//Escribe aquí lo que quieres que tu aplicacion haga tenga que ejecutar una accion por defecto
-    //GPIO_OUTPUT_SET(GPIO_ID_PIN(GPIO_RELE), OFF);
+	gpio_set_level(CONFIG_GPIO_PIN_RELE, OFF);
+	informe = appuser_generar_informe_espontaneo(datosApp, CAMBIO_DE_PROGRAMA, NULL);
+	publicar_mensaje_json(datosApp, informe, NULL);
 
     return ESP_OK;
 }
