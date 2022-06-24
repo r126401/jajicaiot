@@ -61,6 +61,8 @@ def crearJson(servidor, puerto, directorio, destinoOta, otaVersion) :
     cadena['otaUrl'] = directorio
     cadena['otaFile'] = destinoOta
     cadena['otaVersion'] = otaVersion
+    cadena['device'] = 100
+
     
     
     return json.dumps(cadena)
