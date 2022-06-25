@@ -1834,6 +1834,61 @@
 			<location>/opt/esp/esp-idf/components/nghttp/port/http_parser.c</location>
 		</link>
 		<link>
+			<name>esp_idf_components/ntes/alarmas/alarmas.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/alarmas/alarmas.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/api_json/api_json.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/api_json/api_json.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/api_json/comandos_json.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/api_json/comandos_json.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/comunes/datos_comunes.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/comunes/datos_comunes.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/conexiones/conexiones.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/conexiones/conexiones.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/conexiones/mqtt.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/conexiones/mqtt.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/configuracion/configuracion.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/configuracion/configuracion.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/espota/espota.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/espota/espota.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/nvslib/nvslib.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/nvslib/nvslib.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/programador/ntp.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/programador/ntp.c</location>
+		</link>
+		<link>
+			<name>esp_idf_components/ntes/programador/programmer.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/programador/programmer.c</location>
+		</link>
+		<link>
 			<name>esp_idf_components/nvs_flash/src/nvs_api.cpp</name>
 			<type>1</type>
 			<location>/opt/esp/esp-idf/components/nvs_flash/src/nvs_api.cpp</location>

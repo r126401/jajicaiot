@@ -305,10 +305,77 @@ void lv_tick_task(void *arg) {
 }
 
 
-
-
-
 void lv_actualizar_intervalo_programa(DATOS_APLICACION *datosApp, bool comienzo_programa) {
+
+	time_t t_siguiente_intervalo;
+	time_t hora_actual;
+	int programa_actual = -1;
+	int hora = -1;
+	int minuto = -1;
+	int duracion;
+	TIME_PROGRAM programacion_actual;
+	static time_t longitud_intervalo;
+	time_t puntero_actual = 0;
+	time_t intervalo_superior, intervalo_inferior;
+	int progreso;
+	struct tm *intervalo_siguiente;
+
+
+	hora_actual = datosApp->datosGenerales->clock.time;
+	buscar_programa(datosApp->datosGenerales->programacion,
+			datosApp->datosGenerales->nProgramacion,
+			&programa_actual,
+			&t_siguiente_intervalo);
+
+	//Calculo del longitud_intervalo del intervalo.
+	if (comienzo_programa) {
+		//_arc_set_range(arco_temperatura, 0, 100);
+		lv_bar_set_range(barra_temperatura, 0, 100);
+
+
+	}
+
+
+	if (datosApp->datosGenerales->programacion != NULL) {
+		programacion_actual = datosApp->datosGenerales->programacion[programa_actual];
+		hora = programacion_actual.programacion.tm_hour;
+		minuto = programacion_actual.programacion.tm_min;
+		intervalo_inferior = programacion_actual.programa;
+		ESP_LOGE(TAG, ""TRAZAR" INTERVALO INFERIOR: %d:%d", INFOTRAZA, hora, minuto);
+		intervalo_superior = intervalo_inferior + programacion_actual.duracion;
+		longitud_intervalo = intervalo_superior - intervalo_inferior;
+		puntero_actual = hora_actual - intervalo_inferior;
+		progreso = (puntero_actual*100)/longitud_intervalo;
+		intervalo_siguiente = localtime(&intervalo_superior);
+		ESP_LOGE(TAG, ""TRAZAR" INTERVALO SUPERIOR: %d:%d", INFOTRAZA, intervalo_siguiente->tm_hour, intervalo_siguiente->tm_min);
+		ESP_LOGE(TAG, ""TRAZAR" puntero actual: %ld, progreso :%d", INFOTRAZA, puntero_actual, progreso);
+
+		lv_label_set_text_fmt(intervalo_anterior, "%02d:%02d", hora, minuto);
+		lv_label_set_text_fmt(intervalo_posterior, "%02d:%02d", intervalo_siguiente->tm_hour, intervalo_siguiente->tm_min);
+		lv_bar_set_value(barra_temperatura, progreso, LV_ANIM_OFF);
+
+
+		ESP_LOGE(TAG, ""TRAZAR" Llevamos el %d %% del total del intervalo que es 100%%", INFOTRAZA, progreso);
+
+	} else {
+
+		ESP_LOGW(TAG, ""TRAZAR" NO SE PINTA NADA PORQUE NO HAY PROGRAMACION", INFOTRAZA);
+	}
+
+
+
+
+
+
+	//longitud_intervalo = t_siguiente_intervalo - programacion_actual.programa;
+	//puntero_actual = hora_actual- programacion_actual.programa;
+}
+
+
+
+
+
+void lv_actualizar_intervalo_programa2(DATOS_APLICACION *datosApp, bool comienzo_programa) {
 
 	time_t t_siguiente_intervalo;
 	time_t hora_actual;
@@ -355,7 +422,7 @@ void lv_actualizar_intervalo_programa(DATOS_APLICACION *datosApp, bool comienzo_
 		programacion_actual = datosApp->datosGenerales->programacion[programa_actual];
 		hora = programacion_actual.programacion.tm_hour;
 		minuto = programacion_actual.programacion.tm_min;
-		longitud_intervalo = t_siguiente_intervalo - programacion_actual.programa;
+		longitud_intervalo = programacion_actual.programa + programacion_actual.duracion;;
 		puntero_actual = hora_actual- programacion_actual.programa;
 	}
 
@@ -380,6 +447,7 @@ void lv_actualizar_intervalo_programa(DATOS_APLICACION *datosApp, bool comienzo_
 			puntero_actual = hora_actual- programacion_actual.programa;
 		}
 */
+		ESP_LOGE(TAG, ""TRAZAR" LONGITUD DEL INTERVALO %ld", INFOTRAZA, longitud_intervalo);
 		puntero_actual = (puntero_actual * 100)/longitud_intervalo;
 		//lv_arc_set_value(arco_temperatura, puntero_actual );
 		lv_bar_set_value(barra_temperatura, puntero_actual, LV_ANIM_OFF);

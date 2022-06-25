@@ -84,6 +84,7 @@ esp_err_t appuser_configuracion_defecto(DATOS_APLICACION *datosApp) {
 esp_err_t appUser_ejecutar_accion_programa_defecto(DATOS_APLICACION *datosApp) {
 
 	ESP_LOGI(TAG, ""TRAZAR"Ejecutando acciones de programa por defecto", INFOTRAZA);
+
 	//Escribe aquí lo que quieres que tu aplicacion haga tenga que ejecutar una accion por defecto
     //GPIO_OUTPUT_SET(GPIO_ID_PIN(GPIO_RELE), OFF);
 
@@ -309,6 +310,7 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
 
 
     cJSON *respuesta = NULL;
+    char valor[20];
 
 
     respuesta = cabecera_espontaneo(datosApp, tipoInforme);
@@ -322,6 +324,15 @@ cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_
         cJSON_AddNumberToObject(respuesta, UMBRAL_TEMPERATURA, datosApp->termostato.tempUmbral);
         cJSON_AddBoolToObject(respuesta, MASTER, datosApp->termostato.master);
         cJSON_AddStringToObject(respuesta, SENSOR_REMOTO, datosApp->termostato.sensor_remoto);
+        if (leer_configuracion(datosApp, FIN_UPGRADE, valor) == ESP_OK) {
+        	cJSON *upgrade;
+        	int dato;
+        	upgrade = cJSON_Parse(valor);
+        	extraer_dato_int(upgrade, FIN_UPGRADE, &dato);
+        	ESP_LOGI(TAG, ""TRAZAR" ESCRIBIMOS EL FIN DE UPGRADE", INFOTRAZA);
+        	cJSON_AddNumberToObject(respuesta, FIN_UPGRADE, dato);
+        	borrar_clave(&datosApp->handle, FIN_UPGRADE);
+        }
         escribir_programa_actual(datosApp, respuesta);
         break;
     case ACTUACION_RELE_LOCAL:
