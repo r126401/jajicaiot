@@ -462,6 +462,7 @@ esp_err_t appuser_cargar_programas_defecto(DATOS_APLICACION *datosApp, cJSON *ar
 	cJSON *item = NULL;
 
 	ESP_LOGW(TAG, ""TRAZAR" VAMOS A INSERTAR PROGRAMAS DE DEFECTO EN EL CRONOTERMOSTATO", INFOTRAZA);
+	/*
 	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
 	cJSON_AddStringToObject(item, PROGRAM_ID, "000000006700");
 	cJSON_AddNumberToObject(item, UMBRAL_TEMPERATURA, 21.5);
@@ -477,7 +478,7 @@ esp_err_t appuser_cargar_programas_defecto(DATOS_APLICACION *datosApp, cJSON *ar
 	cJSON_AddItemToArray(array, item = cJSON_CreateObject());
 	cJSON_AddStringToObject(item, PROGRAM_ID, "021715000120081611");
 	cJSON_AddNumberToObject(item, UMBRAL_TEMPERATURA, 25.5);
-
+*/
 	return ESP_OK;
 }
 

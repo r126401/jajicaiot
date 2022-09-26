@@ -341,8 +341,8 @@ void lv_actualizar_intervalo_programa(DATOS_APLICACION *datosApp, bool comienzo_
 		hora = programacion_actual.programacion.tm_hour;
 		minuto = programacion_actual.programacion.tm_min;
 		intervalo_inferior = programacion_actual.programa;
-		ESP_LOGE(TAG, ""TRAZAR" INTERVALO INFERIOR: %d:%d", INFOTRAZA, hora, minuto);
 		intervalo_superior = intervalo_inferior + programacion_actual.duracion;
+		ESP_LOGE(TAG, ""TRAZAR" INTERVALO INFERIOR: %d:%d", INFOTRAZA, hora, minuto);
 		longitud_intervalo = intervalo_superior - intervalo_inferior;
 		puntero_actual = hora_actual - intervalo_inferior;
 		progreso = (puntero_actual*100)/longitud_intervalo;
