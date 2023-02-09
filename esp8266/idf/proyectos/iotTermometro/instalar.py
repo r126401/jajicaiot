@@ -26,9 +26,9 @@ def obtener_fecha():
 
 #versionOta = obtener_fecha()
 
-ficheroOta = prefijoOta + "_" + versionOta +".ota.bin"
-ficheroBinarioOrigen = directorioImagen + "/" + nombreProyecto + ".ota.bin"
-ficheroBinarioDestino = directorioRepositorio + "/" + directorioInstalacion + "/" + nombreProyecto + "/" + prefijoOta + "_" + versionOta + ".ota.bin"
+ficheroOta = prefijoOta + "_" + versionOta +".bin"
+ficheroBinarioOrigen = directorioImagen + "/" + nombreProyecto + ".bin"
+ficheroBinarioDestino = directorioRepositorio + "/" + directorioInstalacion + "/" + nombreProyecto + "/" + prefijoOta + "_" + versionOta + ".bin"
 ficheroLastVersionDestino = directorioRepositorio + "/" + directorioLastVersion + "/" + nombreProyecto + "/" +  nombre_fichero_lastVersion + "_" + versionOta + ".json"
 
 print (ficheroBinarioOrigen)
@@ -38,7 +38,7 @@ print(ficheroBinarioDestino)
 
 
 
-#ficheroBinario = origenOta + ".ota.bin"
+#ficheroBinario = origenOta + ".bin"
 #ficheroLastVersion = "lastVersion.json"
 
 

@@ -7,8 +7,8 @@
   "upgradeFirmware": {
     "otaServer": "jajica.ddns.net",
     "otaPort": 8070,
-    "otaUrl": "jajicaiot.ddns.net/firmware/iotCronoTemp/",
+    "otaUrl": "jajicaiot.ddns.net/firmware/iotCronotempLcd",
     "otaFile": "newVersion",
-    "otaVersion": 2102211410
+    "otaVersion": 2301261822
   }
 }

@@ -3,11 +3,11 @@
 cmake_minimum_required(VERSION 3.5)
 set (EXTRA_COMPONENT_DIRS $ENV "/opt/esp/componentes")
 
-pdroject(iotOnOff)
+pdroject(iotThermometer)
 #add_custom_target( ALL NAME prueba COMMAND date)
 set (SERVIDOR_OTA jajicaiot.ddns.net)
 set (PUERTO_OTA 8070)
-set (DIR_REPOSITORIO /opt/trastero/servidorWeb)
+set (DIR_REPOSITORIO /opt/trastero/)
 set (DIR_INSTALL firmware)
 set (PREFIJO_OTA newVersion)
 set (DIR_LASTVERSION lastVersion)

@@ -4,7 +4,7 @@
 #
 SW_VERSION :="`date +'%y%m%d%H%M'`"
 CFLAGS := -DVERSION_SW=$(SW_VERSION)
-PROJECT_NAME := iotTermometro
+PROJECT_NAME := iotThermometer
 
 EXTRA_COMPONENT_DIRS = /opt/esp/componentes
 #COMPONENT_PRIV_INCLUDEDIRS = /opt/esp/componentes
@@ -19,7 +19,7 @@ include $(IDF_PATH)/make/project.mk
 EJECUTABLE_COPIAR=instalar.py
 SERVIDOR_OTA = "jajicaiot.ddns.net"
 PUERTO_OTA = 8070
-DIR_REPOSITORIO = /opt/trastero/servidorWeb
+DIR_REPOSITORIO = /opt/trastero
 DIR_INSTALL = firmware
 PREFIJO_OTA = "newVersion"
 DIR_LASTVERSION = "lastVersion"
