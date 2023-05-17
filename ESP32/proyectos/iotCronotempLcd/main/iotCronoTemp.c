@@ -259,7 +259,9 @@ bool modificarUmbralTemperatura(cJSON *peticion, DATOS_APLICACION *datosApp, cJS
            lv_actualizar_umbral_temperatura_lcd(datosApp);
            //datosApp->datosGenerales->estadoApp = NORMAL_AUTOMAN;
            //guardarConfiguracion(datosApp, 0);
+           accionar_termostato(datosApp);
            cJSON_AddNumberToObject(respuesta, UMBRAL_TEMPERATURA, datosApp->termostato.tempUmbral);
+           cJSON_AddNumberToObject(respuesta, APP_COMAND_ESTADO_RELE, gpio_get_level(CONFIG_GPIO_PIN_RELE));
            codigoRespuesta(respuesta, RESP_OK);
        } else {
            codigoRespuesta(respuesta, RESP_NOK);
@@ -282,10 +284,14 @@ esp_err_t appUser_analizarComandoAplicacion(cJSON *peticion, int nComando, DATOS
             consultarEstadoAplicacion(datosApp, respuesta);
             break;
         case MODIFICAR_UMBRAL:
+        	modificarUmbralTemperatura(peticion, datosApp, respuesta);
+        	//modificarUmbralTemperatura(peticion, datosApp, respuesta);
+        	break;
+			/*
             if ((modificarUmbralTemperatura(peticion, datosApp, respuesta) == true)) {
             	accionar_termostato(datosApp);
             }
-            break;
+            */
         case SELECCIONAR_SENSOR:
         	seleccionarSensorTemperatura(peticion, datosApp, respuesta);
         	break;
