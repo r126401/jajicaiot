@@ -191,7 +191,7 @@ void appuser_ConfiguracionDefecto(DATOS_APLICACION *datosApp);
 cJSON* appuser_generar_informe_espontaneo(DATOS_APLICACION *datosApp, enum TIPO_INFORME tipoInforme, cJSON *comandoOriginal);
 esp_err_t appuser_cargar_programa_especifico(DATOS_APLICACION *datosApp, TIME_PROGRAM *programa_actual, cJSON *nodo);
 
-esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTADO_APP estado);
+esp_err_t appuser_notify_app_status(DATOS_APLICACION *datosApp, enum ESTADO_APP estado);
 
 
 lv_obj_t* mostrar_popup(DATOS_APLICACION *datosApp, char* mensaje);

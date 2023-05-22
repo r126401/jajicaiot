@@ -316,11 +316,11 @@ void pulsacion_modo_app(DATOS_APLICACION *datosApp) {
 	case NORMAL_AUTO:
 	case NORMAL_AUTOMAN:
 		//datosApp->termostato.tempUmbral = datosApp->termostato.tempUmbralDefecto;
-		appuser_cambiar_modo_aplicacion(datosApp, NORMAL_MANUAL);
+		appuser_notify_app_status(datosApp, NORMAL_MANUAL);
 		break;
 	case NORMAL_MANUAL:
 		//ESP_LOGE(TAG, ""TRAZAR" pasamos a modo auto", INFOTRAZA);
-		appuser_cambiar_modo_aplicacion(datosApp, NORMAL_AUTO);
+		appuser_notify_app_status(datosApp, NORMAL_AUTO);
 		calcular_programa_activo(datosApp, &t_siguiente_intervalo);
 		break;
 	default:
@@ -736,8 +736,10 @@ esp_err_t leer_temperatura_remota(DATOS_APLICACION *datosApp) {
 	cJSON *comando;
 	comando = cJSON_CreateObject();
 	char topic[50];
+	ESP_LOGI(TAG, ""TRAZAR"debug 1", INFOTRAZA);
 	strcpy(topic, "/sub_");
 	strcat(topic, datosApp->termostato.sensor_remoto);
+	ESP_LOGI(TAG, ""TRAZAR"debug 2", INFOTRAZA);
 	objeto = cabeceraGeneral(datosApp);
 	if (objeto != NULL) {
 
@@ -755,7 +757,7 @@ esp_err_t leer_temperatura_remota(DATOS_APLICACION *datosApp) {
     ets_timer_setfn(&temporizador_lectura_remota, (ETSTimerFunc*) temporizacion_lectura_remota, datosApp);
     ets_timer_arm(&temporizador_lectura_remota, TIMEOUT_LECTURA_REMOTA,0);
 
-
+    ESP_LOGI(TAG, ""TRAZAR"debug 3", INFOTRAZA);
 
 
 	return ESP_OK;

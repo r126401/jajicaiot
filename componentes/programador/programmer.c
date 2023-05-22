@@ -884,18 +884,20 @@ void gestion_programas(DATOS_APLICACION *datosApp) {
 	case NORMAL_AUTOMAN:
 		if((hora.tm_hour == 0) && (hora.tm_min == 0) && (hora.tm_sec == 0)) {
 			calcular_programa_activo(datosApp, &t_siguiente_intervalo);
-		}
-		if (datosApp->datosGenerales->clock.time == t_siguiente_intervalo){
-			ESP_LOGI(TAG, ""TRAZAR"AQUI HABRIA CUMPLIDO EL TEMPORIZADOR", INFOTRAZA);
-			//appUser_temporizador_cumplido(datosApp);
-			if (calcular_programa_activo(datosApp, &t_siguiente_intervalo) != ESP_OK) {
-				ESP_LOGW(TAG, ""TRAZAR"NO HAY PROGRAMAS ALMACENADOS", INFOTRAZA);
-			}
-
 		} else {
-			//ESP_LOGI(TAG, ""TRAZAR"HORA: %ld. siguiente intervalo: %ld, diff: %ld", datosApp->datosGenerales->clock.time, t_siguiente_intervalo, (t_siguiente_intervalo - datosApp->datosGenerales->clock.time ));
+			if (datosApp->datosGenerales->clock.time == t_siguiente_intervalo){
+				ESP_LOGI(TAG, ""TRAZAR"AQUI HABRIA CUMPLIDO EL TEMPORIZADOR", INFOTRAZA);
+				//appUser_temporizador_cumplido(datosApp);
+				if (calcular_programa_activo(datosApp, &t_siguiente_intervalo) != ESP_OK) {
+					ESP_LOGW(TAG, ""TRAZAR"NO HAY PROGRAMAS ALMACENADOS", INFOdTRAZA);
+				}
 
+			} else {
+				//ESP_LOGI(TAG, ""TRAZAR"HORA: %ld. siguiente intervalo: %ld, diff: %ld", datosApp->datosGenerales->clock.time, t_siguiente_intervalo, (t_siguiente_intervalo - datosApp->datosGenerales->clock.time ));
+
+			}
 		}
+
 
 		break;
 	case NORMAL_SINCRONIZANDO:

@@ -247,7 +247,7 @@ esp_err_t appuser_broker_desconectado(DATOS_APLICACION *datosApp) {
 
 
 /**
- * Esta funcion se ejecuta cuando vence el temporizador de duracion cuando este es mayor que 0
+ * Esta funcion se ejecuta cuando vence el temporizador de duracion cuando este es mayor que 0 (end_schedule)
  */
 void appuser_ejecucion_accion_temporizada(DATOS_APLICACION *datosApp) {
 
@@ -262,6 +262,14 @@ void appuser_ejecucion_accion_temporizada(DATOS_APLICACION *datosApp) {
     ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. SE PASA A LA TEMPERATURA DE DEFECTO", INFOTRAZA);
 }
 
+/**
+ * @fn esp_err_t appuser_temporizador_cumplido(DATOS_APLICACION*)
+ * @brief Esta función se activa para informar que comienza el programa (start_schedule)
+ *
+ * @param datosApp
+ * @return
+ */
+
 esp_err_t appuser_temporizador_cumplido(DATOS_APLICACION *datosApp) {
 
 	cJSON *respuesta;
@@ -274,6 +282,7 @@ esp_err_t appuser_temporizador_cumplido(DATOS_APLICACION *datosApp) {
     	operacion_rele(datosApp, TEMPORIZADA, accion);
 
     }
+
 	respuesta = appuser_generar_informe_espontaneo(datosApp, CAMBIO_DE_PROGRAMA, NULL);
 	if (respuesta != NULL) {
 		publicar_mensaje_json(datosApp, respuesta, NULL);
@@ -638,7 +647,21 @@ esp_err_t notificar_fin_arranque(DATOS_APLICACION *datosApp) {
 
 }
 
+/**
+ * @fn esp_err_t appuser_actualizar_gestion_programas(DATOS_APLICACION*)
+ * @brief Esta funcion es utilizada por el usuario para poder reflejar lo que considere necesario cada fin de bucle del programador. Actualmente 1 sg.
+ *
+ * @param datosApp
+ * @return
+ */
+
 esp_err_t appuser_actualizar_gestion_programas(DATOS_APLICACION *datosApp) {
+
+
+
+
+	//ESP_LOGI(TAG, ""TRAZAR" El estado es : %d", INFOTRAZA, datosApp->datosGenerales->estadoApp);
+
 
 	//actualizamos la hora en el lcd
 
@@ -653,9 +676,55 @@ esp_err_t appuser_actualizar_gestion_programas(DATOS_APLICACION *datosApp) {
 	return ESP_OK;
 }
 
-esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTADO_APP estado) {
+/**
+ * @fn esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION*, enum ESTADO_APP)
+ * @brief Esta funcion determina las acciones especificas del dispositivo segun el estado en el que se encuentra.
+ *
+ * @param datosApp
+ * @param estado es el estado al que se le quiere cambiar.
+ * @return
+ */
+esp_err_t appuser_notify_app_status(DATOS_APLICACION *datosApp, enum ESTADO_APP estado) {
 
 
+
+	switch(datosApp->datosGenerales->estadoApp) {
+
+	case NORMAL_AUTO:
+		break;
+	case NORMAL_AUTOMAN:
+		break;
+	case NORMAL_MANUAL:
+		datosApp->termostato.tempUmbral = datosApp->termostato.tempUmbralDefecto;
+		lv_actualizar_umbral_temperatura_lcd(datosApp);
+		break;
+	case NORMAL_ARRANCANDO:
+		break;
+	case NORMAL_SIN_PROGRAMACION:
+		ESP_LOGI(TAG, ""TRAZAR" PONEMOS EL UMBRAL A %lf", INFOTRAZA, datosApp->termostato.tempUmbralDefecto);
+		datosApp->termostato.tempUmbral = datosApp->termostato.tempUmbralDefecto;
+		lv_actualizar_umbral_temperatura_lcd(datosApp);
+		break;
+	case UPGRADE_EN_PROGRESO:
+		break;
+	case NORMAL_SINCRONIZANDO:
+		break;
+	case ESPERA_FIN_ARRANQUE:
+		break;
+	case ARRANQUE_FABRICA:
+		break;
+	case NORMAL_FIN_PROGRAMA_ACTIVO:
+		break;
+
+
+	}
+
+	lv_actualizar_modo_aplicacion_lcd(datosApp->datosGenerales->estadoApp);
+
+
+
+
+/*
     time_t t_siguiente_intervalo;
 	switch(estado) {
 
@@ -679,6 +748,7 @@ esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTAD
 		//lv_actualizar_modo_aplicacion_lcd(estado);
 		break;
 
+
 	default:
 		break;
 
@@ -694,7 +764,7 @@ esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTAD
 
 	ESP_LOGI(TAG, ""TRAZAR" CAMBIADA LA APLICACION A ESTADO %d", INFOTRAZA, datosApp->datosGenerales->estadoApp);
 
-
+*/
 
 	return ESP_OK;
 }
@@ -747,7 +817,7 @@ enum ESTADO_APP calcular_estado_aplicacion(DATOS_APLICACION *datosApp) {
 		break;
 	}
 
-	appuser_cambiar_modo_aplicacion(datosApp, estado_final);
+	appuser_notify_app_status(datosApp, estado_final);
 
 
 

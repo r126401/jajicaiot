@@ -200,7 +200,7 @@ static void manejador_boton_umbrales() {
 	lv_obj_set_style_local_text_color(umbral_temperatura, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
 	lv_actualizar_umbral_temperatura_lcd(&datosApp);
 	if (datosApp.datosGenerales->estadoApp == NORMAL_AUTO) {
-		appuser_cambiar_modo_aplicacion(&datosApp, NORMAL_AUTOMAN);
+		appuser_notify_app_status(&datosApp, NORMAL_AUTOMAN);
 	}
 
     ets_timer_disarm(&temporizador_pulsador_umbral);

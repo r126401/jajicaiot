@@ -239,7 +239,7 @@ void appuser_ejecucion_accion_temporizada(void *datosApp) {
     if (respuesta != NULL) {
     	publicar_mensaje_json(datosApp, respuesta, NULL);
     }
-    appuser_cambiar_modo_aplicacion(datosApp, NORMAL_FIN_PROGRAMA_ACTIVO);
+    appuser_notify_app_status(datosApp, NORMAL_FIN_PROGRAMA_ACTIVO);
     ESP_LOGI(TAG, ""TRAZAR"FIN DE LA TEMPORIZACION. RELE APAGADO", INFOTRAZA);
 }
 
@@ -477,7 +477,7 @@ void nemonicos_alarmas(DATOS_APLICACION *datosApp, int i) {
 
 }
 
-esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTADO_APP estado) {
+esp_err_t appuser_notify_app_status(DATOS_APLICACION *datosApp, enum ESTADO_APP estado) {
 
 	   time_t t_siguiente_intervalo;
 	        switch(estado) {

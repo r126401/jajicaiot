@@ -169,7 +169,7 @@ esp_err_t appuser_modificar_dato_programa(TIME_PROGRAM *programa_actual, cJSON *
 esp_err_t appuser_visualizar_dato_programa(TIME_PROGRAM *programa_actual, cJSON *nodo);
 esp_err_t appuser_modificarConfApp(cJSON *root, DATOS_APLICACION *datosApp, cJSON *respuesta);
 esp_err_t app_user_mensaje_recibido_especifico(DATOS_APLICACION *datosApp);
-esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTADO_APP estado);
+esp_err_t appuser_notify_app_status(DATOS_APLICACION *datosApp, enum ESTADO_APP estado);
 esp_err_t appuser_actualizar_gestion_programas(DATOS_APLICACION *datosApp);
 
 //int appUser_ejecutarAccionProgramaDefecto(DATOS_APLICACION *datosApp);

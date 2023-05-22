@@ -421,7 +421,7 @@ void nemonicos_alarmas(DATOS_APLICACION *datosApp, int i) {
 
 }
 
-esp_err_t appuser_cambiar_modo_aplicacion(DATOS_APLICACION *datosApp, enum ESTADO_APP estado) {
+esp_err_t appuser_notify_app_status(DATOS_APLICACION *datosApp, enum ESTADO_APP estado) {
 
 
 
