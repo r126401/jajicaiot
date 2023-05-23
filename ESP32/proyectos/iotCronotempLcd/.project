@@ -3979,6 +3979,16 @@
 			<location>/opt/esp/componentes/nvslib/nvslib.c</location>
 		</link>
 		<link>
+			<name>build/ide/esp_idf_components/opt/esp/componentes/programador/ntp.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/programador/ntp.c</location>
+		</link>
+		<link>
+			<name>build/ide/esp_idf_components/opt/esp/componentes/programador/programmer.c</name>
+			<type>1</type>
+			<location>/opt/esp/componentes/programador/programmer.c</location>
+		</link>
+		<link>
 			<name>build/ide/esp_idf_components/libsodium/libsodium/src/libsodium/crypto_auth/crypto_auth.c</name>
 			<type>1</type>
 			<location>/opt/esp/esp-idf/components/libsodium/libsodium/src/libsodium/crypto_auth/crypto_auth.c</location>
