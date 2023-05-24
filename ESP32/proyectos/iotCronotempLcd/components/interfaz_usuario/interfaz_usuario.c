@@ -551,9 +551,18 @@ esp_err_t appuser_modificarConfApp(cJSON *root, DATOS_APLICACION *datosApp, cJSO
    extraer_dato_float(nodo, UMBRAL_DEFECTO, &datosApp->termostato.tempUmbralDefecto);
    extraer_dato_float(nodo, INCDEC, &datosApp->termostato.incdec);
    if ((extraer_dato_uint8(nodo,  MASTER, (uint8_t*) &datosApp->termostato.master)) == ESP_OK) {
-	   extraer_dato_string(nodo, SENSOR_REMOTO, datosApp->termostato.sensor_remoto);
+
+	   if (datosApp->termostato.master == false) {
+
+		   extraer_dato_string(nodo,  SENSOR_REMOTO, &datosApp->termostato.sensor_remoto);
+		   cJSON_AddStringToObject(respuesta, SENSOR_REMOTO, datosApp->termostato.sensor_remoto);
+	   } else {
+		   strcpy(datosApp->termostato.sensor_remoto, "");
+	   }
 	   cJSON_AddBoolToObject(respuesta, MASTER, datosApp->termostato.master);
-	   cJSON_AddStringToObject(respuesta, SENSOR_REMOTO, datosApp->termostato.sensor_remoto);
+
+
+
 
    }
    codigoRespuesta(respuesta, RESP_OK);
