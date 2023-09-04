@@ -1,0 +1,88 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 0d7a5756-7551-4f56-b276-e8ef2bfb40c3)
+
+  (paper "A4")
+
+  (title_block
+    (title "IoThermostat")
+    (rev "1.0")
+    (comment 1 "Placa para Cronotermostato y Desarrollo")
+  )
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 151.892 93.726) (size 112.014 63.754) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 1914e11e-2c35-44a6-9c82-7707d5f0d408)
+    (property "Sheetname" "esp32s3" (at 151.892 93.0144 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "esp32s3.kicad_sch" (at 151.892 158.0646 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "iotThermostatRgb"
+        (path "/0d7a5756-7551-4f56-b276-e8ef2bfb40c3" (page "5"))
+      )
+    )
+  )
+
+  (sheet (at 151.13 28.956) (size 54.864 48.26) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 1a4b130e-d12f-4f65-8f6c-60124ff7148c)
+    (property "Sheetname" "touch" (at 151.13 28.2444 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "touch.kicad_sch" (at 151.13 77.8006 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "iotThermostatRgb"
+        (path "/0d7a5756-7551-4f56-b276-e8ef2bfb40c3" (page "3"))
+      )
+    )
+  )
+
+  (sheet (at 217.17 33.782) (size 61.722 45.212) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid a71dc6aa-be08-4688-ad89-bd7c5f3c7e2a)
+    (property "Sheetname" "power" (at 217.17 33.0704 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "power.kicad_sch" (at 217.17 79.5786 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "iotThermostatRgb"
+        (path "/0d7a5756-7551-4f56-b276-e8ef2bfb40c3" (page "4"))
+      )
+    )
+  )
+
+  (sheet (at 26.162 23.114) (size 94.488 45.72) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid c704aa99-46b7-4697-928c-c31f139657f1)
+    (property "Sheetname" "LCD" (at 26.162 22.4024 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "lcd.kicad_sch" (at 26.162 69.4186 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "iotThermostatRgb"
+        (path "/0d7a5756-7551-4f56-b276-e8ef2bfb40c3" (page "2"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)

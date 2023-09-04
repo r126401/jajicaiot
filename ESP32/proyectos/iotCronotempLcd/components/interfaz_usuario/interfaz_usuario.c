@@ -833,6 +833,11 @@ enum ESTADO_APP calcular_estado_aplicacion(DATOS_APLICACION *datosApp) {
 	return estado_final;
 }
 
+esp_err_t appuser_notify_end_starting(DATOS_APLICACION *datosApp) {
+
+
+}
+
 
 
 
